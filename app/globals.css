@@ -1,10 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: var(--font-jakarta);
-  --font-sans: var(--font-jakarta);
-  --font-mono: var(--font-jakarta);
+  --font-display: var(--font-inter), sans-serif;
+  --font-sans: var(--font-inter), sans-serif;
+  --font-mono: var(--font-inter), sans-serif;
 
+  --color-white: #ffffff;
+  --color-black: #000000;
   --color-navy: #1d3461;
   --color-navy-dark: #0f2040;
   --color-navy-mid: #2a4a80;
@@ -45,7 +47,7 @@ body {
   margin: 0;
   background: var(--color-background);
   color: var(--color-body);
-  font-family: var(--font-jakarta), sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 a {
@@ -94,13 +96,117 @@ textarea:focus-visible {
 
 .marketplace-page {
   --market-line: rgba(15, 32, 64, 0.14);
+  --market-dot: rgba(15, 32, 64, 0.2);
+  --market-grid-width: min(1200px, calc(100vw - 2rem));
+  --market-grid-x: calc((100vw - var(--market-grid-width)) / 2);
+  --market-grid-col: calc(var(--market-grid-width) / 4);
+  --market-row: 96px;
+}
+
+.marketplace-page h1 {
+  color: rgb(21, 20, 25);
+  font-size: clamp(2.25rem, 4vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+}
+
+.marketplace-page h2 {
+  color: rgb(21, 20, 25);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.marketplace-page h3,
+.marketplace-page label,
+.marketplace-page summary {
+  color: rgb(21, 20, 25);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.marketplace-page p {
+  font-weight: 400;
+}
+
+.marketplace-page input,
+.marketplace-page select,
+.marketplace-page textarea {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+}
+
+.marketplace-hero-copy {
+  color: rgb(89, 88, 92);
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.marketplace-eyebrow {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5rem;
 }
 
 .marketplace-grid {
+  --market-x-0: var(--market-grid-x);
+  --market-x-1: calc(var(--market-grid-x) + var(--market-grid-col));
+  --market-x-2: calc(var(--market-grid-x) + var(--market-grid-col) + var(--market-grid-col));
+  --market-x-3: calc(var(--market-grid-x) + var(--market-grid-col) + var(--market-grid-col) + var(--market-grid-col));
+  --market-x-4: calc(var(--market-grid-x) + var(--market-grid-width));
   background-image:
-    linear-gradient(to right, var(--market-line) 1px, transparent 1px),
+    radial-gradient(circle at var(--market-x-0) 0, var(--market-dot) 0 2px, transparent 2.5px),
+    radial-gradient(circle at var(--market-x-1) 0, var(--market-dot) 0 2px, transparent 2.5px),
+    radial-gradient(circle at var(--market-x-2) 0, var(--market-dot) 0 2px, transparent 2.5px),
+    radial-gradient(circle at var(--market-x-3) 0, var(--market-dot) 0 2px, transparent 2.5px),
+    radial-gradient(circle at var(--market-x-4) 0, var(--market-dot) 0 2px, transparent 2.5px),
+    linear-gradient(
+      to right,
+      transparent calc(var(--market-x-0) - 0.5px),
+      var(--market-line) calc(var(--market-x-0) - 0.5px) calc(var(--market-x-0) + 0.5px),
+      transparent calc(var(--market-x-0) + 0.5px)
+    ),
+    linear-gradient(
+      to right,
+      transparent calc(var(--market-x-1) - 0.5px),
+      var(--market-line) calc(var(--market-x-1) - 0.5px) calc(var(--market-x-1) + 0.5px),
+      transparent calc(var(--market-x-1) + 0.5px)
+    ),
+    linear-gradient(
+      to right,
+      transparent calc(var(--market-x-2) - 0.5px),
+      var(--market-line) calc(var(--market-x-2) - 0.5px) calc(var(--market-x-2) + 0.5px),
+      transparent calc(var(--market-x-2) + 0.5px)
+    ),
+    linear-gradient(
+      to right,
+      transparent calc(var(--market-x-3) - 0.5px),
+      var(--market-line) calc(var(--market-x-3) - 0.5px) calc(var(--market-x-3) + 0.5px),
+      transparent calc(var(--market-x-3) + 0.5px)
+    ),
+    linear-gradient(
+      to right,
+      transparent calc(var(--market-x-4) - 0.5px),
+      var(--market-line) calc(var(--market-x-4) - 0.5px) calc(var(--market-x-4) + 0.5px),
+      transparent calc(var(--market-x-4) + 0.5px)
+    ),
     linear-gradient(to bottom, var(--market-line) 1px, transparent 1px);
-  background-size: calc(100% / 3) 100%, 100% 96px;
+  background-repeat: repeat-y, repeat-y, repeat-y, repeat-y, repeat-y, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-size:
+    100% var(--market-row),
+    100% var(--market-row),
+    100% var(--market-row),
+    100% var(--market-row),
+    100% var(--market-row),
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% var(--market-row);
 }
 
 .marketplace-preview {
@@ -164,6 +270,24 @@ textarea:focus-visible {
   background: linear-gradient(135deg, #8bd3e6, #e8eef7);
 }
 
+.blog-thumb-d {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.46), transparent 20%),
+    repeating-linear-gradient(135deg, #0b7adf 0 18px, #37a8ff 18px 34px, #0655a8 34px 52px);
+}
+
+.blog-thumb-e {
+  background:
+    radial-gradient(circle at 65% 40%, rgba(255, 255, 255, 0.48), transparent 28%),
+    linear-gradient(135deg, #c7d8ff, #8d7cf6 52%, #eff6ff);
+}
+
+.blog-thumb-f {
+  background:
+    radial-gradient(circle at 62% 42%, rgba(255, 255, 255, 0.42), transparent 22%),
+    linear-gradient(135deg, #d1b98a, #f5e7c8);
+}
+
 .hero-photo {
   background-image:
     linear-gradient(90deg, rgba(15, 32, 64, 0.92), rgba(15, 32, 64, 0.7) 46%, rgba(15, 32, 64, 0.38)),
@@ -203,8 +327,10 @@ textarea:focus-visible {
 }
 
 .glass-nav {
-  backdrop-filter: blur(14px);
-  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(24px) saturate(150%);
+  background: rgba(255, 255, 255, 0.42);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 24px 70px rgba(17, 17, 24, 0.1);
 }
 
 .diagonal-panel {

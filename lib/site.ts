@@ -7,8 +7,8 @@ export const siteConfig = {
   email: "halo@kitangoding.com",
   phoneDisplay: "+62 812-3456-7890",
   phoneHref: "6281234567890",
-  addressLocality: "Solo",
-  addressRegion: "Jawa Tengah",
+  addressLocality: "Sendangadi, Mlati",
+  addressRegion: "Sleman, DI Yogyakarta",
   addressCountry: "ID",
   instagram: "https://instagram.com/kitangoding",
   tagline: "Website profesional untuk UMKM yang ingin terlihat lebih dipercaya.",
@@ -18,7 +18,7 @@ export const navigationLinks = [
   { href: "#layanan", label: "Layanan" },
   { href: "#proses", label: "Proses" },
   { href: "#portfolio", label: "Portfolio" },
-  { href: "#harga", label: "Harga" },
+  { href: "/pricing", label: "Harga" },
   { href: "#faq", label: "FAQ" },
 ] as const;
 

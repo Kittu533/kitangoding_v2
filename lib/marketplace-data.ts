@@ -1,11 +1,45 @@
 export const marketplaceNav = [
-  { href: "#tentang", label: "About" },
-  { href: "#kategori", label: "Category" },
+  { href: "/category", label: "Category" },
   { href: "/shop", label: "Shop" },
-  { href: "#harga", label: "Pricing" },
-  { href: "#blog", label: "Blog" },
-  { href: "#kontak", label: "Contact" },
-  { href: "#project", label: "Project Inquiry" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+  { href: "/project-inqury", label: "Project Inquiry" },
+] as const;
+
+export const categoryPageItems = [
+  {
+    title: "Website Creatives",
+    description: "Untuk profil usaha, jasa, katalog ringan, dan halaman yang bikin bisnis terlihat rapi.",
+    count: "18 pilihan",
+    previewA: "creative-thumb-orange",
+    previewB: "creative-thumb-sky",
+    useCases: ["Company profile", "Landing page", "Katalog produk"],
+  },
+  {
+    title: "App Creatives",
+    description: "Untuk konsep aplikasi, tampilan mobile, dan alur layanan yang mudah dijelaskan.",
+    count: "12 pilihan",
+    previewA: "creative-thumb-purple",
+    previewB: "creative-thumb-blue",
+    useCases: ["Mobile app", "Booking flow", "Member area"],
+  },
+  {
+    title: "Dashboard Creatives",
+    description: "Untuk laporan, monitoring pesanan, data pelanggan, dan ringkasan performa bisnis.",
+    count: "9 pilihan",
+    previewA: "creative-thumb-dark",
+    previewB: "creative-thumb-sky",
+    useCases: ["Admin panel", "Report view", "Tracking order"],
+  },
+  {
+    title: "Branding Creatives",
+    description: "Untuk arah visual brand, logo presentation, warna, dan tampilan yang lebih konsisten.",
+    count: "10 pilihan",
+    previewA: "creative-thumb-purple",
+    previewB: "creative-thumb-emerald",
+    useCases: ["Brand starter", "Visual kit", "Pitch deck"],
+  },
 ] as const;
 
 export const categories = [
@@ -169,6 +203,60 @@ export const blogPosts = [
     title: "Hal yang Perlu Disiapkan Sebelum Membuat Website",
     excerpt: "Checklist sederhana agar proses pembuatan website tidak membingungkan.",
     tone: "blog-thumb-c",
+  },
+] as const;
+
+export const blogPageFilters = [
+  "Semua Artikel",
+  "Strategi Branding",
+  "Growth Bisnis",
+  "Tips UI/UX",
+  "Insight Industri",
+  "Template & Resource",
+] as const;
+
+export const blogPagePosts = [
+  {
+    date: "June 2, 2026",
+    title: "Cara Memilih Template Website yang Cocok untuk UMKM",
+    excerpt: "Panduan sederhana untuk memilih tampilan yang sesuai dengan jenis bisnis, tujuan, dan calon pelanggan kamu.",
+    category: "Template & Resource",
+    tone: "blog-thumb-a",
+  },
+  {
+    date: "May 28, 2026",
+    title: "Kenapa Website Custom Bisa Jadi Investasi yang Masuk Akal",
+    excerpt: "Kapan bisnis cukup pakai template, dan kapan perlu tampilan custom yang dibuat lebih spesifik.",
+    category: "Insight Industri",
+    tone: "blog-thumb-b",
+  },
+  {
+    date: "May 24, 2026",
+    title: "Strategi Sederhana agar Website Lebih Banyak Menghasilkan Lead",
+    excerpt: "Mulai dari pesan utama, struktur halaman, sampai tombol WhatsApp yang lebih jelas untuk calon pelanggan.",
+    category: "Growth Bisnis",
+    tone: "blog-thumb-c",
+  },
+  {
+    date: "May 18, 2026",
+    title: "10 Detail Kecil yang Bikin Brand Terlihat Lebih Serius",
+    excerpt: "Hal-hal praktis seperti warna, spacing, bahasa, dan konsistensi visual yang sering terasa sepele tapi berdampak.",
+    category: "Strategi Branding",
+    tone: "blog-thumb-d",
+  },
+  {
+    date: "May 12, 2026",
+    title: "Membuat Alur Website yang Mudah Dipahami Pengunjung",
+    excerpt: "Cara menyusun informasi supaya orang cepat paham layanan kamu tanpa harus membaca terlalu banyak.",
+    category: "Tips UI/UX",
+    tone: "blog-thumb-e",
+  },
+  {
+    date: "May 6, 2026",
+    title: "Kenapa Template Bisa Mempercepat Launching Project",
+    excerpt: "Template yang tepat bisa menghemat waktu, mengurangi revisi awal, dan membuat bisnis lebih cepat tampil online.",
+    category: "Template & Resource",
+    tone: "blog-thumb-f",
   },
 ] as const;
 

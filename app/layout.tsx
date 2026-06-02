@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-jakarta",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -28,6 +28,13 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   alternates: {
     canonical: siteConfig.domain,
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico?v=2", sizes: "32x32" },
+      { url: "/icon.png?v=2", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [{ url: "/apple-icon.png?v=2", type: "image/png", sizes: "180x180" }],
   },
   openGraph: {
     type: "website",
@@ -73,7 +80,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${jakarta.variable} h-full scroll-smooth`}
+      className={`${inter.variable} h-full scroll-smooth`}
     >
       <body className="min-h-full bg-surface text-foreground antialiased">
         <a

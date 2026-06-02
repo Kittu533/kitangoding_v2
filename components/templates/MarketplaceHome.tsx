@@ -3,10 +3,6 @@ import {
   ArrowRight,
   CheckSquare,
   FileText,
-  Globe2,
-  LayoutDashboard,
-  Palette,
-  ShoppingBag,
 } from "lucide-react";
 import { ButtonLink } from "@/components/atoms/Button";
 import { CreativeCard } from "@/components/molecules/CreativeCard";
@@ -21,7 +17,12 @@ import {
 import { whatsappHref } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const categoryIcons = [Globe2, ShoppingBag, LayoutDashboard, Palette] as const;
+const categoryImages = [
+  "/category-website.svg",
+  "/category-app.svg",
+  "/category-dashboard.svg",
+  "/category-branding.svg",
+] as const;
 
 export function MarketplaceHome() {
   return (
@@ -45,19 +46,19 @@ function MarketplaceHero() {
     <section className="marketplace-grid relative overflow-hidden pt-24 pb-16" id="hero">
       <div className="container-shell text-center">
         <Reveal>
-          <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 text-xs font-bold text-success">
+          <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 marketplace-eyebrow text-success">
             100+ website dan creative siap dikembangkan
           </span>
           <h1 className="mx-auto mt-8 max-w-3xl text-5xl leading-tight font-extrabold text-foreground md:text-6xl">
             Website siap pakai untuk bisnis yang ingin tampil lebih meyakinkan
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted">
+          <p className="mx-auto mt-5 max-w-2xl marketplace-hero-copy">
             Pilih contoh tampilan, sesuaikan dengan bisnismu, lalu kami bantu rapikan sampai siap
             dipakai untuk promosi, profil usaha, atau katalog produk.
           </p>
           <div className="mt-8">
             <ButtonLink
-              className="bg-ink shadow-soft hover:bg-navy"
+              className="shadow-soft"
               href="#shop"
               icon={<ArrowRight aria-hidden="true" className="size-4" />}
             >
@@ -137,24 +138,23 @@ function CategorySection() {
       <div className="container-shell">
         <h2 className="text-center text-4xl font-extrabold text-foreground">Explore Our Categories</h2>
         <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-4">
-          {categories.map((category, index) => {
-            const Icon = categoryIcons[index];
-
-            return (
-              <Reveal key={category.title} delay={index * 0.04}>
-                <article className="group min-h-52 bg-white p-6 text-center">
-                  <div className="mx-auto flex h-28 max-w-48 items-center justify-center rounded-xl bg-surface">
-                    <div className="relative h-20 w-32 rounded-lg border border-border bg-white p-4">
-                      <div className={cn("absolute top-3 right-3 h-2 w-8 rounded-full", category.accent)} />
-                      <Icon aria-hidden="true" className="mx-auto mt-3 size-10 text-muted/35 group-hover:text-success" />
-                    </div>
-                  </div>
-                  <h3 className="mt-6 font-bold text-foreground">{category.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-muted">{category.description}</p>
-                </article>
-              </Reveal>
-            );
-          })}
+          {categories.map((category, index) => (
+            <Reveal key={category.title} className="h-full" delay={index * 0.04}>
+              <article className="group flex h-full min-h-72 flex-col items-center bg-white p-6 text-center">
+                <div className="mx-auto flex h-32 max-w-52 items-center justify-center">
+                  <Image
+                    alt={`Ilustrasi ${category.title}`}
+                    className="h-auto w-full max-w-44 opacity-90 transition group-hover:opacity-100"
+                    height={166}
+                    src={categoryImages[index]}
+                    width={225}
+                  />
+                </div>
+                <h3 className="mt-5 font-medium text-foreground">{category.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted">{category.description}</p>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
@@ -211,7 +211,7 @@ function MarketplacePricing() {
                     </li>
                   ))}
                 </ul>
-                <ButtonLink className="mt-10 w-full bg-ink shadow-soft hover:bg-navy" href={whatsappHref} rel="noreferrer" target="_blank">
+                <ButtonLink className="mt-10 w-full shadow-soft" href={whatsappHref} rel="noreferrer" target="_blank">
                   {plan.cta}
                 </ButtonLink>
               </article>
@@ -238,7 +238,7 @@ function BlogSection() {
                 <p className="mt-5 text-xs text-muted">{post.date}</p>
                 <h3 className="mt-3 text-xl leading-tight font-extrabold text-foreground">{post.title}</h3>
                 <p className="mt-4 min-h-16 leading-7 text-muted">{post.excerpt}</p>
-                <ButtonLink className="mt-5 w-full bg-ink shadow-soft hover:bg-navy" href="#blog">
+                <ButtonLink className="mt-5 w-full shadow-soft" href="#blog">
                   View Details
                 </ButtonLink>
               </article>
