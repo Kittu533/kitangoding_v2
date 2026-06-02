@@ -2,7 +2,6 @@ import Image from "next/image";
 import {
   ArrowRight,
   CheckSquare,
-  FileText,
 } from "lucide-react";
 import { ButtonLink } from "@/components/atoms/Button";
 import { CreativeCard } from "@/components/molecules/CreativeCard";
@@ -15,13 +14,12 @@ import {
   marketplacePricing,
 } from "@/lib/marketplace-data";
 import { whatsappHref } from "@/lib/site";
-import { cn } from "@/lib/utils";
 
 const categoryImages = [
-  "/category-website.svg",
-  "/category-app.svg",
-  "/category-dashboard.svg",
-  "/category-branding.svg",
+  "/images/project-1.png",
+  "/images/project-2.png",
+  "/images/project-3.png",
+  "/images/project-4.webp",
 ] as const;
 
 export function MarketplaceHome() {
@@ -67,7 +65,7 @@ function MarketplaceHero() {
           </div>
         </Reveal>
 
-        <Reveal className="mt-16" delay={0.08}>
+        <Reveal className="mt-16" delay={1}>
           <div className="rounded-2xl border border-border bg-white p-4 shadow-card">
             <div className="mb-4 flex gap-2 px-2 pt-1">
               <span className="size-2 rounded-full bg-danger" />
@@ -75,48 +73,14 @@ function MarketplaceHero() {
               <span className="size-2 rounded-full bg-success" />
             </div>
             <div className="overflow-hidden rounded-xl bg-preview-blue">
-              <div className="marketplace-preview mx-auto flex max-w-5xl flex-col items-center justify-between gap-8 px-8 pt-10 text-center text-navy md:px-12">
-                <div className="flex w-full items-center justify-between text-sm font-bold">
-                  <div className="flex items-center gap-2">
-                    <span className="size-8 rounded-lg bg-navy" />
-                    <span>Kita Template</span>
-                  </div>
-                  <div className="hidden gap-6 md:flex">
-                    <span>Features</span>
-                    <span>Pricing</span>
-                    <span>Blog</span>
-                    <span>Testimonial</span>
-                  </div>
-                  <span className="rounded-full bg-orange px-4 py-2 text-white">Download</span>
-                </div>
-                <div>
-                  <h2 className="mx-auto max-w-3xl text-4xl leading-tight font-extrabold md:text-6xl">
-                    Website bisnismu terlihat rapi bahkan sebelum pelanggan bertanya
-                  </h2>
-                  <p className="mx-auto mt-4 max-w-xl leading-8 text-navy/70">
-                    Contoh halaman yang bisa diubah sesuai nama usaha, layanan, produk, dan tombol
-                    WhatsApp kamu.
-                  </p>
-                </div>
-                <div className="relative w-full max-w-3xl">
-                  <div className="absolute left-0 bottom-14 hidden rounded-full bg-white/75 px-5 py-3 text-sm font-semibold text-navy shadow-card md:block">
-                    Company Profile
-                  </div>
-                  <div className="absolute right-0 bottom-16 hidden rounded-lg bg-white/80 px-5 py-4 text-left text-sm font-semibold text-navy shadow-card md:block">
-                    Order via WhatsApp
-                  </div>
-                  <div className="mx-auto w-72 rounded-t-4xl border-8 border-ink bg-white p-4 shadow-soft">
-                    <div className="mx-auto mb-5 h-5 w-24 rounded-full bg-ink" />
-                    <Image
-                      alt="Contoh tampilan website di handphone"
-                      className="h-auto w-full rounded-2xl"
-                      height={800}
-                      src="/process-launch.svg"
-                      width={1200}
-                    />
-                  </div>
-                </div>
-              </div>
+              <Image
+                alt="Preview template marketplace"
+                className="h-auto w-full"
+                height={944}
+                sizes="(max-width: 768px) 100vw, 1200px"
+                src="/images/project-5.webp"
+                width={1901}
+              />
             </div>
           </div>
         </Reveal>
@@ -141,13 +105,13 @@ function CategorySection() {
           {categories.map((category, index) => (
             <Reveal key={category.title} className="h-full" delay={index * 0.04}>
               <article className="group flex h-full min-h-72 flex-col items-center bg-white p-6 text-center">
-                <div className="mx-auto flex h-32 max-w-52 items-center justify-center">
+                <div className="relative mx-auto aspect-square w-full max-w-52 overflow-hidden rounded-xl border border-border/60 bg-white">
                   <Image
-                    alt={`Ilustrasi ${category.title}`}
-                    className="h-auto w-full max-w-44 opacity-90 transition group-hover:opacity-100"
-                    height={166}
+                    alt={`Preview ${category.title}`}
+                    className="object-cover opacity-90 transition group-hover:scale-[1.02] group-hover:opacity-100"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 225px"
                     src={categoryImages[index]}
-                    width={225}
                   />
                 </div>
                 <h3 className="mt-5 font-medium text-foreground">{category.title}</h3>
@@ -232,8 +196,14 @@ function BlogSection() {
           {blogPosts.map((post, index) => (
             <Reveal key={post.title} delay={index * 0.04}>
               <article className="bg-market p-7">
-                <div className={cn("blog-thumb flex h-52 items-center justify-center rounded-lg", post.tone)}>
-                  <FileText aria-hidden="true" className="size-16 text-white/85" />
+                <div className="blog-thumb relative h-52 overflow-hidden rounded-lg border border-border/60 bg-white">
+                  <Image
+                    alt={post.title}
+                    className="object-cover object-top"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    src={post.image}
+                  />
                 </div>
                 <p className="mt-5 text-xs text-muted">{post.date}</p>
                 <h3 className="mt-3 text-xl leading-tight font-extrabold text-foreground">{post.title}</h3>
