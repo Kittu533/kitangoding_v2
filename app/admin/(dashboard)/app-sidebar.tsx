@@ -36,6 +36,7 @@ const navigation = [
   { name: "Layanan & Produk", href: "/admin/services", icon: QueueListIcon },
   { name: "Testimonial", href: "/admin/testimonials", icon: ChatBubbleLeftRightIcon },
   { name: "Blog", href: "/admin/blog", icon: DocumentTextIcon },
+  { name: "Kategori Blog", href: "/admin/blog-categories", icon: DocumentTextIcon },
   { name: "Pricing", href: "/admin/pricing", icon: CurrencyDollarIcon },
 ]
 

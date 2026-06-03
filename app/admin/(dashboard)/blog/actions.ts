@@ -34,6 +34,8 @@ export async function createBlogPost(data: z.infer<typeof blogSchema>) {
     });
     
     revalidatePath("/admin/blog");
+    revalidatePath("/");
+    revalidatePath("/blog");
     return { success: true };
   } catch (error) {
     console.error("Failed to create blog post:", error);
@@ -61,6 +63,8 @@ export async function updateBlogPost(id: string, data: z.infer<typeof blogSchema
     await db.update(blogPosts).set(updatePayload).where(eq(blogPosts.id, id));
     
     revalidatePath("/admin/blog");
+    revalidatePath("/");
+    revalidatePath("/blog");
     return { success: true };
   } catch (error) {
     console.error("Failed to update blog post:", error);
@@ -72,6 +76,8 @@ export async function deleteBlogPost(id: string) {
   try {
     await db.delete(blogPosts).where(eq(blogPosts.id, id));
     revalidatePath("/admin/blog");
+    revalidatePath("/");
+    revalidatePath("/blog");
     return { success: true };
   } catch (error) {
     console.error("Failed to delete blog post:", error);

@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import { LandingPage } from "@/components/templates/LandingPage";
 import { siteConfig } from "@/lib/site";
 
@@ -18,7 +19,9 @@ const structuredData = {
   sameAs: [siteConfig.instagram, `https://wa.me/${siteConfig.phoneHref}`],
 };
 
-export default function Home() {
+export default async function Home() {
+  await connection();
+
   return (
     <>
       <script

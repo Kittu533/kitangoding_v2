@@ -19,6 +19,8 @@ export async function createPricing(data: z.infer<typeof pricingSchema>) {
     const validatedData = pricingSchema.parse(data);
     await db.insert(pricings).values(validatedData);
     revalidatePath("/admin/pricing");
+    revalidatePath("/");
+    revalidatePath("/pricing");
     return { success: true };
   } catch (error) {
     console.error("Failed to create pricing:", error);
@@ -31,6 +33,8 @@ export async function updatePricing(id: string, data: z.infer<typeof pricingSche
     const validatedData = pricingSchema.parse(data);
     await db.update(pricings).set(validatedData).where(eq(pricings.id, id));
     revalidatePath("/admin/pricing");
+    revalidatePath("/");
+    revalidatePath("/pricing");
     return { success: true };
   } catch (error) {
     console.error("Failed to update pricing:", error);
@@ -42,6 +46,8 @@ export async function deletePricing(id: string) {
   try {
     await db.delete(pricings).where(eq(pricings.id, id));
     revalidatePath("/admin/pricing");
+    revalidatePath("/");
+    revalidatePath("/pricing");
     return { success: true };
   } catch (error) {
     console.error("Failed to delete pricing:", error);

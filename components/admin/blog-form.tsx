@@ -47,10 +47,11 @@ type BlogFormProps = {
     status: string;
     thumbnail: string | null;
   };
+  categories: string[];
   trigger?: React.ReactElement;
 };
 
-export function BlogForm({ initialData, trigger }: BlogFormProps) {
+export function BlogForm({ initialData, categories, trigger }: BlogFormProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [previewImage, setPreviewImage] = useState<string>(initialData?.thumbnail || "");
@@ -141,24 +142,33 @@ export function BlogForm({ initialData, trigger }: BlogFormProps) {
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="category">Kategori</Label>
-                <Select 
-                  onValueChange={(value) => {
-                    if (value) {
-                      form.setValue("category", value);
-                    }
-                  }}
-                  value={categoryValue}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Pilih Kategori" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Tips Bisnis">Tips Bisnis</SelectItem>
-                    <SelectItem value="Digital Marketing">Digital Marketing</SelectItem>
-                    <SelectItem value="Web Development">Web Development</SelectItem>
-                    <SelectItem value="Studi Kasus">Studi Kasus</SelectItem>
-                  </SelectContent>
-                </Select>
+                {categories.length > 0 ? (
+                  <Select 
+                    onValueChange={(value) => {
+                      if (value) {
+                        form.setValue("category", value);
+                      }
+                    }}
+                    value={categoryValue}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Pilih Kategori" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem key={category} value={category}>
+                          {category}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <Input
+                    id="category"
+                    placeholder="Misal: Digital Marketing"
+                    {...form.register("category")}
+                  />
+                )}
                 {form.formState.errors.category && (
                   <span className="text-xs text-destructive">{form.formState.errors.category.message}</span>
                 )}

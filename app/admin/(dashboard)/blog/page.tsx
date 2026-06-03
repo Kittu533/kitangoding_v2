@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { blogPosts } from "@/lib/db/schema";
+import { blogCategories, blogPosts } from "@/lib/db/schema";
 import { desc, count } from "drizzle-orm";
 import { DocumentTextIcon, PencilIcon } from "@heroicons/react/24/outline";
 import {
@@ -36,6 +36,7 @@ export default async function BlogPage(props: Props) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   let data: Array<typeof blogPosts.$inferSelect> = [];
+  let categoryOptions: string[] = [];
   let totalItems = 0;
   let totalPages = 1;
 
@@ -49,6 +50,8 @@ export default async function BlogPage(props: Props) {
       .orderBy(desc(blogPosts.createdAt))
       .limit(ITEMS_PER_PAGE)
       .offset(offset);
+
+    categoryOptions = (await db.select().from(blogCategories).orderBy(blogCategories.name)).map((item) => item.name);
   } catch (e) {
     console.warn("Database not ready", e);
   }
@@ -63,7 +66,7 @@ export default async function BlogPage(props: Props) {
           </p>
         </div>
         <div>
-          <BlogForm />
+          <BlogForm categories={categoryOptions} />
         </div>
       </div>
       
@@ -123,6 +126,7 @@ export default async function BlogPage(props: Props) {
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-2">
                       <BlogForm 
+                        categories={categoryOptions}
                         initialData={item} 
                         trigger={
                           <button className={buttonVariants({ variant: "outline", size: "sm" })}> 

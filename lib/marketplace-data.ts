@@ -1,45 +1,9 @@
 export const marketplaceNav = [
-  { href: "/category", label: "Category" },
   { href: "/shop", label: "Shop" },
   { href: "/pricing", label: "Pricing" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
   { href: "/project-inqury", label: "Project Inquiry" },
-] as const;
-
-export const categoryPageItems = [
-  {
-    title: "Website Creatives",
-    description: "Untuk profil usaha, jasa, katalog ringan, dan halaman yang bikin bisnis terlihat rapi.",
-    count: "18 pilihan",
-    previewA: "creative-thumb-orange",
-    previewB: "creative-thumb-sky",
-    useCases: ["Company profile", "Landing page", "Katalog produk"],
-  },
-  {
-    title: "App Creatives",
-    description: "Untuk konsep aplikasi, tampilan mobile, dan alur layanan yang mudah dijelaskan.",
-    count: "12 pilihan",
-    previewA: "creative-thumb-purple",
-    previewB: "creative-thumb-blue",
-    useCases: ["Mobile app", "Booking flow", "Member area"],
-  },
-  {
-    title: "Dashboard Creatives",
-    description: "Untuk laporan, monitoring pesanan, data pelanggan, dan ringkasan performa bisnis.",
-    count: "9 pilihan",
-    previewA: "creative-thumb-dark",
-    previewB: "creative-thumb-sky",
-    useCases: ["Admin panel", "Report view", "Tracking order"],
-  },
-  {
-    title: "Branding Creatives",
-    description: "Untuk arah visual brand, logo presentation, warna, dan tampilan yang lebih konsisten.",
-    count: "10 pilihan",
-    previewA: "creative-thumb-purple",
-    previewB: "creative-thumb-emerald",
-    useCases: ["Brand starter", "Visual kit", "Pitch deck"],
-  },
 ] as const;
 
 export const categories = [

@@ -62,11 +62,11 @@ export function MarketplaceFooter() {
       <div className="container-shell grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-4">
         <div className="bg-market p-8">
           <LogoMark />
-          <p className="mt-5 max-w-sm leading-8 text-muted">
+          <p className="mt-5 max-w-sm leading-8 text-foreground">
             {siteConfig.name} membantu bisnis memilih tampilan website yang rapi, mudah dipahami,
             dan siap dipakai untuk promosi.
           </p>
-          <div className="mt-8 flex gap-3 text-[14px] leading-[17px] font-medium text-muted">
+          <div className="mt-8 flex gap-3 text-[14px] leading-[17px] font-medium text-foreground">
             <span className="rounded-lg border border-border px-3 py-2">IG</span>
             <span className="rounded-lg border border-border px-3 py-2">X</span>
             <span className="rounded-lg border border-border px-3 py-2">WA</span>
@@ -76,9 +76,9 @@ export function MarketplaceFooter() {
         {footerColumns.map((column) => (
           <div key={column.title} className="bg-market p-8">
             <h3 className="font-medium text-foreground">{column.title}</h3>
-            <div className="mt-6 flex flex-col gap-4 text-muted">
+            <div className="mt-6 flex flex-col gap-4 text-foreground">
               {column.links.map((link) => (
-                <Link key={link} className="hover:text-success" href="/">
+                <Link key={link} className="transition-colors hover:text-success" href="/">
                   {link}
                 </Link>
               ))}

@@ -38,6 +38,8 @@ export async function createCategory(data: z.infer<typeof categorySchema>) {
     
     revalidatePath("/admin/categories");
     revalidatePath("/admin/portfolio"); // Form portofolio menggunakan data ini
+    revalidatePath("/");
+    revalidatePath("/shop");
     return { success: true };
   } catch (error) {
     console.error("Failed to create category:", error);
@@ -61,6 +63,8 @@ export async function updateCategory(id: string, data: z.infer<typeof categorySc
     
     revalidatePath("/admin/categories");
     revalidatePath("/admin/portfolio");
+    revalidatePath("/");
+    revalidatePath("/shop");
     return { success: true };
   } catch (error) {
     console.error("Failed to update category:", error);
@@ -77,6 +81,8 @@ export async function deleteCategory(id: string) {
     await db.delete(portfolioCategories).where(eq(portfolioCategories.id, id));
     revalidatePath("/admin/categories");
     revalidatePath("/admin/portfolio");
+    revalidatePath("/");
+    revalidatePath("/shop");
     return { success: true };
   } catch (error) {
     console.error("Failed to delete category:", error);

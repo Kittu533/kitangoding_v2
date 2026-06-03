@@ -1,13 +1,13 @@
 import { Box } from "lucide-react";
 import { ButtonLink } from "@/components/atoms/Button";
-import { CreativeCard } from "@/components/molecules/CreativeCard";
+import { ShopCatalog } from "@/components/molecules/ShopCatalog";
 import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
 import { Reveal } from "@/components/atoms/Reveal";
-import { shopCreatives } from "@/lib/marketplace-data";
+import { getPublicCreatives } from "@/lib/public-content";
 
-const filters = ["All Creatives", "Mobile App", "Framer", "Branding", "SaaS", "Figma", "Dashboard"];
+export async function ShopPage() {
+  const shopCreatives = await getPublicCreatives();
 
-export function ShopPage() {
   return (
     <div className="marketplace-page min-h-screen bg-market text-foreground">
       <FloatingNav />
@@ -26,33 +26,13 @@ export function ShopPage() {
                 Browse website templates, landing pages, and digital assets that can be adjusted for
                 your business needs.
               </p>
-              <div className="mt-10 flex flex-wrap justify-center gap-3">
-                {filters.map((filter, index) => (
-                  <span
-                    key={filter}
-                    className={
-                      index === 0
-                        ? "rounded-lg border border-success bg-white px-5 py-3 text-sm font-semibold text-foreground"
-                        : "rounded-lg border border-border bg-white px-5 py-3 text-sm font-semibold text-muted"
-                    }
-                  >
-                    {filter}
-                  </span>
-                ))}
-              </div>
             </Reveal>
           </div>
         </section>
 
         <section className="marketplace-grid pb-16">
           <div className="container-shell">
-            <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
-              {shopCreatives.map((creative, index) => (
-                <Reveal key={`${creative.name}-${index}`} delay={(index % 3) * 0.04}>
-                  <CreativeCard creative={creative} imageLoading={index < 3 ? "eager" : "lazy"} />
-                </Reveal>
-              ))}
-            </div>
+            <ShopCatalog creatives={shopCreatives} />
 
             <div className="mt-14 text-center">
               <ButtonLink className="border border-ink bg-white text-foreground hover:bg-surface" href="#shop">

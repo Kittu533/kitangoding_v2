@@ -18,6 +18,8 @@ export async function createPortfolio(data: z.infer<typeof portfolioSchema>) {
     const validatedData = portfolioSchema.parse(data);
     await db.insert(portfolios).values(validatedData);
     revalidatePath("/admin/portfolio");
+    revalidatePath("/");
+    revalidatePath("/shop");
     return { success: true };
   } catch (error) {
     console.error("Failed to create portfolio:", error);
@@ -30,6 +32,8 @@ export async function updatePortfolio(id: string, data: z.infer<typeof portfolio
     const validatedData = portfolioSchema.parse(data);
     await db.update(portfolios).set(validatedData).where(eq(portfolios.id, id));
     revalidatePath("/admin/portfolio");
+    revalidatePath("/");
+    revalidatePath("/shop");
     return { success: true };
   } catch (error) {
     console.error("Failed to update portfolio:", error);
@@ -41,6 +45,8 @@ export async function deletePortfolio(id: string) {
   try {
     await db.delete(portfolios).where(eq(portfolios.id, id));
     revalidatePath("/admin/portfolio");
+    revalidatePath("/");
+    revalidatePath("/shop");
     return { success: true };
   } catch (error) {
     console.error("Failed to delete portfolio:", error);

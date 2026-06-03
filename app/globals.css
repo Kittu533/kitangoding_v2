@@ -217,6 +217,34 @@ textarea:focus-visible {
   min-height: 440px;
 }
 
+.marquee-shell {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 2rem;
+  padding-block: 0.25rem;
+  animation: marketplace-marquee 18s linear infinite;
+  will-change: transform;
+}
+
+@keyframes marketplace-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 1rem));
+  }
+}
+
 .creative-thumb,
 .blog-thumb {
   position: relative;

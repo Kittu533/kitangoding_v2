@@ -60,6 +60,13 @@ export const blogPosts = pgTable("blog_posts", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const blogCategories = pgTable("blog_categories", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  name: varchar("name", { length: 120 }).notNull().unique(),
+  slug: varchar("slug", { length: 160 }).notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const pricings = pgTable("pricings", {
   id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   name: varchar("name", { length: 255 }).notNull(),

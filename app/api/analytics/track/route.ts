@@ -21,6 +21,25 @@ function getIpAddress(request: Request) {
   return request.headers.get("x-real-ip");
 }
 
+function getErrorCode(error: unknown) {
+  if (typeof error !== "object" || error === null) {
+    return "";
+  }
+
+  if ("code" in error) {
+    const code = (error as { code?: unknown }).code;
+    if (typeof code === "string") {
+      return code;
+    }
+  }
+
+  if ("cause" in error) {
+    return getErrorCode((error as { cause?: unknown }).cause);
+  }
+
+  return "";
+}
+
 export async function POST(request: Request) {
   try {
     const payload = analyticsSchema.parse(await request.json());
@@ -39,6 +58,10 @@ export async function POST(request: Request) {
 
     return Response.json({ success: true }, { status: 201 });
   } catch (error) {
+    if (getErrorCode(error) === "42P01") {
+      return Response.json({ success: true, skipped: "missing_analytics_table" }, { status: 202 });
+    }
+
     console.error("Failed to track analytics event:", error);
     return Response.json({ success: false }, { status: 200 });
   }

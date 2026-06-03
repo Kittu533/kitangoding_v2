@@ -50,7 +50,7 @@ const blogSeeds = [
     excerpt: "Panduan ringkas memilih struktur website yang paling sesuai untuk kebutuhan bisnis kecil dan UMKM.",
     content:
       "Mulailah dari tujuan utamamu: ingin memperkenalkan bisnis, mengumpulkan lead, atau menampilkan katalog. Setelah itu, susun halaman inti seperti hero, layanan, testimoni, dan CTA yang jelas agar pengunjung lebih cepat paham.",
-    category: "Strategi Website",
+    category: "Tips Bisnis",
     status: "published",
     thumbnail: "/images/project-7.png",
   },
@@ -70,11 +70,20 @@ const blogSeeds = [
     excerpt: "Daftar hal penting yang sebaiknya dipastikan sebelum website bisnis kamu tayang ke publik.",
     content:
       "Cek ulang headline, kontak, CTA, testimonial, mobile responsiveness, dan kecepatan halaman. Elemen-elemen dasar itu sering terlihat sederhana, tapi punya dampak besar pada kesan pertama calon pelanggan.",
-    category: "Checklist",
+    category: "Digital Marketing",
     status: "draft",
     thumbnail: "/images/project-5.webp",
   },
 ];
+
+const blogCategorySeeds = ["Tips Bisnis", "Digital Marketing", "Web Development", "Studi Kasus", "UI/UX", "Strategi Branding"];
+
+function slugify(value) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
+}
 
 async function createTables() {
   await sql`
@@ -151,6 +160,15 @@ async function createTables() {
       published_at timestamp,
       created_at timestamp not null default now(),
       updated_at timestamp not null default now()
+    )
+  `;
+
+  await sql`
+    create table if not exists blog_categories (
+      id text primary key,
+      name varchar(120) not null unique,
+      slug varchar(160) not null unique,
+      created_at timestamp not null default now()
     )
   `;
 
@@ -308,6 +326,19 @@ async function seedPortfolio() {
 }
 
 async function seedBlog() {
+  for (const category of blogCategorySeeds) {
+    const exists = await sql`
+      select id from blog_categories where slug = ${slugify(category)} limit 1
+    `;
+
+    if (!exists.length) {
+      await sql`
+        insert into blog_categories (id, name, slug, created_at)
+        values (${randomUUID()}, ${category}, ${slugify(category)}, ${new Date()})
+      `;
+    }
+  }
+
   for (const post of blogSeeds) {
     const exists = await sql`
       select id from blog_posts where slug = ${post.slug} limit 1

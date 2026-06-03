@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { PricingPage } from "@/components/templates/PricingPage";
 import { siteConfig } from "@/lib/site";
 
@@ -11,6 +12,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+export default async function Page() {
+  await connection();
+
   return <PricingPage />;
 }
