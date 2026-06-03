@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { ButtonLink } from "@/components/atoms/Button";
 import { CreativeCard } from "@/components/molecules/CreativeCard";
+import { PortfolioSection } from "@/components/organisms/PortfolioSection";
 import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
 import { Reveal } from "@/components/atoms/Reveal";
 import {
@@ -30,6 +31,7 @@ export function MarketplaceHome() {
         <MarketplaceHero />
         <CategorySection />
         <CreativesSection />
+        <PortfolioSection />
         <MarketplacePricing />
         <BlogSection />
         <CustomProjectCta />

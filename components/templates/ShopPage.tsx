@@ -49,7 +49,7 @@ export function ShopPage() {
             <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-2 xl:grid-cols-3">
               {shopCreatives.map((creative, index) => (
                 <Reveal key={`${creative.name}-${index}`} delay={(index % 3) * 0.04}>
-                  <CreativeCard creative={creative} />
+                  <CreativeCard creative={creative} imageLoading={index < 3 ? "eager" : "lazy"} />
                 </Reveal>
               ))}
             </div>

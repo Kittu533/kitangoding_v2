@@ -25,8 +25,8 @@ export function ProjectInquiryForm() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [company, setCompany] = useState("");
-  const [projectType, setProjectType] = useState(projectTypes[0]);
-  const [budget, setBudget] = useState(budgetOptions[1]);
+  const [projectType, setProjectType] = useState<(typeof projectTypes)[number]>(projectTypes[0]);
+  const [budget, setBudget] = useState<(typeof budgetOptions)[number]>(budgetOptions[1]);
   const [description, setDescription] = useState("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -88,7 +88,7 @@ export function ProjectInquiryForm() {
         <Field label="Project Type">
           <select
             className={fieldClass}
-            onChange={(event) => setProjectType(event.target.value)}
+            onChange={(event) => setProjectType(event.target.value as (typeof projectTypes)[number])}
             value={projectType}
           >
             {projectTypes.map((option) => (
@@ -97,7 +97,11 @@ export function ProjectInquiryForm() {
           </select>
         </Field>
         <Field label="Project Budget">
-          <select className={fieldClass} onChange={(event) => setBudget(event.target.value)} value={budget}>
+          <select
+            className={fieldClass}
+            onChange={(event) => setBudget(event.target.value as (typeof budgetOptions)[number])}
+            value={budget}
+          >
             {budgetOptions.map((option) => (
               <option key={option}>{option}</option>
             ))}

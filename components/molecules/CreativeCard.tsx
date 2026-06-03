@@ -10,7 +10,13 @@ export type CreativeCardItem = {
   image: string;
 };
 
-export function CreativeCard({ creative }: { creative: CreativeCardItem }) {
+export function CreativeCard({
+  creative,
+  imageLoading = "lazy",
+}: {
+  creative: CreativeCardItem;
+  imageLoading?: "eager" | "lazy";
+}) {
   return (
     <article className="bg-market p-7">
       <div className="creative-thumb relative h-56 overflow-hidden rounded-lg border border-border/60 bg-white">
@@ -18,6 +24,7 @@ export function CreativeCard({ creative }: { creative: CreativeCardItem }) {
           alt={`Preview ${creative.name}`}
           className="object-cover object-top"
           fill
+          loading={imageLoading}
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
           src={creative.image}
         />

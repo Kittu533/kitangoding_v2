@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Geist } from "next/font/google";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
+import { TrafficTracker } from "@/components/analytics/TrafficTracker";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -80,7 +86,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${inter.variable} h-full scroll-smooth`}
+      className={cn("h-full", inter.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full bg-surface text-foreground antialiased">
         <a
@@ -89,7 +95,11 @@ export default function RootLayout({
         >
           Langsung ke konten
         </a>
-        {children}
+        <TooltipProvider>
+          {children}
+        </TooltipProvider>
+        <TrafficTracker />
+        <Toaster position="top-center" richColors />
       </body>
     </html>
   );

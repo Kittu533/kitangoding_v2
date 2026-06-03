@@ -1,5 +1,22 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Supabase Database Setup
+
+Admin dashboard dan Better Auth di project ini memakai `drizzle-orm` + `postgres` dan membaca koneksi dari environment variables berikut:
+
+```bash
+DATABASE_URL="postgresql://postgres.lfmlibtzaxsisgojyjei:[YOUR-PASSWORD]@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+DIRECT_URL="postgresql://postgres.lfmlibtzaxsisgojyjei:[YOUR-PASSWORD]@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"
+BETTER_AUTH_SECRET="generate-a-random-secret-key-here"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+```
+
+Gunakan:
+
+1. `DATABASE_URL` untuk runtime aplikasi dan query dashboard.
+2. `DIRECT_URL` untuk Drizzle migrations.
+3. Salin `.env.example` menjadi `.env.local`, lalu ganti `[YOUR-PASSWORD]` dengan password database Supabase milikmu.
+
 ## Getting Started
 
 First, run the development server:
