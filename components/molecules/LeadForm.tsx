@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { saveLeadSubmission } from "@/app/actions/leads";
+import { trackPublicAnalyticsEvent } from "@/lib/analytics-client";
 
 const leadSchema = z.object({
   name: z.string().trim().min(2, "Nama minimal 2 karakter."),
@@ -53,6 +54,15 @@ export function LeadForm() {
 
     if (!result.success) {
       popup?.close();
+      trackPublicAnalyticsEvent({
+        eventType: "form_submit_error",
+        path: window.location.pathname,
+        source: "lead_form",
+        params: {
+          form_name: "lead_form",
+          error_reason: result.reason,
+        },
+      });
 
       setSubmitError(
         result.reason === "rate_limited"
@@ -63,11 +73,29 @@ export function LeadForm() {
     }
 
     if (popup) {
-      popup.location.href = result.whatsappHref;
+      trackPublicAnalyticsEvent({
+        eventType: "lead_submitted",
+        path: window.location.pathname,
+        source: "lead_form",
+        params: {
+          form_name: "lead_form",
+          service_interest: value.need,
+        },
+      });
+      popup.location.assign(result.whatsappHref);
       return;
     }
 
-    window.location.href = result.whatsappHref;
+    trackPublicAnalyticsEvent({
+      eventType: "lead_submitted",
+      path: window.location.pathname,
+      source: "lead_form",
+      params: {
+        form_name: "lead_form",
+        service_interest: value.need,
+      },
+    });
+    window.location.assign(result.whatsappHref);
   }
 
   return (

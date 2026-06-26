@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import {
   blogCategories as blogCategoriesTable,
@@ -6,6 +6,7 @@ import {
   portfolioCategories,
   portfolios,
   pricings,
+  services as servicesTable,
 } from "@/lib/db/schema";
 import {
   blogPagePosts,
@@ -13,7 +14,7 @@ import {
   marketplacePricing,
   shopCreatives,
 } from "@/lib/marketplace-data";
-import { pricingPlans } from "@/lib/landing-data";
+import { pricingPlans, services as fallbackServices } from "@/lib/landing-data";
 
 const fallbackImages = [
   "/images/project-1.png",
@@ -46,6 +47,13 @@ export type PublicPricingPlan = {
   description: string;
   features: string[];
   featured: boolean;
+};
+
+export type PublicServiceCard = {
+  title: string;
+  description: string;
+  price: string | null;
+  icon: string | null;
 };
 
 export type PublicBlogCard = {
@@ -162,6 +170,29 @@ function sortPricingPlans<T extends PublicPricingPlan>(plans: T[]) {
   });
 }
 
+const fallbackServiceDescriptions = new Map<string, string>(
+  fallbackServices.map((service) => [service.title, service.description] as const)
+);
+
+export function mapPublicServices(
+  rows: Array<{
+    title: string;
+    description: string | null;
+    price: string | null;
+    icon: string | null;
+  }>
+): PublicServiceCard[] {
+  return rows.map((item) => ({
+    title: item.title,
+    description:
+      item.description?.trim() ||
+      fallbackServiceDescriptions.get(item.title) ||
+      "Website service yang bisa disesuaikan dengan kebutuhan bisnis kamu.",
+    price: item.price,
+    icon: item.icon,
+  }));
+}
+
 export async function getPublicCategories(limit = 4): Promise<PublicCategoryCard[]> {
   const fallbackItems = marketplaceCategories.map((item) => ({
     title: item.title,
@@ -255,6 +286,38 @@ export async function getPublicCreatives(limit?: number): Promise<PublicCreative
     price: item.price,
     image: item.image,
   }));
+}
+
+export async function getPublicServices(limit?: number): Promise<PublicServiceCard[]> {
+  try {
+    const rows = await db
+      .select({
+        title: servicesTable.title,
+        description: servicesTable.description,
+        price: servicesTable.price,
+        icon: servicesTable.icon,
+      })
+      .from(servicesTable)
+      .orderBy(asc(servicesTable.createdAt));
+
+    if (rows.length > 0) {
+      const items = mapPublicServices(rows);
+      return typeof limit === "number" ? items.slice(0, limit) : items;
+    }
+  } catch (error) {
+    if (!isMissingTableError(error)) {
+      console.warn("Failed to load public services.", error);
+    }
+  }
+
+  const fallback = fallbackServices.map((item) => ({
+    title: item.title,
+    description: item.description,
+    price: null,
+    icon: null,
+  }));
+
+  return typeof limit === "number" ? fallback.slice(0, limit) : fallback;
 }
 
 export async function getPublicPricing(): Promise<PublicPricingPlan[]> {

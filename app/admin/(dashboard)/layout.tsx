@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { AppSidebar } from "./app-sidebar";
 import { redirect } from "next/navigation";
@@ -5,9 +6,13 @@ import { isUnauthorizedAdminRequest, requireAdminSession } from "@/lib/admin-ses
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 
-export const metadata = {
-  title: "Admin Dashboard - KitaNgoding",
+export const metadata: Metadata = {
+  title: "Admin Dashboard - Kita Ngoding",
   description: "Internal Content Management System",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {

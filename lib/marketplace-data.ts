@@ -1,7 +1,6 @@
 export const marketplaceNav = [
-  { href: "/#layanan", label: "Layanan" },
-  { href: "/#referensi", label: "Referensi" },
-  { href: "/#portfolio", label: "Portfolio" },
+  { href: "/layanan", label: "Layanan" },
+  { href: "/portfolio", label: "Portfolio" },
   { href: "/pricing", label: "Harga" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Kontak" },
@@ -123,30 +122,30 @@ export const shopCreatives = [
 
 export const marketplacePricing = [
   {
-    name: "Pilih Paket Siap Pakai",
-    description: "Cocok kalau kamu ingin mulai dari struktur website yang sudah jelas.",
+    name: "Website Starter",
+    description: "Cocok untuk bisnis yang butuh website profil rapi dan bisa langsung diarahkan ke WhatsApp.",
     price: "Mulai 2jt",
     note: "",
     features: [
-      "Pilih contoh tampilan yang paling cocok",
-      "Isi disesuaikan dengan bisnismu",
-      "Sudah nyaman dibuka dari HP",
-      "Bisa langsung diarahkan ke WhatsApp",
+      "Struktur halaman jelas",
+      "Copy dasar disesuaikan dengan bisnis",
+      "Responsif untuk HP dan desktop",
+      "CTA WhatsApp siap dipakai",
     ],
-    cta: "Explore Templates",
+    cta: "Konsultasi Paket Starter",
   },
   {
-    name: "Custom Project",
-    description: "Cocok kalau kamu punya kebutuhan yang lebih spesifik.",
+    name: "Project Custom",
+    description: "Cocok kalau kamu butuh landing page campaign, toko online, dashboard, atau fitur khusus.",
     price: "By Brief",
     note: "Diskusi gratis dulu",
     features: [
-      "Kami bantu susun kebutuhan dari awal",
-      "Tampilan dibuat mengikuti karakter brand",
-      "Halaman bisa dibuat lebih lengkap",
-      "Cocok untuk bisnis yang ingin naik level",
+      "Scope disusun dari kebutuhan bisnis",
+      "Desain mengikuti karakter brand",
+      "Bisa tambah fitur sesuai alur kerja",
+      "Estimasi dibuat setelah brief jelas",
     ],
-    cta: "Book Now",
+    cta: "Bahas Project Custom",
   },
 ] as const;
 

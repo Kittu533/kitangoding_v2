@@ -7,13 +7,28 @@ const structuredData = {
   name: siteConfig.name,
   description: siteConfig.description,
   url: siteConfig.domain,
-  telephone: siteConfig.phoneDisplay,
+  image: `${siteConfig.domain}/og-image.png`,
+  telephone: `+${siteConfig.phoneHref}`,
   address: {
     "@type": "PostalAddress",
     addressLocality: siteConfig.addressLocality,
     addressRegion: siteConfig.addressRegion,
     addressCountry: siteConfig.addressCountry,
   },
+  areaServed: {
+    "@type": "Country",
+    name: "Indonesia",
+  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      telephone: `+${siteConfig.phoneHref}`,
+      email: siteConfig.email,
+      areaServed: "ID",
+      availableLanguage: ["id"],
+    },
+  ],
   priceRange: "$$",
   sameAs: [siteConfig.instagram, `https://wa.me/${siteConfig.phoneHref}`],
 };

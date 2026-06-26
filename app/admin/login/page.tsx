@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { siteConfig } from "@/lib/site";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -59,7 +60,7 @@ export default function AdminLogin() {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@kitangoding.com"
+                placeholder={siteConfig.email}
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

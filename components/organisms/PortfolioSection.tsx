@@ -11,13 +11,13 @@ import { cn } from "@/lib/utils";
 
 const filters = ["Semua", "Company Profile", "E-Commerce", "Landing Page"] as const;
 const sectionStats = [
-  { value: "3+", label: "arah layout siap ditiru" },
-  { value: "CTA", label: "alur konsultasi lebih jelas" },
+  { value: "3+", label: "contoh project untuk bahan diskusi" },
+  { value: "Bukti", label: "bahwa website bisnis memang bisa kami kerjakan" },
 ] as const;
 const referencePoints = [
-  ["Hero trust-building", "Struktur layanan B2B", "CTA konsultasi"],
-  ["Copy campaign ringkas", "Benefit mudah discan", "WhatsApp-ready"],
-  ["Katalog produk", "FAQ pengiriman", "Alur order sederhana"],
+  ["Jenis project", "Arah tampilan", "Alur CTA"],
+  ["Halaman utama", "Struktur penawaran", "Arah konversi"],
+  ["Kategori bisnis", "Flow order", "Pola konten"],
 ] as const;
 
 type PortfolioCard = {
@@ -63,9 +63,9 @@ export async function PortfolioSection() {
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
           <div>
             <SectionHeader
-              eyebrow="Portfolio pilihan"
-              title="Referensi visual dari project website yang siap kamu jadikan patokan."
-              description="Lihat pola layout, struktur konten, dan alur CTA yang bisa diadaptasi untuk bisnis dengan kebutuhan serupa."
+              eyebrow="Portfolio"
+              title="Contoh project yang bisa kamu lihat sebelum mulai."
+              description="Bagian ini menjawab pertanyaan paling umum dari calon client: sudah pernah bikin apa saja? Lihat tipe website yang relevan, lalu pakai sebagai bahan diskusi project kamu."
             />
             <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
               {filters.map((filter, index) => (
@@ -87,10 +87,10 @@ export async function PortfolioSection() {
           <Reveal delay={0.08}>
             <aside className="rounded-lg border border-border bg-white p-5 shadow-card">
               <p className="text-sm font-semibold uppercase tracking-[0.14em] text-orange-dark">
-                Saran kami
+                Fungsi halaman ini
               </p>
               <p className="mt-3 text-lg font-bold leading-7 text-foreground">
-                Pilih referensi dari masalah bisnisnya dulu, baru visualnya.
+                Ini tempat calon client melihat bukti kerja Kita Ngoding sebelum chat atau minta estimasi.
               </p>
               <div className="mt-5 grid grid-cols-2 gap-3">
                 {sectionStats.map((stat) => (
@@ -150,7 +150,7 @@ export async function PortfolioSection() {
 
                     <div className="mt-6 border-t border-border pt-5">
                       <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">
-                        Yang bisa dijadikan patokan
+                        Yang bisa dilihat calon client
                       </p>
                       <ul className="mt-4 space-y-3">
                         {points.map((point) => (
@@ -166,7 +166,7 @@ export async function PortfolioSection() {
                       className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-bold text-navy transition hover:text-orange-dark"
                       href="/project-inquiry"
                     >
-                      Jadikan referensi project kamu
+                      Bahas project seperti ini
                       <ExternalLink aria-hidden="true" className="size-4" />
                     </a>
                   </div>
@@ -182,7 +182,7 @@ export async function PortfolioSection() {
             icon={<ArrowRight aria-hidden="true" className="size-4" />}
             variant="outline"
           >
-            Minta arahan untuk project kamu
+            Bahas project kamu
           </ButtonLink>
         </div>
       </div>

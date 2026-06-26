@@ -18,7 +18,7 @@ export function ShopCatalog({
 
   const filters = useMemo(
     () => [allFilterLabel, ...new Set(creatives.map((creative) => creative.category))],
-    [creatives]
+    [allFilterLabel, creatives]
   );
 
   const filteredCreatives = useMemo(() => {
@@ -27,7 +27,7 @@ export function ShopCatalog({
     }
 
     return creatives.filter((creative) => creative.category === activeFilter);
-  }, [activeFilter, creatives]);
+  }, [activeFilter, allFilterLabel, creatives]);
 
   return (
     <>

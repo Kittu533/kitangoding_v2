@@ -18,30 +18,35 @@ import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/o
 import { Reveal } from "@/components/atoms/Reveal";
 import {
   getPublicBlogPosts,
-  getPublicCreatives,
   getPublicPricing,
+  getPublicServices,
   type PublicBlogCard,
   type PublicCreativeCard,
   type PublicPricingPlan,
+  type PublicServiceCard,
 } from "@/lib/public-content";
 import { faqs } from "@/lib/landing-data";
+import { serviceLandingPages } from "@/lib/service-landing-pages";
 import { whatsappHref } from "@/lib/site";
 
 const serviceSolutions = [
   {
     title: "Website Company Profile",
+    href: serviceLandingPages[0].pathname,
     description: "Profil digital untuk firma, agensi, pabrik, CV, dan bisnis lokal yang ingin terlihat lebih kredibel.",
     icon: MonitorSmartphone,
     points: ["Struktur halaman profil", "Kontak dan Google Maps", "SEO dasar nama brand"],
   },
   {
     title: "Landing Page Iklan",
+    href: serviceLandingPages[1].pathname,
     description: "Halaman fokus konversi untuk campaign Meta Ads, Google Ads, launching produk, atau lead generation.",
     icon: SearchCheck,
     points: ["Copy penawaran", "CTA WhatsApp / form lead", "Pixel dan analytics"],
   },
   {
     title: "Toko Online & Katalog",
+    href: serviceLandingPages[2].pathname,
     description: "Website produk untuk bisnis yang ingin menerima order lebih rapi tanpa bergantung penuh ke marketplace.",
     icon: Store,
     points: ["Katalog dan kategori", "Checkout / order inquiry", "Promo dan laporan dasar"],
@@ -55,10 +60,10 @@ const serviceSolutions = [
 ] as const;
 
 export async function MarketplaceHome() {
-  const [creativeItems, pricingItems, blogItems] = await Promise.all([
-    getPublicCreatives(6),
+  const [pricingItems, blogItems, serviceItems] = await Promise.all([
     getPublicPricing(),
     getPublicBlogPosts(3),
+    getPublicServices(4),
   ]);
 
   return (
@@ -66,8 +71,7 @@ export async function MarketplaceHome() {
       <FloatingNav />
       <main id="konten">
         <MarketplaceHero />
-        <ServicesOverviewSection />
-        <VisualReferenceSection items={creativeItems} />
+        <ServicesOverviewSection services={serviceItems} />
         <PortfolioSection />
         <MarketplacePricing plans={pricingItems} />
         <BlogSection posts={blogItems} />
@@ -87,15 +91,15 @@ function MarketplaceHero() {
       <div className="container-shell text-center">
         <Reveal>
           <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 marketplace-eyebrow text-success">
-            Jasa pembuatan website dan aplikasi web
+            Jasa pembuatan website untuk bisnis
           </span>
           <h1 className="mx-auto mt-8 max-w-3xl text-5xl leading-tight font-extrabold text-foreground md:text-6xl">
-            Website dan aplikasi web yang membuat bisnis terlihat lebih profesional
+            Bikin website bisnis yang siap dipakai jualan dan terlihat dipercaya.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl marketplace-hero-copy">
-            Kami bantu bisnis menyusun website company profile, landing page, toko online, sampai
-            sistem web custom dengan alur konten yang jelas, cepat dibuka, dan siap dipakai untuk
-            promosi maupun operasional.
+            Kita Ngoding bantu bikin website company profile, landing page, toko online, sampai
+            aplikasi web custom untuk bisnis yang butuh tampil rapi, mudah dijelaskan, dan gampang
+            dihubungi calon pelanggan.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <ButtonLink
@@ -105,11 +109,17 @@ function MarketplaceHero() {
               rel="noreferrer"
               target="_blank"
             >
-              Konsultasi Project
+              Konsultasi Website
             </ButtonLink>
             <ButtonLink href="#layanan" icon={<Compass aria-hidden="true" className="size-4" />} variant="outline">
               Lihat Layanan
             </ButtonLink>
+          </div>
+          <div className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-3 text-sm font-semibold text-body">
+            <span className="rounded-lg border border-border bg-white px-4 py-2">Company profile</span>
+            <span className="rounded-lg border border-border bg-white px-4 py-2">Landing page iklan</span>
+            <span className="rounded-lg border border-border bg-white px-4 py-2">Toko online</span>
+            <span className="rounded-lg border border-border bg-white px-4 py-2">Web app custom</span>
           </div>
         </Reveal>
 
@@ -141,7 +151,7 @@ function MarketplaceHero() {
           </div>
         </Reveal>
 
-        <p className="mt-14 text-sm font-bold text-foreground">Dipakai untuk berbagai kebutuhan bisnis</p>
+        <p className="mt-14 text-sm font-bold text-foreground">Yang biasa kami bantu untuk bisnis</p>
         <div className="marquee-shell mt-6">
           <div className="marquee-track">
             {[...marqueeItems, ...marqueeItems].map((item, index) => (
@@ -160,26 +170,27 @@ function MarketplaceHero() {
   );
 }
 
-function ServicesOverviewSection() {
+export function ServicesOverviewSection({ services }: { services: PublicServiceCard[] }) {
   return (
     <section className="marketplace-grid py-16" id="layanan">
       <div className="container-shell">
         <div className="mx-auto max-w-3xl text-center">
           <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 marketplace-eyebrow text-success">
-            Solusi yang paling sering dibutuhkan
+            Layanan utama
           </span>
           <h2 className="mt-5 text-4xl font-extrabold leading-tight text-foreground">
-            Pilih jenis website atau aplikasi sesuai masalah bisnismu.
+            Pilih jenis website yang paling dekat dengan kebutuhan bisnismu.
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-body">
-            Setiap project dimulai dari tujuan bisnisnya dulu: meningkatkan trust, menangkap lead,
-            menjual produk, atau merapikan proses operasional.
+            Tujuannya sederhana: calon pelanggan paham bisnis kamu, percaya dengan penawaranmu,
+            lalu tahu harus klik tombol apa untuk menghubungi.
           </p>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {serviceSolutions.map((service, index) => {
             const Icon = service.icon;
+            const publicService = services[index];
 
             return (
               <Reveal key={service.title} className="h-full" delay={index * 0.04}>
@@ -188,7 +199,14 @@ function ServicesOverviewSection() {
                     <Icon aria-hidden="true" className="size-6" />
                   </div>
                   <h3 className="mt-6 text-xl font-extrabold leading-tight text-foreground">{service.title}</h3>
-                  <p className="mt-3 text-sm leading-7 text-body">{service.description}</p>
+                  <p className="mt-3 text-sm leading-7 text-body">
+                    {publicService?.description || service.description}
+                  </p>
+                  {"href" in service ? (
+                    <ButtonLink className="mt-5" href={service.href} variant="outline">
+                      Detail layanan
+                    </ButtonLink>
+                  ) : null}
                   <div className="mt-6 space-y-3">
                     {service.points.map((point) => (
                       <div key={point} className="flex items-start gap-3 text-sm font-medium text-foreground">
@@ -198,7 +216,7 @@ function ServicesOverviewSection() {
                     ))}
                   </div>
                   <ButtonLink className="mt-auto pt-6" href="/project-inquiry" variant="outline">
-                    Bahas kebutuhan
+                    Minta estimasi
                   </ButtonLink>
                 </article>
               </Reveal>
@@ -210,7 +228,7 @@ function ServicesOverviewSection() {
   );
 }
 
-function VisualReferenceSection({ items }: { items: PublicCreativeCard[] }) {
+export function VisualReferenceSection({ items }: { items: PublicCreativeCard[] }) {
   return (
     <section className="marketplace-grid py-16" id="referensi">
       <div className="container-shell">
@@ -251,11 +269,11 @@ function MarketplacePricing({ plans }: { plans: PublicPricingPlan[] }) {
       <div className="container-shell">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-4xl font-extrabold leading-tight text-foreground">
-            Paket harga jasa pembuatan website dan aplikasi web.
+            Paket harga yang gampang dipilih sebelum konsultasi.
           </h2>
           <p className="mt-5 text-base leading-8 text-body">
-            Mulai dari landing page iklan sampai sistem operasional custom. Scope akhir tetap kami
-            validasi setelah memahami kebutuhan bisnis dan konten yang tersedia.
+            Mulai dari website profil sampai sistem custom. Harga final tetap kami validasi setelah
+            tahu jumlah halaman, fitur, dan bahan konten yang sudah kamu punya.
           </p>
         </div>
         <div className="mt-12">
@@ -272,11 +290,11 @@ function BlogSection({ posts }: { posts: PublicBlogCard[] }) {
       <div className="container-shell">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-4xl font-extrabold leading-tight text-foreground">
-            Insight sebelum membuat website bisnis.
+            Panduan singkat sebelum bikin website bisnis.
           </h2>
           <p className="mt-5 text-base leading-8 text-body">
-            Panduan praktis untuk memilih jenis website, menyiapkan konten, dan memahami bagaimana
-            website bisa mendukung penjualan maupun kredibilitas bisnis.
+            Baca dulu kalau kamu masih bingung harus mulai dari company profile, landing page,
+            toko online, atau sistem web custom.
           </p>
         </div>
         <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-3">

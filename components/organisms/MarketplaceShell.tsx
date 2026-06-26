@@ -34,13 +34,14 @@ export function CustomProjectCta() {
     <section className="marketplace-grid py-20" id="project">
       <div className="container-shell text-center">
         <span className="inline-flex rounded-lg border border-border bg-white px-3 py-1 marketplace-eyebrow text-foreground">
-          Konsultasi gratis
+          Mulai dari konsultasi singkat
         </span>
         <h2 className="mt-6 text-[32px] leading-9 font-semibold text-foreground">
-          Butuh website yang dibuat khusus untuk bisnismu?
+          Punya bisnis yang butuh website lebih rapi dan meyakinkan?
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-muted">
-          Ceritakan kebutuhanmu dalam 15 menit. Kami bantu pilih arah yang paling masuk akal.
+          Ceritakan jenis bisnis, tujuan website, dan contoh yang kamu suka. Kami bantu arahkan
+          paket, estimasi biaya, dan langkah paling masuk akal.
         </p>
         <ButtonLink
           className="mt-7 shadow-soft"
@@ -49,7 +50,7 @@ export function CustomProjectCta() {
           rel="noreferrer"
           target="_blank"
         >
-          Konsultasi via WhatsApp
+          Chat Konsultasi Website
         </ButtonLink>
       </div>
     </section>

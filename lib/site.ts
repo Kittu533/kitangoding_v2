@@ -1,17 +1,20 @@
 export const siteConfig = {
-  name: "Kita Ngoding",
-  shortName: "Kita Ngoding",
+  name: process.env.NEXT_PUBLIC_SITE_NAME || "Kita Ngoding",
+  shortName: process.env.NEXT_PUBLIC_SITE_SHORT_NAME || "Kita Ngoding",
   description:
-    "Kita Ngoding membantu UMKM tampil profesional secara online lewat website company profile, landing page, dan toko online yang cepat, rapi, dan meyakinkan.",
-  domain: "https://kitangoding.com",
-  email: "halo@kitangoding.com",
-  phoneDisplay: "+62 812-3456-7890",
-  phoneHref: "6281234567890",
-  addressLocality: "Sendangadi, Mlati",
-  addressRegion: "Sleman, DI Yogyakarta",
-  addressCountry: "ID",
-  instagram: "https://instagram.com/kitangoding",
-  tagline: "Website profesional untuk UMKM yang ingin terlihat lebih dipercaya.",
+    process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
+    "Kita Ngoding membantu bisnis membuat website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan siap dipakai jualan.",
+  domain: process.env.NEXT_PUBLIC_APP_URL || "https://kitangoding.com",
+  gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "",
+  email: process.env.NEXT_PUBLIC_SITE_EMAIL || "halo@kitangoding.com",
+  phoneDisplay: process.env.NEXT_PUBLIC_SITE_PHONE_DISPLAY || "+62 812-3456-7890",
+  phoneHref: process.env.NEXT_PUBLIC_SITE_PHONE_HREF || "6281234567890",
+  addressLocality: process.env.NEXT_PUBLIC_SITE_ADDRESS_LOCALITY || "Sendangadi, Mlati",
+  addressRegion: process.env.NEXT_PUBLIC_SITE_ADDRESS_REGION || "Sleman, DI Yogyakarta",
+  addressCountry: process.env.NEXT_PUBLIC_SITE_ADDRESS_COUNTRY || "ID",
+  instagram: process.env.NEXT_PUBLIC_SITE_INSTAGRAM || "https://instagram.com/kitangoding",
+  tagline:
+    process.env.NEXT_PUBLIC_SITE_TAGLINE || "Jasa pembuatan website untuk bisnis yang ingin lebih dipercaya dan mudah dihubungi.",
 } as const;
 
 export const navigationLinks = [

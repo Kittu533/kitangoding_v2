@@ -71,11 +71,13 @@ export function PricingPlanGrid({
                   : "bg-surface hover:bg-navy hover:text-white text-foreground border border-border"
               )}
               href={whatsappHref}
+              data-analytics-event="pricing_cta_click"
+              data-analytics-label={plan.name}
               icon={<ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover/btn:translate-x-1" />}
               rel="noreferrer"
               target="_blank"
             >
-              Pilih Paket
+              Konsultasi Paket Ini
             </ButtonLink>
 
             {plan.featured && (

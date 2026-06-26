@@ -77,6 +77,8 @@ export async function BlogPage() {
                     <ButtonLink
                       className="mt-5 w-full bg-ink !text-white shadow-soft hover:bg-navy"
                       href={`/blog/${post.slug}`}
+                      data-analytics-event="blog_cta_click"
+                      data-analytics-label={post.title}
                       icon={<ArrowUpRight aria-hidden="true" className="size-4" />}
                     >
                       View Details

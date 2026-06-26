@@ -5,6 +5,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { TrafficTracker } from "@/components/analytics/TrafficTracker";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
@@ -18,7 +19,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.domain),
   title: {
-    default: `${siteConfig.name} - Jasa Pembuatan Website Profesional untuk UMKM`,
+    default: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -47,9 +48,9 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: siteConfig.domain,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} - Website Profesional untuk UMKM Indonesia`,
+    title: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
     description:
-      "UMKM-mu sudah online. Sekarang saatnya punya website yang bikin calon pelanggan makin percaya.",
+      "Jasa pembuatan website company profile, landing page, toko online, dan aplikasi web untuk bisnis yang ingin lebih dipercaya.",
     images: [
       {
         url: "/og-image.png",
@@ -61,9 +62,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} - Website Profesional untuk UMKM`,
+    title: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
     description:
-      "Jasa website company profile, toko online, dan landing page untuk UMKM Indonesia.",
+      "Jasa website company profile, landing page, toko online, dan aplikasi web untuk bisnis Indonesia.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -98,6 +99,7 @@ export default function RootLayout({
         <TooltipProvider>
           {children}
         </TooltipProvider>
+        <GoogleAnalytics />
         <TrafficTracker />
         <Toaster position="top-center" richColors />
       </body>

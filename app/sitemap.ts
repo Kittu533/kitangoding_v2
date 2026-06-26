@@ -46,6 +46,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${siteConfig.domain}/layanan`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteConfig.domain}/portfolio`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${siteConfig.domain}/pricing`,
       lastModified,
       changeFrequency: "monthly",
@@ -68,6 +80,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified,
       changeFrequency: "monthly",
       priority: 0.7,
+    },
+    {
+      url: `${siteConfig.domain}/jasa-website-company-profile`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteConfig.domain}/jasa-landing-page-bisnis`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteConfig.domain}/jasa-toko-online-umkm`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     ...blogEntries,
   ];

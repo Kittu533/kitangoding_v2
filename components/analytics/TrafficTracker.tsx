@@ -3,64 +3,7 @@
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { analyticsEventTypes, isTrackablePublicPath, type AnalyticsEventType } from "@/lib/analytics";
-
-const VISITOR_ID_KEY = "kitangoding:visitor-id";
-const SESSION_ID_KEY = "kitangoding:session-id";
-
-type TrackPayload = {
-  eventType: AnalyticsEventType;
-  path: string;
-  source?: string;
-  href?: string;
-};
-
-function createId() {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-    return crypto.randomUUID();
-  }
-
-  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-}
-
-function getOrCreateStorageId(storage: Storage, key: string) {
-  const existingValue = storage.getItem(key);
-  if (existingValue) {
-    return existingValue;
-  }
-
-  const nextValue = createId();
-  storage.setItem(key, nextValue);
-  return nextValue;
-}
-
-function sendAnalytics(payload: TrackPayload) {
-  if (typeof window === "undefined" || !analyticsEventTypes.includes(payload.eventType)) {
-    return;
-  }
-
-  const visitorId = getOrCreateStorageId(window.localStorage, VISITOR_ID_KEY);
-  const sessionId = getOrCreateStorageId(window.sessionStorage, SESSION_ID_KEY);
-  const body = JSON.stringify({
-    ...payload,
-    visitorId,
-    sessionId,
-  });
-
-  if (typeof navigator !== "undefined" && "sendBeacon" in navigator) {
-    const blob = new Blob([body], { type: "application/json" });
-    navigator.sendBeacon("/api/analytics/track", blob);
-    return;
-  }
-
-  void fetch("/api/analytics/track", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body,
-    keepalive: true,
-  });
-}
+import { trackPublicAnalyticsEvent } from "@/lib/analytics-client";
 
 export function TrafficTracker() {
   const pathname = usePathname();
@@ -72,9 +15,14 @@ export function TrafficTracker() {
     }
 
     lastTrackedPath.current = pathname;
-    sendAnalytics({
+    trackPublicAnalyticsEvent({
       eventType: "page_view",
       path: pathname,
+      params: {
+        page_path: pathname,
+        page_location: window.location.href,
+        page_title: document.title,
+      },
     });
   }, [pathname]);
 
@@ -95,15 +43,39 @@ export function TrafficTracker() {
       }
 
       const href = anchor.href;
+      const analyticsEvent = anchor.dataset.analyticsEvent;
+
+      if (analyticsEvent) {
+        if (!analyticsEventTypes.includes(analyticsEvent as AnalyticsEventType)) {
+          return;
+        }
+
+        trackPublicAnalyticsEvent({
+          eventType: analyticsEvent as AnalyticsEventType,
+          path: pathname,
+          href,
+          source: anchor.dataset.analyticsLabel || anchor.textContent?.trim().slice(0, 120) || "CTA",
+          params: {
+            cta_location: pathname,
+            link_text: anchor.textContent?.trim().slice(0, 120),
+          },
+        });
+        return;
+      }
+
       if (!href.includes("wa.me/") && !href.includes("api.whatsapp.com/")) {
         return;
       }
 
-      sendAnalytics({
+      trackPublicAnalyticsEvent({
         eventType: "whatsapp_click",
         path: pathname,
         href,
         source: anchor.dataset.analyticsLabel || anchor.textContent?.trim().slice(0, 120) || "WhatsApp CTA",
+        params: {
+          cta_location: pathname,
+          link_text: anchor.textContent?.trim().slice(0, 120),
+        },
       });
     };
 

@@ -3,6 +3,7 @@
 import type { FormEvent, ReactNode } from "react";
 import { useState } from "react";
 import { saveLeadSubmission } from "@/app/actions/leads";
+import { trackPublicAnalyticsEvent } from "@/lib/analytics-client";
 
 const projectTypes = [
   "Website company profile",
@@ -57,6 +58,17 @@ export function ProjectInquiryForm() {
 
       if (!result.success) {
         popup?.close();
+        trackPublicAnalyticsEvent({
+          eventType: "form_submit_error",
+          path: window.location.pathname,
+          source: "project_inquiry",
+          params: {
+            budget_range: budget,
+            error_reason: result.reason,
+            form_name: "project_inquiry",
+            project_type: projectType,
+          },
+        });
         setSubmitError(
           result.reason === "rate_limited"
             ? "Terlalu banyak percobaan. Coba lagi beberapa saat."
@@ -66,11 +78,31 @@ export function ProjectInquiryForm() {
       }
 
       if (popup) {
-        popup.location.href = result.whatsappHref;
+        trackPublicAnalyticsEvent({
+          eventType: "lead_submitted",
+          path: window.location.pathname,
+          source: "project_inquiry",
+          params: {
+            budget_range: budget,
+            form_name: "project_inquiry",
+            project_type: projectType,
+          },
+        });
+        popup.location.assign(result.whatsappHref);
         return;
       }
 
-      window.location.href = result.whatsappHref;
+      trackPublicAnalyticsEvent({
+        eventType: "lead_submitted",
+        path: window.location.pathname,
+        source: "project_inquiry",
+        params: {
+          budget_range: budget,
+          form_name: "project_inquiry",
+          project_type: projectType,
+        },
+      });
+      window.location.assign(result.whatsappHref);
     } finally {
       setLoading(false);
     }

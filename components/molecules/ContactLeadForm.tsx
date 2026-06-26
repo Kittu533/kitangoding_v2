@@ -3,6 +3,7 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 import { saveLeadSubmission } from "@/app/actions/leads";
+import { trackPublicAnalyticsEvent } from "@/lib/analytics-client";
 
 export function ContactLeadForm() {
   const [name, setName] = useState("");
@@ -34,6 +35,15 @@ export function ContactLeadForm() {
 
       if (!result.success) {
         popup?.close();
+        trackPublicAnalyticsEvent({
+          eventType: "form_submit_error",
+          path: window.location.pathname,
+          source: "contact_page",
+          params: {
+            form_name: "contact_page",
+            error_reason: result.reason,
+          },
+        });
         setSubmitError(
           result.reason === "rate_limited"
             ? "Terlalu banyak percobaan. Coba lagi beberapa saat."
@@ -43,11 +53,27 @@ export function ContactLeadForm() {
       }
 
       if (popup) {
-        popup.location.href = result.whatsappHref;
+        trackPublicAnalyticsEvent({
+          eventType: "lead_submitted",
+          path: window.location.pathname,
+          source: "contact_page",
+          params: {
+            form_name: "contact_page",
+          },
+        });
+        popup.location.assign(result.whatsappHref);
         return;
       }
 
-      window.location.href = result.whatsappHref;
+      trackPublicAnalyticsEvent({
+        eventType: "lead_submitted",
+        path: window.location.pathname,
+        source: "contact_page",
+        params: {
+          form_name: "contact_page",
+        },
+      });
+      window.location.assign(result.whatsappHref);
     } finally {
       setLoading(false);
     }
