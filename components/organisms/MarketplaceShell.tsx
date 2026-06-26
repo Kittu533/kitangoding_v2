@@ -22,7 +22,7 @@ export function FloatingNav() {
           rel="noreferrer"
           target="_blank"
         >
-          Buy Template
+          Konsultasi
         </ButtonLink>
       </div>
     </header>
@@ -34,7 +34,7 @@ export function CustomProjectCta() {
     <section className="marketplace-grid py-20" id="project">
       <div className="container-shell text-center">
         <span className="inline-flex rounded-lg border border-border bg-white px-3 py-1 marketplace-eyebrow text-foreground">
-          Cal.com
+          Konsultasi gratis
         </span>
         <h2 className="mt-6 text-[32px] leading-9 font-semibold text-foreground">
           Butuh website yang dibuat khusus untuk bisnismu?
@@ -49,7 +49,7 @@ export function CustomProjectCta() {
           rel="noreferrer"
           target="_blank"
         >
-          Book Now
+          Konsultasi via WhatsApp
         </ButtonLink>
       </div>
     </section>

@@ -1,5 +1,6 @@
 "use server";
 
+import { isUnauthorizedAdminRequest, requireAdminSession } from "@/lib/admin-session";
 import { db } from "@/lib/db";
 import { portfolioCategories } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -28,6 +29,7 @@ function generateSlug(title: string) {
 
 export async function createCategory(data: z.infer<typeof categorySchema>) {
   try {
+    await requireAdminSession();
     const validatedData = categorySchema.parse(data);
     const slug = generateSlug(validatedData.name);
     
@@ -42,6 +44,9 @@ export async function createCategory(data: z.infer<typeof categorySchema>) {
     revalidatePath("/shop");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to create category:", error);
     const message = error instanceof Error ? error.message : "";
     if (message.includes("unique constraint") || getErrorCode(error) === "23505") {
@@ -53,6 +58,7 @@ export async function createCategory(data: z.infer<typeof categorySchema>) {
 
 export async function updateCategory(id: string, data: z.infer<typeof categorySchema>) {
   try {
+    await requireAdminSession();
     const validatedData = categorySchema.parse(data);
     const slug = generateSlug(validatedData.name);
 
@@ -67,6 +73,9 @@ export async function updateCategory(id: string, data: z.infer<typeof categorySc
     revalidatePath("/shop");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to update category:", error);
     const message = error instanceof Error ? error.message : "";
     if (message.includes("unique constraint") || getErrorCode(error) === "23505") {
@@ -78,6 +87,7 @@ export async function updateCategory(id: string, data: z.infer<typeof categorySc
 
 export async function deleteCategory(id: string) {
   try {
+    await requireAdminSession();
     await db.delete(portfolioCategories).where(eq(portfolioCategories.id, id));
     revalidatePath("/admin/categories");
     revalidatePath("/admin/portfolio");
@@ -85,6 +95,9 @@ export async function deleteCategory(id: string) {
     revalidatePath("/shop");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to delete category:", error);
     // Handle foreign key constraint error when category is used by portfolio
     const message = error instanceof Error ? error.message : "";

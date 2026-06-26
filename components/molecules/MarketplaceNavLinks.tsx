@@ -34,7 +34,7 @@ export function MarketplaceNavLinks() {
         const navTarget = getNavTarget(item.href);
         const isHomeAnchor = navTarget.path === "/" && navTarget.hash;
         const isActive = isHomeAnchor
-          ? pathname === "/" && (activeHash === navTarget.hash || (!activeHash && navTarget.hash === "#tentang"))
+          ? pathname === "/" && (activeHash === navTarget.hash || (!activeHash && navTarget.hash === "#layanan"))
           : pathname === navTarget.path;
 
         return (

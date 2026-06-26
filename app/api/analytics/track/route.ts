@@ -2,6 +2,8 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { analyticsEventTypes } from "@/lib/analytics";
 import { websiteAnalyticsEvents } from "@/lib/db/schema";
+import { consumeRateLimit } from "@/lib/rate-limit";
+import { getRequestIpAddress } from "@/lib/request";
 
 const analyticsSchema = z.object({
   eventType: z.enum(analyticsEventTypes),
@@ -11,15 +13,6 @@ const analyticsSchema = z.object({
   visitorId: z.string().min(1).max(255),
   sessionId: z.string().min(1).max(255).optional(),
 });
-
-function getIpAddress(request: Request) {
-  const forwardedFor = request.headers.get("x-forwarded-for");
-  if (forwardedFor) {
-    return forwardedFor.split(",")[0]?.trim() || null;
-  }
-
-  return request.headers.get("x-real-ip");
-}
 
 function getErrorCode(error: unknown) {
   if (typeof error !== "object" || error === null) {
@@ -43,6 +36,13 @@ function getErrorCode(error: unknown) {
 export async function POST(request: Request) {
   try {
     const payload = analyticsSchema.parse(await request.json());
+    const ipAddress = getRequestIpAddress(request.headers);
+    const rateLimitKey = ipAddress ?? `visitor:${payload.visitorId}`;
+    const rateLimit = consumeRateLimit(rateLimitKey, { limit: 60, windowMs: 60_000 });
+
+    if (!rateLimit.allowed) {
+      return Response.json({ success: false, skipped: "rate_limited" }, { status: 429 });
+    }
 
     await db.insert(websiteAnalyticsEvents).values({
       eventType: payload.eventType,
@@ -53,7 +53,7 @@ export async function POST(request: Request) {
       sessionId: payload.sessionId,
       referrer: request.headers.get("referer"),
       userAgent: request.headers.get("user-agent"),
-      ipAddress: getIpAddress(request),
+      ipAddress,
     });
 
     return Response.json({ success: true }, { status: 201 });

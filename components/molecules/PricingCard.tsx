@@ -25,7 +25,7 @@ export function PricingCard({ ctaHref, plan }: PricingCardProps) {
     >
       {plan.featured ? (
         <span className="absolute top-6 right-6 rounded-full bg-orange px-3 py-1 text-xs font-bold text-white uppercase">
-          Paling laris
+          Paling Dipilih
         </span>
       ) : null}
       <p className={plan.featured ? "text-sm text-white/65" : "text-sm text-muted"}>{plan.name}</p>

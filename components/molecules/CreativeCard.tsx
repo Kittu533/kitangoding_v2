@@ -12,9 +12,11 @@ export type CreativeCardItem = {
 
 export function CreativeCard({
   creative,
+  ctaLabel = "View Details",
   imageLoading = "lazy",
 }: {
   creative: CreativeCardItem;
+  ctaLabel?: string;
   imageLoading?: "eager" | "lazy";
 }) {
   return (
@@ -43,7 +45,7 @@ export function CreativeCard({
         rel="noreferrer"
         target="_blank"
       >
-        View Details
+        {ctaLabel}
       </ButtonLink>
     </article>
   );

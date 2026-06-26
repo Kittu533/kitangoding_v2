@@ -1,5 +1,6 @@
 "use server";
 
+import { isUnauthorizedAdminRequest, requireAdminSession } from "@/lib/admin-session";
 import { db } from "@/lib/db";
 import { portfolios } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -15,6 +16,7 @@ const portfolioSchema = z.object({
 
 export async function createPortfolio(data: z.infer<typeof portfolioSchema>) {
   try {
+    await requireAdminSession();
     const validatedData = portfolioSchema.parse(data);
     await db.insert(portfolios).values(validatedData);
     revalidatePath("/admin/portfolio");
@@ -22,6 +24,9 @@ export async function createPortfolio(data: z.infer<typeof portfolioSchema>) {
     revalidatePath("/shop");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to create portfolio:", error);
     return { success: false, error: "Gagal menyimpan data" };
   }
@@ -29,6 +34,7 @@ export async function createPortfolio(data: z.infer<typeof portfolioSchema>) {
 
 export async function updatePortfolio(id: string, data: z.infer<typeof portfolioSchema>) {
   try {
+    await requireAdminSession();
     const validatedData = portfolioSchema.parse(data);
     await db.update(portfolios).set(validatedData).where(eq(portfolios.id, id));
     revalidatePath("/admin/portfolio");
@@ -36,6 +42,9 @@ export async function updatePortfolio(id: string, data: z.infer<typeof portfolio
     revalidatePath("/shop");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to update portfolio:", error);
     return { success: false, error: "Gagal mengupdate data" };
   }
@@ -43,12 +52,16 @@ export async function updatePortfolio(id: string, data: z.infer<typeof portfolio
 
 export async function deletePortfolio(id: string) {
   try {
+    await requireAdminSession();
     await db.delete(portfolios).where(eq(portfolios.id, id));
     revalidatePath("/admin/portfolio");
     revalidatePath("/");
     revalidatePath("/shop");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to delete portfolio:", error);
     return { success: false, error: "Gagal menghapus data" };
   }

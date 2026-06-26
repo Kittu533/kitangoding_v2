@@ -1,9 +1,10 @@
 export const marketplaceNav = [
-  { href: "/shop", label: "Shop" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/#layanan", label: "Layanan" },
+  { href: "/#referensi", label: "Referensi" },
+  { href: "/#portfolio", label: "Portfolio" },
+  { href: "/pricing", label: "Harga" },
   { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
-  { href: "/project-inqury", label: "Project Inquiry" },
+  { href: "/contact", label: "Kontak" },
 ] as const;
 
 export const categories = [
@@ -226,15 +227,15 @@ export const blogPagePosts = [
 
 export const footerColumns = [
   {
-    title: "Pages",
-    links: ["Home", "Pricing", "Category", "Shop", "Blog", "Contact"],
+    title: "Halaman",
+    links: ["Home", "Harga", "Portfolio", "Blog", "Kontak"],
   },
   {
-    title: "Categories",
-    links: ["Website Bisnis", "Landing Page", "Katalog Produk", "Branding"],
+    title: "Layanan",
+    links: ["Website Company Profile", "Landing Page", "Toko Online", "Aplikasi Web Custom"],
   },
   {
     title: "Resources",
-    links: ["FAQ", "Privacy Policy", "Terms & Conditions", "Changelog"],
+    links: ["FAQ", "Project Inquiry", "Konsultasi WhatsApp", "Studi Kasus"],
   },
 ] as const;

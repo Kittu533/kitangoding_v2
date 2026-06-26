@@ -1,5 +1,6 @@
 "use server";
 
+import { isUnauthorizedAdminRequest, requireAdminSession } from "@/lib/admin-session";
 import { db } from "@/lib/db";
 import { pricings } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -16,6 +17,7 @@ const pricingSchema = z.object({
 
 export async function createPricing(data: z.infer<typeof pricingSchema>) {
   try {
+    await requireAdminSession();
     const validatedData = pricingSchema.parse(data);
     await db.insert(pricings).values(validatedData);
     revalidatePath("/admin/pricing");
@@ -23,6 +25,9 @@ export async function createPricing(data: z.infer<typeof pricingSchema>) {
     revalidatePath("/pricing");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to create pricing:", error);
     return { success: false, error: "Gagal menyimpan data" };
   }
@@ -30,6 +35,7 @@ export async function createPricing(data: z.infer<typeof pricingSchema>) {
 
 export async function updatePricing(id: string, data: z.infer<typeof pricingSchema>) {
   try {
+    await requireAdminSession();
     const validatedData = pricingSchema.parse(data);
     await db.update(pricings).set(validatedData).where(eq(pricings.id, id));
     revalidatePath("/admin/pricing");
@@ -37,6 +43,9 @@ export async function updatePricing(id: string, data: z.infer<typeof pricingSche
     revalidatePath("/pricing");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to update pricing:", error);
     return { success: false, error: "Gagal mengupdate data" };
   }
@@ -44,12 +53,16 @@ export async function updatePricing(id: string, data: z.infer<typeof pricingSche
 
 export async function deletePricing(id: string) {
   try {
+    await requireAdminSession();
     await db.delete(pricings).where(eq(pricings.id, id));
     revalidatePath("/admin/pricing");
     revalidatePath("/");
     revalidatePath("/pricing");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to delete pricing:", error);
     return { success: false, error: "Gagal menghapus data" };
   }

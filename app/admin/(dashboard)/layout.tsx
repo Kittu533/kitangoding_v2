@@ -1,8 +1,7 @@
 import { ReactNode } from "react";
 import { AppSidebar } from "./app-sidebar";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { isUnauthorizedAdminRequest, requireAdminSession } from "@/lib/admin-session";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 
@@ -12,13 +11,14 @@ export const metadata = {
 };
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
-  const reqHeaders = await headers();
-  const session = await auth.api.getSession({
-    headers: reqHeaders,
-  });
+  try {
+    await requireAdminSession();
+  } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      redirect("/admin/login");
+    }
 
-  if (!session) {
-    redirect("/admin/login");
+    throw error;
   }
 
   return (

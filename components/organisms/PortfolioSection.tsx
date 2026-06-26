@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { desc, eq } from "drizzle-orm";
-import { ExternalLink } from "lucide-react";
+import { ArrowRight, CheckCircle2, ExternalLink } from "lucide-react";
+import { ButtonLink } from "@/components/atoms/Button";
 import { Reveal } from "@/components/atoms/Reveal";
 import { SectionHeader } from "@/components/molecules/SectionHeader";
 import { db } from "@/lib/db";
@@ -9,6 +10,15 @@ import { portfolioItems } from "@/lib/landing-data";
 import { cn } from "@/lib/utils";
 
 const filters = ["Semua", "Company Profile", "E-Commerce", "Landing Page"] as const;
+const sectionStats = [
+  { value: "3+", label: "arah layout siap ditiru" },
+  { value: "CTA", label: "alur konsultasi lebih jelas" },
+] as const;
+const referencePoints = [
+  ["Hero trust-building", "Struktur layanan B2B", "CTA konsultasi"],
+  ["Copy campaign ringkas", "Benefit mudah discan", "WhatsApp-ready"],
+  ["Katalog produk", "FAQ pengiriman", "Alur order sederhana"],
+] as const;
 
 type PortfolioCard = {
   category: string;
@@ -48,75 +58,132 @@ export async function PortfolioSection() {
   }
 
   return (
-    <section className="marketplace-grid py-16" id="portfolio">
+    <section className="marketplace-grid py-20 md:py-24" id="portfolio">
       <div className="container-shell">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHeader
-            eyebrow="Portfolio pilihan"
-            title="Project nyata yang bisa langsung jadi referensi kualitas website bisnismu."
-          />
-          <div className="flex flex-wrap gap-3 text-sm font-semibold">
-            {filters.map((filter, index) => (
-              <span
-                key={filter}
-                className={cn(
-                  "rounded-full px-4 py-2",
-                  index === 0 ? "bg-orange text-white" : "border border-border bg-white text-navy"
-                )}
-              >
-                {filter}
-              </span>
-            ))}
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
+          <div>
+            <SectionHeader
+              eyebrow="Portfolio pilihan"
+              title="Referensi visual dari project website yang siap kamu jadikan patokan."
+              description="Lihat pola layout, struktur konten, dan alur CTA yang bisa diadaptasi untuk bisnis dengan kebutuhan serupa."
+            />
+            <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
+              {filters.map((filter, index) => (
+                <span
+                  key={filter}
+                  className={cn(
+                    "rounded-lg px-4 py-2 shadow-sm",
+                    index === 0
+                      ? "bg-navy text-white"
+                      : "border border-border bg-white text-navy hover:border-orange/40"
+                  )}
+                >
+                  {filter}
+                </span>
+              ))}
+            </div>
           </div>
+
+          <Reveal delay={0.08}>
+            <aside className="rounded-lg border border-border bg-white p-5 shadow-card">
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-orange-dark">
+                Saran kami
+              </p>
+              <p className="mt-3 text-lg font-bold leading-7 text-foreground">
+                Pilih referensi dari masalah bisnisnya dulu, baru visualnya.
+              </p>
+              <div className="mt-5 grid grid-cols-2 gap-3">
+                {sectionStats.map((stat) => (
+                  <div key={stat.label} className="rounded-lg border border-border bg-surface p-4">
+                    <p className="text-2xl font-black text-navy">{stat.value}</p>
+                    <p className="mt-1 text-xs font-semibold leading-5 text-muted">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            </aside>
+          </Reveal>
         </div>
 
-        <div className="mt-12 grid gap-6 xl:grid-cols-3">
-          {items.map((item, index) => (
-            <Reveal key={`${item.name}-${index}`} delay={index * 0.06}>
-              <article className="group overflow-hidden rounded-2xl border border-border bg-white shadow-card">
-                <div className={cn("p-4", index % 2 === 1 ? "bg-orange-light" : "bg-navy-light")}>
-                  <div className="overflow-hidden rounded-xl border border-white/70 bg-white/70 backdrop-blur">
+        <div className="mx-auto mt-14 grid max-w-6xl gap-7 md:grid-cols-2 xl:grid-cols-3">
+          {items.map((item, index) => {
+            const points = referencePoints[index % referencePoints.length];
+
+            return (
+              <Reveal key={`${item.name}-${index}`} delay={index * 0.06}>
+                <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-orange/40 hover:shadow-card">
+                  <div className="border-b border-border bg-surface p-3">
                     {item.thumbnail ? (
-                      <div className="relative h-56 w-full">
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-white">
                         <Image
                           alt={item.name}
-                          className="object-cover object-top"
+                          className="object-cover object-top transition duration-500 group-hover:scale-105"
                           fill
-                          sizes="(max-width: 768px) 100vw, 33vw"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                           src={item.thumbnail}
                         />
                       </div>
                     ) : (
-                      <div className="flex min-h-56 items-end p-6">
+                      <div className="flex aspect-[4/3] items-center justify-center rounded-lg border border-dashed border-border-strong bg-white px-6 text-center">
                         <div>
-                          <span className="inline-flex rounded-full bg-white px-3 py-1 text-xs font-semibold text-muted">
+                          <span className="inline-flex rounded-lg bg-orange-light px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-orange-dark">
                             {item.category}
                           </span>
-                          <h3 className="mt-5 font-display text-3xl font-bold text-foreground">
+                          <h3 className="mt-4 font-display text-2xl font-bold text-foreground">
                             {item.name}
                           </h3>
                         </div>
                       </div>
                     )}
-                    <div className="p-6">
-                      <span className="inline-flex rounded-full bg-white px-3 py-1 text-xs font-semibold text-muted">
+                  </div>
+
+                  <div className="flex flex-1 flex-col p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="inline-flex rounded-lg border border-border bg-surface px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-muted">
                         {item.category}
                       </span>
-                      <h3 className="mt-4 text-2xl font-bold text-foreground">{item.name}</h3>
-                      <div className="mt-5 rounded-lg bg-navy p-4 text-white">
-                        <p className="text-sm text-white/65">Highlight</p>
-                        <p className="mt-2 text-sm leading-7">{item.result}</p>
-                      </div>
+                      <span className="text-xs font-bold text-orange-dark">
+                        0{(index % 9) + 1}
+                      </span>
                     </div>
+                    <h3 className="mt-5 text-2xl font-bold leading-tight text-foreground">{item.name}</h3>
+                    <p className="mt-4 text-sm leading-7 text-body">{item.result}</p>
+
+                    <div className="mt-6 border-t border-border pt-5">
+                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-foreground">
+                        Yang bisa dijadikan patokan
+                      </p>
+                      <ul className="mt-4 space-y-3">
+                        {points.map((point) => (
+                          <li key={point} className="flex items-start gap-3 text-sm font-medium text-body">
+                            <CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-orange" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <a
+                      className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-bold text-navy transition hover:text-orange-dark"
+                      href="/project-inquiry"
+                    >
+                      Jadikan referensi project kamu
+                      <ExternalLink aria-hidden="true" className="size-4" />
+                    </a>
                   </div>
-                </div>
-                <div className="flex items-center justify-between px-6 py-4 text-sm font-semibold text-navy">
-                  <span>Lihat studi kasus</span>
-                  <ExternalLink aria-hidden="true" className="size-4" />
-                </div>
-              </article>
-            </Reveal>
-          ))}
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <ButtonLink
+            href="/project-inquiry"
+            icon={<ArrowRight aria-hidden="true" className="size-4" />}
+            variant="outline"
+          >
+            Minta arahan untuk project kamu
+          </ButtonLink>
         </div>
       </div>
     </section>

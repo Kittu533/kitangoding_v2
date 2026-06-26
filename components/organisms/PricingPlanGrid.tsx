@@ -13,7 +13,7 @@ export function PricingPlanGrid({
   delayStep?: number;
 }) {
   return (
-    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto">
+    <div className="grid max-w-7xl gap-8 mx-auto md:grid-cols-2 xl:grid-cols-3">
       {plans.map((plan, index) => (
         <Reveal key={plan.name} delay={index * delayStep}>
           <div
@@ -27,7 +27,7 @@ export function PricingPlanGrid({
             {plan.featured && (
               <div className="absolute top-0 inset-x-0 flex justify-center">
                 <span className="rounded-b-xl bg-gradient-to-r from-orange to-orange-dark px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm">
-                  Paling Populer
+                  Paling Dipilih
                 </span>
               </div>
             )}

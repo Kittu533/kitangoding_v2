@@ -1,5 +1,6 @@
 "use server";
 
+import { isUnauthorizedAdminRequest, requireAdminSession } from "@/lib/admin-session";
 import { db } from "@/lib/db";
 import { blogCategories } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -28,6 +29,7 @@ function generateSlug(title: string) {
 
 export async function createBlogCategory(data: z.infer<typeof categorySchema>) {
   try {
+    await requireAdminSession();
     const validatedData = categorySchema.parse(data);
     const slug = generateSlug(validatedData.name);
 
@@ -42,6 +44,9 @@ export async function createBlogCategory(data: z.infer<typeof categorySchema>) {
     revalidatePath("/blog");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to create blog category:", error);
     const message = error instanceof Error ? error.message : "";
     if (message.includes("unique constraint") || getErrorCode(error) === "23505") {
@@ -53,6 +58,7 @@ export async function createBlogCategory(data: z.infer<typeof categorySchema>) {
 
 export async function updateBlogCategory(id: string, data: z.infer<typeof categorySchema>) {
   try {
+    await requireAdminSession();
     const validatedData = categorySchema.parse(data);
     const slug = generateSlug(validatedData.name);
 
@@ -67,6 +73,9 @@ export async function updateBlogCategory(id: string, data: z.infer<typeof catego
     revalidatePath("/blog");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to update blog category:", error);
     const message = error instanceof Error ? error.message : "";
     if (message.includes("unique constraint") || getErrorCode(error) === "23505") {
@@ -78,6 +87,7 @@ export async function updateBlogCategory(id: string, data: z.infer<typeof catego
 
 export async function deleteBlogCategory(id: string) {
   try {
+    await requireAdminSession();
     await db.delete(blogCategories).where(eq(blogCategories.id, id));
     revalidatePath("/admin/blog-categories");
     revalidatePath("/admin/blog");
@@ -85,6 +95,9 @@ export async function deleteBlogCategory(id: string) {
     revalidatePath("/blog");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to delete blog category:", error);
     return { success: false, error: "Gagal menghapus kategori blog" };
   }

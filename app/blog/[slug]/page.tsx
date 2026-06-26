@@ -183,7 +183,7 @@ export default async function Page({ params }: Props) {
                   </p>
                   <ButtonLink
                     className="mt-5 w-full shadow-soft"
-                    href="/project-inqury"
+                    href="/project-inquiry"
                     icon={<ArrowUpRight aria-hidden="true" className="size-4" />}
                   >
                     Diskusi Project

@@ -1,5 +1,6 @@
 "use server";
 
+import { isUnauthorizedAdminRequest, requireAdminSession } from "@/lib/admin-session";
 import { db } from "@/lib/db";
 import { testimonials } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -15,11 +16,15 @@ const testimonialSchema = z.object({
 
 export async function createTestimonial(data: z.infer<typeof testimonialSchema>) {
   try {
+    await requireAdminSession();
     const validatedData = testimonialSchema.parse(data);
     await db.insert(testimonials).values(validatedData);
     revalidatePath("/admin/testimonials");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to create testimonial:", error);
     return { success: false, error: "Gagal menyimpan data" };
   }
@@ -27,11 +32,15 @@ export async function createTestimonial(data: z.infer<typeof testimonialSchema>)
 
 export async function updateTestimonial(id: string, data: z.infer<typeof testimonialSchema>) {
   try {
+    await requireAdminSession();
     const validatedData = testimonialSchema.parse(data);
     await db.update(testimonials).set(validatedData).where(eq(testimonials.id, id));
     revalidatePath("/admin/testimonials");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to update testimonial:", error);
     return { success: false, error: "Gagal mengupdate data" };
   }
@@ -39,10 +48,14 @@ export async function updateTestimonial(id: string, data: z.infer<typeof testimo
 
 export async function deleteTestimonial(id: string) {
   try {
+    await requireAdminSession();
     await db.delete(testimonials).where(eq(testimonials.id, id));
     revalidatePath("/admin/testimonials");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to delete testimonial:", error);
     return { success: false, error: "Gagal menghapus data" };
   }

@@ -2,7 +2,7 @@
 
 import type { FormEvent, ReactNode } from "react";
 import { useState } from "react";
-import { createWhatsAppHref } from "@/lib/site";
+import { saveLeadSubmission } from "@/app/actions/leads";
 
 const projectTypes = [
   "Website company profile",
@@ -28,22 +28,52 @@ export function ProjectInquiryForm() {
   const [projectType, setProjectType] = useState<(typeof projectTypes)[number]>(projectTypes[0]);
   const [budget, setBudget] = useState<(typeof budgetOptions)[number]>(budgetOptions[1]);
   const [description, setDescription] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const message = [
-      "Halo Kita Ngoding, saya ingin mengirim project inquiry.",
-      `Nama: ${fullName || "-"}`,
-      `Email: ${email || "-"}`,
-      `No. HP: ${phone || "-"}`,
-      `Bisnis/Perusahaan: ${company || "-"}`,
-      `Tipe project: ${projectType}`,
-      `Budget: ${budget}`,
-      `Deskripsi: ${description || "-"}`,
-    ].join("\n");
+    setSubmitError("");
+    setLoading(true);
 
-    window.open(createWhatsAppHref(message), "_blank", "noopener,noreferrer");
+    const popup = window.open("", "_blank");
+    if (popup) {
+      popup.opener = null;
+    }
+
+    try {
+      const result = await saveLeadSubmission({
+        budget,
+        business: company,
+        email,
+        honeypot,
+        message: description,
+        name: fullName,
+        phone,
+        service: projectType,
+      });
+
+      if (!result.success) {
+        popup?.close();
+        setSubmitError(
+          result.reason === "rate_limited"
+            ? "Terlalu banyak percobaan. Coba lagi beberapa saat."
+            : "Belum bisa mengirim data. Coba lagi sebentar lagi."
+        );
+        return;
+      }
+
+      if (popup) {
+        popup.location.href = result.whatsappHref;
+        return;
+      }
+
+      window.location.href = result.whatsappHref;
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -54,6 +84,8 @@ export function ProjectInquiryForm() {
             className={fieldClass}
             onChange={(event) => setFullName(event.target.value)}
             placeholder="Jane Doe"
+            minLength={2}
+            required
             type="text"
             value={fullName}
           />
@@ -63,6 +95,7 @@ export function ProjectInquiryForm() {
             className={fieldClass}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="info@email.com"
+            required
             type="email"
             value={email}
           />
@@ -109,21 +142,36 @@ export function ProjectInquiryForm() {
         </Field>
       </div>
 
-      <Field label="Project Description">
-        <textarea
-          className={`${fieldClass} min-h-36 resize-none py-4`}
-          onChange={(event) => setDescription(event.target.value)}
-          placeholder="Jelaskan singkat kebutuhan project kamu"
-          value={description}
-        />
-      </Field>
+        <Field label="Project Description">
+          <textarea
+            className={`${fieldClass} min-h-36 resize-none py-4`}
+            onChange={(event) => setDescription(event.target.value)}
+            placeholder="Jelaskan singkat kebutuhan project kamu"
+            minLength={10}
+            required
+            value={description}
+          />
+        </Field>
+
+      <input
+        className="hidden"
+        autoComplete="off"
+        name="website"
+        tabIndex={-1}
+        type="text"
+        value={honeypot}
+        onChange={(event) => setHoneypot(event.target.value)}
+      />
 
       <button
         className="w-fit rounded-xl bg-ink px-7 py-4 text-[14px] leading-[17px] font-medium text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-navy active:translate-y-0"
+        disabled={loading}
         type="submit"
       >
-        Send Inquiry
+        {loading ? "Sending..." : "Send Inquiry"}
       </button>
+
+      {submitError ? <p className="text-sm font-medium text-orange-glow">{submitError}</p> : null}
     </form>
   );
 }

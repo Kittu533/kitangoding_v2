@@ -81,6 +81,8 @@ async function main() {
 
     // 4. Seed Pricings
     console.log("⏳ Seeding Pricings...");
+    await db.delete(schema.pricings);
+
     for (const item of seedPricings) {
       await db.insert(schema.pricings).values({
         name: item.name,

@@ -1,5 +1,6 @@
 "use server";
 
+import { isUnauthorizedAdminRequest, requireAdminSession } from "@/lib/admin-session";
 import { db } from "@/lib/db";
 import { blogPosts } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -24,6 +25,7 @@ function generateSlug(title: string) {
 
 export async function createBlogPost(data: z.infer<typeof blogSchema>) {
   try {
+    await requireAdminSession();
     const validatedData = blogSchema.parse(data);
     const slug = generateSlug(validatedData.title);
     
@@ -38,6 +40,9 @@ export async function createBlogPost(data: z.infer<typeof blogSchema>) {
     revalidatePath("/blog");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to create blog post:", error);
     return { success: false, error: "Gagal menyimpan artikel" };
   }
@@ -45,6 +50,7 @@ export async function createBlogPost(data: z.infer<typeof blogSchema>) {
 
 export async function updateBlogPost(id: string, data: z.infer<typeof blogSchema>) {
   try {
+    await requireAdminSession();
     const validatedData = blogSchema.parse(data);
     const slug = generateSlug(validatedData.title);
     
@@ -67,6 +73,9 @@ export async function updateBlogPost(id: string, data: z.infer<typeof blogSchema
     revalidatePath("/blog");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to update blog post:", error);
     return { success: false, error: "Gagal mengupdate artikel" };
   }
@@ -74,12 +83,16 @@ export async function updateBlogPost(id: string, data: z.infer<typeof blogSchema
 
 export async function deleteBlogPost(id: string) {
   try {
+    await requireAdminSession();
     await db.delete(blogPosts).where(eq(blogPosts.id, id));
     revalidatePath("/admin/blog");
     revalidatePath("/");
     revalidatePath("/blog");
     return { success: true };
   } catch (error) {
+    if (isUnauthorizedAdminRequest(error)) {
+      return { success: false, error: "Sesi admin tidak valid" };
+    }
     console.error("Failed to delete blog post:", error);
     return { success: false, error: "Gagal menghapus artikel" };
   }

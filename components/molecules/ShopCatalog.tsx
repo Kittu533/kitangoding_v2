@@ -5,9 +5,15 @@ import { CreativeCard, type CreativeCardItem } from "@/components/molecules/Crea
 import { Reveal } from "@/components/atoms/Reveal";
 import { cn } from "@/lib/utils";
 
-const allFilterLabel = "All Creatives";
-
-export function ShopCatalog({ creatives }: { creatives: CreativeCardItem[] }) {
+export function ShopCatalog({
+  allFilterLabel = "All Creatives",
+  creatives,
+  ctaLabel,
+}: {
+  allFilterLabel?: string;
+  creatives: CreativeCardItem[];
+  ctaLabel?: string;
+}) {
   const [activeFilter, setActiveFilter] = useState(allFilterLabel);
 
   const filters = useMemo(
@@ -50,7 +56,7 @@ export function ShopCatalog({ creatives }: { creatives: CreativeCardItem[] }) {
       <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {filteredCreatives.map((creative, index) => (
           <Reveal key={`${creative.name}-${creative.category}`} className="h-full" delay={(index % 3) * 0.04}>
-            <CreativeCard creative={creative} imageLoading={index < 3 ? "eager" : "lazy"} />
+            <CreativeCard creative={creative} ctaLabel={ctaLabel} imageLoading={index < 3 ? "eager" : "lazy"} />
           </Reveal>
         ))}
       </div>
