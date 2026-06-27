@@ -1,4 +1,6 @@
 import { MessageCircle } from "lucide-react";
+import { FaInstagram, FaTiktok } from "react-icons/fa";
+import { IoLogoWhatsapp } from "react-icons/io";
 import Link from "next/link";
 import { ButtonLink } from "@/components/atoms/Button";
 import { LogoMark } from "@/components/atoms/LogoMark";
@@ -70,10 +72,34 @@ export function MarketplaceFooter() {
             {siteConfig.name} membantu bisnis memilih tampilan website yang rapi, mudah dipahami,
             dan siap dipakai untuk promosi.
           </p>
-          <div className="mt-8 flex gap-3 text-[14px] leading-[17px] font-medium text-foreground">
-            <span className="rounded-lg border border-border px-3 py-2">IG</span>
-            <span className="rounded-lg border border-border px-3 py-2">X</span>
-            <span className="rounded-lg border border-border px-3 py-2">WA</span>
+          <div className="mt-8 flex gap-3 text-foreground">
+            <Link
+              href={siteConfig.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center rounded-lg border border-border p-2.5 transition-colors hover:bg-border"
+              aria-label="Instagram"
+            >
+              <FaInstagram className="size-5" />
+            </Link>
+            <Link
+              href={siteConfig.tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center rounded-lg border border-border p-2.5 transition-colors hover:bg-border"
+              aria-label="TikTok"
+            >
+              <FaTiktok className="size-5" />
+            </Link>
+            <Link
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center rounded-lg border border-border p-2.5 transition-colors hover:bg-border"
+              aria-label="WhatsApp"
+            >
+              <IoLogoWhatsapp className="size-5" />
+            </Link>
           </div>
         </div>
 
@@ -82,8 +108,8 @@ export function MarketplaceFooter() {
             <h3 className="font-medium text-foreground">{column.title}</h3>
             <div className="mt-6 flex flex-col gap-4 text-foreground">
               {column.links.map((link) => (
-                <Link key={link} className="transition-colors hover:text-success" href="/">
-                  {link}
+                <Link key={link.href} className="transition-colors hover:text-success" href={link.href}>
+                  {link.label}
                 </Link>
               ))}
             </div>

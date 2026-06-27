@@ -74,7 +74,7 @@ export function ContactPage() {
                       <Icon aria-hidden="true" className="size-5" />
                     </span>
                     <span>
-                      <span className="block text-[14px] leading-[17px] font-medium text-muted">{item.label}</span>
+                      <span className="block text-[14px] leading-[17px] font-medium text-black">{item.label}</span>
                       <span className="mt-3 block text-[16px] leading-6 font-medium text-foreground">
                         {item.value}
                       </span>

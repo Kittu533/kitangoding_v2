@@ -14,7 +14,7 @@ import {
   marketplacePricing,
   shopCreatives,
 } from "@/lib/marketplace-data";
-import { pricingPlans, services as fallbackServices } from "@/lib/landing-data";
+import { pricingPlans, portfolioItems, services as fallbackServices } from "@/lib/landing-data";
 
 const fallbackImages = [
   "/images/project-1.png",
@@ -39,6 +39,13 @@ export type PublicCreativeCard = {
   description: string;
   price: string;
   image: string;
+};
+
+export type PortfolioCard = {
+  category: string;
+  name: string;
+  result: string;
+  thumbnail?: string | null;
 };
 
 export type PublicPricingPlan = {
@@ -452,4 +459,41 @@ export async function getPublicBlogPostBySlug(slug: string): Promise<PublicBlogD
   }
 
   return fallbackBlogDetails.find((item) => item.slug === slug) ?? null;
+}
+
+export async function getPortfolioProjects(limit?: number): Promise<PortfolioCard[]> {
+  try {
+    const rows = await db
+      .select({
+        name: portfolios.name,
+        result: portfolios.result,
+        thumbnail: portfolios.thumbnail,
+        categoryName: portfolioCategories.name,
+      })
+      .from(portfolios)
+      .leftJoin(portfolioCategories, eq(portfolios.categoryId, portfolioCategories.id))
+      .orderBy(desc(portfolios.createdAt));
+
+    if (rows.length > 0) {
+      const items: PortfolioCard[] = rows.map((item) => ({
+        category: item.categoryName || "Tanpa Kategori",
+        name: item.name,
+        result: item.result || "Portfolio project",
+        thumbnail: item.thumbnail,
+      }));
+      return typeof limit === "number" ? items.slice(0, limit) : items;
+    }
+  } catch (error) {
+    if (!isMissingTableError(error)) {
+      console.warn("Failed to load portfolio projects.", error);
+    }
+  }
+
+  const fallback: PortfolioCard[] = portfolioItems.map((item) => ({
+    category: item.category,
+    name: item.name,
+    result: item.result,
+    thumbnail: null,
+  }));
+  return typeof limit === "number" ? fallback.slice(0, limit) : fallback;
 }

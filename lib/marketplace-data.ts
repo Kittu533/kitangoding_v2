@@ -227,14 +227,30 @@ export const blogPagePosts = [
 export const footerColumns = [
   {
     title: "Halaman",
-    links: ["Home", "Harga", "Portfolio", "Blog", "Kontak"],
+    links: [
+      { label: "Home", href: "/" },
+      { label: "Harga", href: "/pricing" },
+      { label: "Portfolio", href: "/portfolio" },
+      { label: "Blog", href: "/blog" },
+      { label: "Kontak", href: "/contact" },
+    ],
   },
   {
     title: "Layanan",
-    links: ["Website Company Profile", "Landing Page", "Toko Online", "Aplikasi Web Custom"],
+    links: [
+      { label: "Website Company Profile", href: "/jasa-website-company-profile" },
+      { label: "Landing Page", href: "/jasa-landing-page-bisnis" },
+      { label: "Toko Online", href: "/jasa-toko-online-umkm" },
+      { label: "Aplikasi Web Custom", href: "/project-inquiry" },
+    ],
   },
   {
     title: "Resources",
-    links: ["FAQ", "Project Inquiry", "Konsultasi WhatsApp", "Studi Kasus"],
+    links: [
+      { label: "FAQ", href: "/#faq" },
+      { label: "Project Inquiry", href: "/project-inquiry" },
+      { label: "Konsultasi WhatsApp", href: "/contact" },
+      { label: "Studi Kasus", href: "/portfolio" },
+    ],
   },
 ] as const;

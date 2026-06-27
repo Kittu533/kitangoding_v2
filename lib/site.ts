@@ -12,7 +12,8 @@ export const siteConfig = {
   addressLocality: process.env.NEXT_PUBLIC_SITE_ADDRESS_LOCALITY || "Sendangadi, Mlati",
   addressRegion: process.env.NEXT_PUBLIC_SITE_ADDRESS_REGION || "Sleman, DI Yogyakarta",
   addressCountry: process.env.NEXT_PUBLIC_SITE_ADDRESS_COUNTRY || "ID",
-  instagram: process.env.NEXT_PUBLIC_SITE_INSTAGRAM || "https://instagram.com/kitangoding",
+  instagram: process.env.NEXT_PUBLIC_SITE_INSTAGRAM || "https://instagram.com/kitangoding.id",
+  tiktok: process.env.NEXT_PUBLIC_SITE_TIKTOK || "https://tiktok.com/@ryobisuryaatmaja",
   tagline:
     process.env.NEXT_PUBLIC_SITE_TAGLINE || "Jasa pembuatan website untuk bisnis yang ingin lebih dipercaya dan mudah dihubungi.",
 } as const;

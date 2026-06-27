@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
-import { PortfolioSection } from "@/components/organisms/PortfolioSection";
+import { PortfolioGallery } from "@/components/organisms/PortfolioGallery";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export default async function Page() {
     <div className="marketplace-page min-h-screen bg-market text-foreground">
       <FloatingNav />
       <main id="konten">
-        <PortfolioSection />
+        <PortfolioGallery />
         <CustomProjectCta />
       </main>
       <MarketplaceFooter />

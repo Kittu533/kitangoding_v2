@@ -20,14 +20,14 @@ export function SectionHeader({
       <Badge tone={invert ? "glass" : "orange"}>{eyebrow}</Badge>
       <h2
         className={cn(
-          "mt-5 font-display text-4xl leading-tight font-bold text-foreground md:text-5xl",
-          invert && "text-white"
+          "mt-5 font-display text-4xl leading-tight font-bold text-black md:text-5xl",
+          invert && "text-white!"
         )}
       >
         {title}
       </h2>
       {description ? (
-        <p className={cn("mt-5 text-base leading-8 text-muted", invert && "text-white/72")}>
+        <p className={cn("mt-5 text-black leading-8 ", invert && "text-black")}>
           {description}
         </p>
       ) : null}

@@ -85,7 +85,7 @@ export function ContactLeadForm() {
         <label className="grid gap-3 text-[16px] leading-6 font-medium text-foreground">
           Nama kamu
           <input
-            className="h-14 rounded-xl border border-border bg-white px-5 text-[16px] leading-6 font-normal text-foreground outline-none transition placeholder:text-muted/70 focus:border-success focus:ring-4 focus:ring-success/10"
+            className="h-14 rounded-xl border border-border bg-white px-5 text-[16px] leading-6 font-normal text-foreground outline-none transition placeholder:text-black/15 focus:border-success focus:ring-4 focus:ring-success/10"
             name="name"
             onChange={(event) => setName(event.target.value)}
             placeholder="Masukkan nama"
@@ -99,7 +99,7 @@ export function ContactLeadForm() {
         <label className="grid gap-3 text-[16px] leading-6 font-medium text-foreground">
           Email kamu
           <input
-            className="h-14 rounded-xl border border-border bg-white px-5 text-[16px] leading-6 font-normal text-foreground outline-none transition placeholder:text-muted/70 focus:border-success focus:ring-4 focus:ring-success/10"
+            className="h-14 rounded-xl border border-border bg-white px-5 text-[16px] leading-6 font-normal text-foreground outline-none transition placeholder:text-black/15 focus:border-success focus:ring-4 focus:ring-success/10"
             name="email"
             onChange={(event) => setEmail(event.target.value)}
             placeholder="Masukkan email"
@@ -113,7 +113,7 @@ export function ContactLeadForm() {
       <label className="grid gap-3 text-[16px] leading-6 font-medium text-foreground">
         Tulis kebutuhanmu
         <textarea
-          className="min-h-36 resize-none rounded-xl border border-border bg-white px-5 py-4 text-[16px] leading-6 font-normal text-foreground outline-none transition placeholder:text-muted/70 focus:border-success focus:ring-4 focus:ring-success/10"
+          className="min-h-36 resize-none rounded-xl border border-border bg-white px-5 py-4 text-[16px] leading-6 font-normal text-foreground outline-none transition placeholder:text-black/15 focus:border-success focus:ring-4 focus:ring-success/10"
           name="message"
           onChange={(event) => setMessage(event.target.value)}
           placeholder="Contoh: Saya ingin website untuk usaha kuliner, ada katalog menu dan tombol WhatsApp."
