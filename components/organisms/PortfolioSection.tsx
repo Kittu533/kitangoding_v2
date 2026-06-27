@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
 
 const filters = ["Semua", "Company Profile", "E-Commerce", "Landing Page"] as const;
 const sectionStats = [
-  { value: "3+", label: "contoh project untuk bahan diskusi" },
-  { value: "Bukti", label: "bahwa website bisnis memang bisa kami kerjakan" },
+  { value: "4 jenis", label: "website yang biasa kami kerjakan untuk bisnis" },
+  { value: "Brief → live", label: "alur kerja jelas dari diskusi awal sampai online" },
 ] as const;
 const referencePoints = [
   ["Jenis project", "Arah tampilan", "Alur CTA"],

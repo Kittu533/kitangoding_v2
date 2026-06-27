@@ -7,7 +7,7 @@ Admin dashboard dan Better Auth di project ini memakai `drizzle-orm` + `postgres
 ```bash
 DATABASE_URL="postgresql://postgres.lfmlibtzaxsisgojyjei:[YOUR-PASSWORD]@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
 DIRECT_URL="postgresql://postgres.lfmlibtzaxsisgojyjei:[YOUR-PASSWORD]@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"
-BETTER_AUTH_SECRET="generate-a-random-secret-key-here"
+BETTER_AUTH_SECRET="<generate with: openssl rand -base64 48>"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 

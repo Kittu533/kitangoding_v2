@@ -52,6 +52,9 @@ export function CustomProjectCta() {
         >
           Chat Konsultasi Website
         </ButtonLink>
+        <p className="mt-4 text-sm font-medium text-muted">
+          Balas via WhatsApp di jam kerja. Gratis &amp; tanpa wajib lanjut.
+        </p>
       </div>
     </section>
   );
