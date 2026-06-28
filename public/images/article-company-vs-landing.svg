@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Company Profile vs Landing Page</title>
+  <desc id="desc">Ilustrasi artikel perbedaan website company profile dan landing page.</desc>
+  <rect width="1200" height="630" fill="#f6efe4"/>
+  <rect x="90" y="120" width="450" height="390" rx="32" fill="#1b424a"/>
+  <rect x="660" y="120" width="450" height="390" rx="32" fill="#d8834d"/>
+  <text x="170" y="300" fill="#f6efe4" font-family="Arial, sans-serif" font-size="48" font-weight="700">Company</text>
+  <text x="170" y="360" fill="#f6efe4" font-family="Arial, sans-serif" font-size="48" font-weight="700">Profile</text>
+  <text x="760" y="300" fill="#fff8f0" font-family="Arial, sans-serif" font-size="48" font-weight="700">Landing</text>
+  <text x="760" y="360" fill="#fff8f0" font-family="Arial, sans-serif" font-size="48" font-weight="700">Page</text>
+  <text x="515" y="335" fill="#5a564f" font-family="Arial, sans-serif" font-size="44" font-weight="700">VS</text>
+</svg>

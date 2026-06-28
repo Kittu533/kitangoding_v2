@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">SEO Lokal untuk UMKM</title>
+  <desc id="desc">Ilustrasi artikel SEO lokal untuk website UMKM.</desc>
+  <rect width="1200" height="630" fill="#eef5f1"/>
+  <rect x="110" y="120" width="980" height="390" rx="40" fill="#163841"/>
+  <circle cx="300" cy="275" r="105" fill="#d8834d"/>
+  <path d="M300 220c-28 0-50 22-50 50 0 39 50 95 50 95s50-56 50-95c0-28-22-50-50-50zm0 72a22 22 0 1 1 0-44 22 22 0 0 1 0 44z" fill="#f8f2ea"/>
+  <text x="470" y="255" fill="#eef5f1" font-family="Arial, sans-serif" font-size="54" font-weight="700">SEO Lokal</text>
+  <text x="470" y="320" fill="#eef5f1" font-family="Arial, sans-serif" font-size="54" font-weight="700">untuk UMKM</text>
+  <text x="470" y="392" fill="#9ecbbf" font-family="Arial, sans-serif" font-size="28">Perkuat relevansi area layanan bisnis</text>
+</svg>

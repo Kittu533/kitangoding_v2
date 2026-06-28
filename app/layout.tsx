@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     "web developer Indonesia",
     "website company profile",
     "landing page UMKM",
-    "jasa web developer Solo",
+    "jasa web developer Jawa",
   ],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,

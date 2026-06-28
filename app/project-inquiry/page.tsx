@@ -33,6 +33,37 @@ export const metadata: Metadata = {
   },
 };
 
+const projectInquiryJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Konsultasi Project Website & Landing Page",
+  description:
+    "Halaman brief awal untuk konsultasi project website, landing page, toko online, dan aplikasi web bersama Kita Ngoding.",
+  url: `${siteConfig.domain}/project-inquiry`,
+  mainEntity: {
+    "@type": "Service",
+    name: "Konsultasi Project Website",
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.domain,
+    },
+    areaServed: "ID",
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceUrl: `${siteConfig.domain}/project-inquiry`,
+    },
+  },
+};
+
 export default function Page() {
-  return <ProjectInquiryPage />;
+  return (
+    <>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectInquiryJsonLd) }}
+        type="application/ld+json"
+      />
+      <ProjectInquiryPage />
+    </>
+  );
 }

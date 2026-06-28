@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Website Custom untuk Bisnis</title>
+  <desc id="desc">Ilustrasi artikel tentang website custom sebagai investasi bisnis.</desc>
+  <rect width="1200" height="630" fill="#f4efe8"/>
+  <circle cx="220" cy="170" r="110" fill="#d5693f"/>
+  <circle cx="980" cy="500" r="150" fill="#1f4954"/>
+  <rect x="160" y="120" width="880" height="390" rx="42" fill="#fff8f1"/>
+  <rect x="220" y="190" width="260" height="240" rx="28" fill="#1f4954"/>
+  <path d="M305 270l-45 40 45 40" fill="none" stroke="#f4efe8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M395 270l45 40-45 40" fill="none" stroke="#f4efe8" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="540" y="275" fill="#1b2c34" font-family="Arial, sans-serif" font-size="54" font-weight="700">Website Custom</text>
+  <text x="540" y="340" fill="#1b2c34" font-family="Arial, sans-serif" font-size="54" font-weight="700">untuk Bisnis</text>
+  <text x="540" y="402" fill="#8b5c47" font-family="Arial, sans-serif" font-size="28">Kapan layak jadi investasi</text>
+</svg>

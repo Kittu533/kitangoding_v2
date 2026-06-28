@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Konten Wajib Website UMKM</title>
+  <desc id="desc">Ilustrasi artikel konten penting sebelum membuat website UMKM.</desc>
+  <rect width="1200" height="630" fill="#f7f1e9"/>
+  <rect x="150" y="95" width="900" height="440" rx="38" fill="#173942"/>
+  <rect x="235" y="155" width="330" height="320" rx="26" fill="#fff7ef"/>
+  <rect x="290" y="220" width="220" height="18" rx="9" fill="#173942"/>
+  <rect x="290" y="265" width="175" height="18" rx="9" fill="#80a4a8"/>
+  <rect x="290" y="310" width="185" height="18" rx="9" fill="#80a4a8"/>
+  <rect x="290" y="355" width="150" height="18" rx="9" fill="#80a4a8"/>
+  <text x="625" y="255" fill="#f7f1e9" font-family="Arial, sans-serif" font-size="54" font-weight="700">Konten Wajib</text>
+  <text x="625" y="320" fill="#f7f1e9" font-family="Arial, sans-serif" font-size="54" font-weight="700">Website UMKM</text>
+</svg>

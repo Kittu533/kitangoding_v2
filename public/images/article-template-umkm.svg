@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Cara Memilih Template Website UMKM</title>
+  <desc id="desc">Ilustrasi artikel tentang memilih template website untuk UMKM.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f7efe5"/>
+      <stop offset="100%" stop-color="#d9f0e7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="80" y="110" width="440" height="300" rx="28" fill="#fff" opacity="0.95"/>
+  <rect x="110" y="150" width="200" height="18" rx="9" fill="#1d4d4f"/>
+  <rect x="110" y="190" width="320" height="14" rx="7" fill="#7aa6a1"/>
+  <rect x="110" y="220" width="280" height="14" rx="7" fill="#7aa6a1"/>
+  <rect x="110" y="270" width="120" height="120" rx="18" fill="#f4b183"/>
+  <rect x="250" y="270" width="240" height="26" rx="13" fill="#1d4d4f"/>
+  <rect x="250" y="310" width="180" height="18" rx="9" fill="#7aa6a1"/>
+  <rect x="590" y="120" width="520" height="390" rx="36" fill="#17313a"/>
+  <text x="640" y="250" fill="#f7efe5" font-family="Arial, sans-serif" font-size="56" font-weight="700">Template Website</text>
+  <text x="640" y="320" fill="#f7efe5" font-family="Arial, sans-serif" font-size="56" font-weight="700">untuk UMKM</text>
+  <text x="640" y="390" fill="#9bd2c8" font-family="Arial, sans-serif" font-size="28">Pilih yang cocok dengan tujuan bisnis</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Timeline Pembuatan Website</title>
+  <desc id="desc">Ilustrasi artikel durasi pembuatan website bisnis.</desc>
+  <rect width="1200" height="630" fill="#eef5f0"/>
+  <rect x="120" y="140" width="960" height="350" rx="40" fill="#ffffff"/>
+  <path d="M220 315h760" stroke="#1c4447" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="320" cy="315" r="34" fill="#1c4447"/>
+  <circle cx="600" cy="315" r="34" fill="#d8804c"/>
+  <circle cx="880" cy="315" r="34" fill="#7eb6ab"/>
+  <text x="250" y="240" fill="#1c4447" font-family="Arial, sans-serif" font-size="28">Brief</text>
+  <text x="540" y="240" fill="#1c4447" font-family="Arial, sans-serif" font-size="28">Build</text>
+  <text x="810" y="240" fill="#1c4447" font-family="Arial, sans-serif" font-size="28">Launch</text>
+  <text x="305" y="420" fill="#4c6468" font-family="Arial, sans-serif" font-size="24">Tahapan project website bisnis</text>
+</svg>

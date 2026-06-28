@@ -111,7 +111,7 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     slug: "cara-memilih-template-website-yang-cocok-untuk-umkm",
     title: "Cara Memilih Template Website yang Cocok untuk UMKM",
     excerpt: "Panduan sederhana untuk memilih tampilan yang sesuai dengan jenis bisnis, tujuan, dan calon pelanggan kamu.",
-    image: "/images/project-7.png",
+    image: "/images/article-template-umkm.svg",
     category: "Tips Bisnis",
     date: "June 2, 2026",
     content:
@@ -121,7 +121,7 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     slug: "kenapa-website-custom-bisa-jadi-investasi-yang-masuk-akal",
     title: "Kenapa Website Custom Bisa Jadi Investasi yang Masuk Akal",
     excerpt: "Kapan bisnis cukup pakai template, dan kapan perlu tampilan custom yang dibuat lebih spesifik.",
-    image: "/images/project-8.png",
+    image: "/images/article-custom-website.svg",
     category: "Studi Kasus",
     date: "May 28, 2026",
     content:
@@ -131,7 +131,7 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     slug: "strategi-sederhana-agar-website-lebih-banyak-menghasilkan-lead",
     title: "Strategi Sederhana agar Website Lebih Banyak Menghasilkan Lead",
     excerpt: "Mulai dari pesan utama, struktur halaman, sampai tombol WhatsApp yang lebih jelas untuk calon pelanggan.",
-    image: "/images/project-5.webp",
+    image: "/images/article-lead-strategy.svg",
     category: "Digital Marketing",
     date: "May 24, 2026",
     content:
@@ -141,7 +141,7 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     slug: "jasa-website-company-profile-umkm",
     title: "Jasa Website Company Profile UMKM: Apa Saja yang Perlu Ada?",
     excerpt: "Panduan isi website company profile UMKM agar bisnis terlihat jelas, dipercaya, dan mudah dihubungi calon pelanggan.",
-    image: "/images/project-4.webp",
+    image: "/images/article-company-profile.svg",
     category: "Tips Bisnis",
     date: "June 12, 2026",
     content:
@@ -151,7 +151,7 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     slug: "jasa-landing-page-untuk-iklan",
     title: "Jasa Landing Page untuk Iklan: Kenapa Tidak Cukup Pakai Homepage?",
     excerpt: "Landing page membantu traffic iklan membaca satu penawaran dengan alur yang lebih fokus dan CTA yang lebih jelas.",
-    image: "/images/project-5.webp",
+    image: "/images/article-landing-page-ads.svg",
     category: "Digital Marketing",
     date: "June 10, 2026",
     content:
@@ -161,7 +161,7 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     slug: "biaya-pembuatan-website-umkm",
     title: "Biaya Pembuatan Website UMKM: Faktor yang Mempengaruhi Harga",
     excerpt: "Harga website UMKM dipengaruhi jumlah halaman, kebutuhan desain, fitur, konten, integrasi, dan dukungan setelah launch.",
-    image: "/images/project-6.webp",
+    image: "/images/article-biaya-website.svg",
     category: "Tips Bisnis",
     date: "June 8, 2026",
     content:
@@ -171,7 +171,7 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     slug: "jasa-toko-online-untuk-umkm",
     title: "Jasa Toko Online untuk UMKM: Mulai dari Katalog atau Checkout?",
     excerpt: "Tidak semua UMKM perlu checkout penuh sejak awal. Kadang katalog produk dengan alur WhatsApp lebih cepat menghasilkan order.",
-    image: "/images/project-7.png",
+    image: "/images/article-toko-online-umkm.svg",
     category: "Web Development",
     date: "June 6, 2026",
     content:
@@ -181,7 +181,7 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     slug: "website-bisnis-agar-mudah-ditemukan-google",
     title: "Agar Website Bisnis Mudah Ditemukan Google, Mulai dari Hal Ini",
     excerpt: "SEO teknis penting, tapi Google juga butuh halaman yang jelas membahas layanan, lokasi, masalah pelanggan, dan bukti bisnis.",
-    image: "/images/project-8.png",
+    image: "/images/article-google-discovery.svg",
     category: "Digital Marketing",
     date: "June 4, 2026",
     content:
@@ -191,11 +191,71 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     slug: "cara-membuat-website-bisnis-lebih-meyakinkan",
     title: "Cara Membuat Website Bisnis Lebih Meyakinkan untuk Calon Pelanggan",
     excerpt: "Kepercayaan muncul dari pesan yang jelas, bukti kerja, tampilan rapi, kecepatan halaman, dan jalur kontak yang tidak membingungkan.",
-    image: "/images/project-1.png",
+    image: "/images/article-website-trust.svg",
     category: "Strategi Branding",
     date: "June 1, 2026",
     content:
       "Website bisnis yang meyakinkan tidak harus penuh animasi. Pengunjung biasanya mencari jawaban sederhana: bisnis ini bisa membantu saya atau tidak, sudah pernah mengerjakan hal serupa atau belum, dan mudah dihubungi atau tidak.\n\nMulai dari headline yang langsung menyebut layanan dan target pelanggan. Setelah itu tampilkan manfaat, contoh hasil kerja, testimoni, proses kerja, dan FAQ. Hindari kalimat yang terlalu umum seperti solusi terbaik tanpa bukti pendukung.\n\nDetail kecil juga berpengaruh: nomor kontak aktif, tombol WhatsApp yang jelas, halaman cepat dibuka, gambar tidak pecah, dan tampilan mobile rapi. Semakin sedikit keraguan yang muncul, semakin besar peluang pengunjung menghubungi.",
+  },
+  {
+    slug: "perbedaan-website-company-profile-dan-landing-page",
+    title: "Perbedaan Website Company Profile dan Landing Page untuk Bisnis",
+    excerpt: "Dua jenis halaman ini sering dianggap sama, padahal tujuan, struktur, dan cara pakainya berbeda.",
+    image: "/images/article-company-vs-landing.svg",
+    category: "Tips Bisnis",
+    date: "May 30, 2026",
+    content:
+      "Website company profile dipakai untuk menjelaskan bisnis secara menyeluruh. Biasanya ada profil, layanan, portfolio, testimoni, FAQ, dan kontak. Tujuannya membangun kepercayaan dan memberi gambaran lengkap tentang siapa kamu.\n\nLanding page jauh lebih fokus. Biasanya satu halaman untuk satu penawaran, satu campaign, atau satu CTA utama. Struktur isinya lebih singkat dan diarahkan agar pengunjung cepat mengambil tindakan seperti chat, isi form, atau order.\n\nKalau bisnis kamu butuh aset jangka panjang untuk kredibilitas, company profile sering jadi fondasi. Kalau fokusnya promosi tertentu atau traffic iklan, landing page biasanya lebih efektif.",
+  },
+  {
+    slug: "berapa-lama-pembuatan-website-bisnis",
+    title: "Berapa Lama Pembuatan Website Bisnis Biasanya Selesai?",
+    excerpt: "Durasi pembuatan website dipengaruhi kejelasan brief, jumlah revisi, isi konten, dan fitur yang diminta.",
+    image: "/images/article-project-timeline.svg",
+    category: "Web Development",
+    date: "May 27, 2026",
+    content:
+      "Website bisnis yang sederhana bisa selesai lebih cepat kalau arah desain, isi halaman, dan CTA sudah jelas sejak awal. Yang sering memperlambat justru bukan coding, tetapi revisi tanpa brief yang rapi, konten yang belum siap, atau perubahan scope di tengah jalan.\n\nProject company profile ringan biasanya lebih cepat daripada website custom dengan banyak alur, form, katalog, atau integrasi tambahan. Landing page campaign juga bisa relatif cepat kalau penawaran dan copy utamanya sudah matang.\n\nCara paling realistis untuk mempercepat proses adalah menyiapkan bahan dari awal: profil bisnis, layanan utama, foto, contoh referensi, dan tujuan halaman. Semakin jelas inputnya, semakin kecil risiko bolak-balik revisi.",
+  },
+  {
+    slug: "konten-wajib-sebelum-bikin-website-umkm",
+    title: "Konten Wajib yang Sebaiknya Disiapkan Sebelum Bikin Website UMKM",
+    excerpt: "Website lebih cepat jadi kalau pemilik bisnis sudah menyiapkan isi inti sebelum masuk tahap desain.",
+    image: "/images/article-konten-website.svg",
+    category: "Tips Bisnis",
+    date: "May 25, 2026",
+    content:
+      "Banyak project website tertahan karena desain mulai duluan, tapi isi utamanya belum siap. Padahal pengunjung datang untuk membaca informasi penting: bisnis ini jual apa, untuk siapa, apa keunggulannya, dan bagaimana cara menghubungi.\n\nKonten minimum yang sebaiknya disiapkan adalah ringkasan bisnis, daftar layanan atau produk, area layanan, testimoni atau bukti kerja, FAQ yang paling sering ditanya, dan CTA yang ingin dituju. Bahkan poin-poin sederhana sudah cukup untuk membantu struktur halaman.\n\nKalau konten dasarnya siap lebih awal, proses desain jadi lebih akurat. Tim tidak menebak-nebak isi halaman, dan revisi biasanya jauh lebih sedikit.",
+  },
+  {
+    slug: "website-umkm-untuk-order-whatsapp",
+    title: "Website UMKM untuk Order WhatsApp: Kapan Ini Sudah Cukup?",
+    excerpt: "Tidak semua bisnis perlu checkout penuh. Untuk banyak UMKM, alur order lewat WhatsApp masih jadi langkah paling masuk akal.",
+    image: "/images/article-whatsapp-order.svg",
+    category: "Digital Marketing",
+    date: "May 22, 2026",
+    content:
+      "Website dengan tombol order WhatsApp sering dianggap terlalu sederhana, padahal untuk banyak UMKM justru itu yang paling efektif. Pengunjung tetap bisa melihat produk, manfaat, harga, dan testimoni di website, lalu proses closing lanjut lewat chat.\n\nModel ini cocok ketika produk masih sering berubah, butuh konsultasi sebelum order, atau admin ingin tetap mengatur transaksi secara manual. Dibanding memaksa checkout penuh terlalu cepat, alur WhatsApp sering lebih ringan dan lebih cepat jalan.\n\nYang penting, struktur websitenya tetap rapi. Pengunjung harus paham produk apa yang dijual, kisaran harga, cara order, dan berapa lama responnya. Kalau ini jelas, WhatsApp bisa jadi CTA yang sangat kuat.",
+  },
+  {
+    slug: "partner-website-bisnis-area-jawa",
+    title: "Partner Website Bisnis untuk Area Jawa: Hal yang Perlu Dicek",
+    excerpt: "Kalau bisnis kamu melayani Jogja, Solo, Wonogiri, dan area Jawa lain, pilih partner website yang paham kebutuhan bisnis lokal.",
+    image: "/images/article-website-jawa.svg",
+    category: "Studi Kasus",
+    date: "May 19, 2026",
+    content:
+      "Kalau bisnis kamu menjangkau Jogja, Solo, Wonogiri, atau area Jawa lain, partner website yang dipilih sebaiknya tidak cuma menjual visual. Yang lebih penting adalah apakah mereka paham kebutuhan bisnis lokal, bisa menunjukkan contoh hasil kerja, dan punya proses yang jelas dari brief sampai launch.\n\nPerhatikan cara mereka bertanya saat awal diskusi. Tim yang baik biasanya tidak langsung bicara desain saja, tapi juga menanyakan target pelanggan, tujuan website, CTA utama, dan alur komunikasi setelah website online.\n\nKalau targetnya website yang dipakai untuk promosi serius, pilih partner yang bisa membantu struktur halaman, bukan hanya memasang template. Hasil akhir website sangat dipengaruhi kualitas diskusi di awal.",
+  },
+  {
+    slug: "seo-lokal-website-umkm",
+    title: "SEO Lokal untuk Website UMKM: Langkah Dasar yang Paling Efektif",
+    excerpt: "SEO lokal membantu website UMKM lebih relevan untuk calon pelanggan di area layanan tertentu.",
+    image: "/images/article-seo-lokal.svg",
+    category: "Digital Marketing",
+    date: "May 16, 2026",
+    content:
+      "SEO lokal penting kalau bisnis kamu melayani area tertentu seperti kota, kabupaten, atau wilayah layanan spesifik. Google perlu sinyal yang jelas tentang lokasi, jenis layanan, dan siapa target pelanggan di area itu.\n\nLangkah dasarnya adalah menulis halaman layanan yang menyebut konteks lokal secara alami, menampilkan alamat atau area layanan, menyamakan data kontak di website, dan menyiapkan konten yang menjawab kebutuhan pelanggan lokal. Kombinasi ini membantu Google memahami relevansi bisnis.\n\nKalau ada Google Business Profile, website dan profil bisnis sebaiknya saling mendukung. Halaman layanan, kontak, dan CTA lokal harus konsisten supaya sinyal brand dan lokasi lebih kuat.",
   },
 ];
 

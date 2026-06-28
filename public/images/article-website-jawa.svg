@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Partner Website Bisnis Area Jawa</title>
+  <desc id="desc">Ilustrasi artikel memilih partner website untuk bisnis di Jogja, Solo, Wonogiri, dan area Jawa.</desc>
+  <rect width="1200" height="630" fill="#f6efe5"/>
+  <rect x="120" y="110" width="960" height="410" rx="42" fill="#ffffff"/>
+  <rect x="180" y="170" width="280" height="280" rx="28" fill="#1e434b"/>
+  <path d="M240 240h160v140H240z" fill="#f5efe6"/>
+  <path d="M290 240v140" stroke="#1e434b" stroke-width="12"/>
+  <path d="M240 290h160" stroke="#1e434b" stroke-width="12"/>
+  <text x="530" y="255" fill="#1e434b" font-family="Arial, sans-serif" font-size="54" font-weight="700">Partner Website</text>
+  <text x="530" y="320" fill="#1e434b" font-family="Arial, sans-serif" font-size="54" font-weight="700">Area Jawa</text>
+  <text x="530" y="392" fill="#7c6a5a" font-family="Arial, sans-serif" font-size="28">Jogja, Solo, Wonogiri, dan sekitarnya</text>
+</svg>

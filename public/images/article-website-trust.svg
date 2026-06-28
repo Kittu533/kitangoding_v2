@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Website yang Lebih Meyakinkan</title>
+  <desc id="desc">Ilustrasi artikel tentang membangun kepercayaan lewat website bisnis.</desc>
+  <rect width="1200" height="630" fill="#f5efe6"/>
+  <rect x="130" y="110" width="940" height="410" rx="42" fill="#183740"/>
+  <path d="M300 190l120 50v95c0 70-47 125-120 155-73-30-120-85-120-155v-95z" fill="#d88953"/>
+  <path d="M248 322l34 34 68-78" fill="none" stroke="#183740" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="500" y="250" fill="#f5efe6" font-family="Arial, sans-serif" font-size="54" font-weight="700">Website yang</text>
+  <text x="500" y="315" fill="#f5efe6" font-family="Arial, sans-serif" font-size="54" font-weight="700">Meyakinkan</text>
+  <text x="500" y="390" fill="#9ec8be" font-family="Arial, sans-serif" font-size="28">Pesan, bukti, dan CTA yang jelas</text>
+</svg>

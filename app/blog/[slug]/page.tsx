@@ -14,6 +14,56 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+const relatedServiceLinksBySlug: Record<string, Array<{ href: string; label: string; description: string }>> = {
+  "jasa-website-company-profile-umkm": [
+    {
+      href: "/jasa-website-company-profile",
+      label: "Jasa website company profile",
+      description: "Halaman layanan untuk bisnis yang butuh profil perusahaan yang rapi dan meyakinkan.",
+    },
+  ],
+  "jasa-landing-page-untuk-iklan": [
+    {
+      href: "/jasa-landing-page-bisnis",
+      label: "Jasa landing page bisnis",
+      description: "Cocok untuk campaign iklan, promo, dan halaman fokus konversi.",
+    },
+  ],
+  "jasa-toko-online-untuk-umkm": [
+    {
+      href: "/jasa-toko-online-umkm",
+      label: "Jasa toko online UMKM",
+      description: "Untuk katalog produk dan alur order yang lebih rapi dari media sosial saja.",
+    },
+  ],
+  "perbedaan-website-company-profile-dan-landing-page": [
+    {
+      href: "/jasa-website-company-profile",
+      label: "Lihat company profile",
+      description: "Kalau kebutuhanmu fokus ke kredibilitas brand dan profil usaha.",
+    },
+    {
+      href: "/jasa-landing-page-bisnis",
+      label: "Lihat landing page bisnis",
+      description: "Kalau kebutuhanmu fokus ke campaign dan CTA yang lebih tajam.",
+    },
+  ],
+  "website-umkm-untuk-order-whatsapp": [
+    {
+      href: "/jasa-toko-online-umkm",
+      label: "Lihat solusi toko online UMKM",
+      description: "Relevan untuk katalog ringan dengan CTA order ke WhatsApp.",
+    },
+  ],
+  "biaya-pembuatan-website-umkm": [
+    {
+      href: "/pricing",
+      label: "Cek kisaran harga",
+      description: "Untuk lihat paket awal dan scope yang paling masuk akal.",
+    },
+  ],
+};
+
 function stripInlineMarkdown(text: string) {
   return text
     .replace(/\*\*(.*?)\*\*/g, "$1")
@@ -124,6 +174,7 @@ export default async function Page({ params }: Props) {
   const relatedPosts = (await getPublicBlogPosts())
     .filter((item) => item.slug !== post.slug)
     .slice(0, 3);
+  const relatedServiceLinks = relatedServiceLinksBySlug[post.slug] ?? [];
   const postImageUrl = post.image.startsWith("http")
     ? post.image
     : new URL(post.image, siteConfig.domain).toString();
@@ -229,6 +280,28 @@ export default async function Page({ params }: Props) {
 
               <Reveal delay={0.08}>
                 <aside className="space-y-6">
+                  {relatedServiceLinks.length > 0 ? (
+                    <div className="rounded-[2rem] border border-border bg-white p-6 shadow-card">
+                      <p className="text-sm font-bold uppercase tracking-[0.18em] text-success">
+                        Layanan Terkait
+                      </p>
+                      <div className="mt-5 space-y-4">
+                        {relatedServiceLinks.map((item) => (
+                          <Link
+                            key={item.href}
+                            className="group block rounded-2xl border border-border/70 bg-market p-4 transition hover:border-success/30 hover:shadow-sm"
+                            href={item.href}
+                          >
+                            <h2 className="text-lg leading-snug font-extrabold text-foreground transition group-hover:text-success">
+                              {item.label}
+                            </h2>
+                            <p className="mt-2 text-sm leading-6 text-muted">{item.description}</p>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+
                   <div className="rounded-[2rem] border border-border bg-white p-6 shadow-card">
                     <p className="text-sm font-bold uppercase tracking-[0.18em] text-success">
                       Artikel Lainnya

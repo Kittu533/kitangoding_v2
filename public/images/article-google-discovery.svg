@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Website Mudah Ditemukan Google</title>
+  <desc id="desc">Ilustrasi artikel SEO dasar agar website lebih mudah ditemukan Google.</desc>
+  <rect width="1200" height="630" fill="#eef6f4"/>
+  <rect x="105" y="105" width="990" height="420" rx="44" fill="#ffffff"/>
+  <circle cx="285" cy="300" r="125" fill="#173b42"/>
+  <circle cx="285" cy="300" r="70" fill="none" stroke="#eef6f4" stroke-width="22"/>
+  <path d="M348 362l55 55" stroke="#eef6f4" stroke-width="22" stroke-linecap="round"/>
+  <text x="470" y="255" fill="#173b42" font-family="Arial, sans-serif" font-size="54" font-weight="700">Mudah Ditemukan</text>
+  <text x="470" y="320" fill="#173b42" font-family="Arial, sans-serif" font-size="54" font-weight="700">di Google</text>
+  <text x="470" y="392" fill="#6f8b8f" font-family="Arial, sans-serif" font-size="28">SEO teknis, konten, dan relevansi layanan</text>
+</svg>

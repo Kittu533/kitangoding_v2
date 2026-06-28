@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Biaya Pembuatan Website UMKM</title>
+  <desc id="desc">Ilustrasi artikel faktor biaya pembuatan website UMKM.</desc>
+  <rect width="1200" height="630" fill="#eef4ee"/>
+  <rect x="120" y="110" width="960" height="410" rx="38" fill="#ffffff"/>
+  <circle cx="300" cy="315" r="125" fill="#1d4a4e"/>
+  <text x="250" y="335" fill="#eef4ee" font-family="Arial, sans-serif" font-size="96" font-weight="700">Rp</text>
+  <text x="500" y="255" fill="#1b2f33" font-family="Arial, sans-serif" font-size="56" font-weight="700">Biaya Website</text>
+  <text x="500" y="320" fill="#1b2f33" font-family="Arial, sans-serif" font-size="56" font-weight="700">untuk UMKM</text>
+  <rect x="500" y="370" width="380" height="18" rx="9" fill="#88aaa1"/>
+  <rect x="500" y="405" width="300" height="18" rx="9" fill="#88aaa1"/>
+</svg>

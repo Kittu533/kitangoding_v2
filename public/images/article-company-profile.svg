@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Website Company Profile UMKM</title>
+  <desc id="desc">Ilustrasi artikel elemen penting website company profile UMKM.</desc>
+  <rect width="1200" height="630" fill="#f7f0e4"/>
+  <rect x="120" y="95" width="960" height="440" rx="44" fill="#ffffff"/>
+  <rect x="170" y="145" width="360" height="340" rx="28" fill="#204750"/>
+  <rect x="610" y="165" width="320" height="26" rx="13" fill="#204750"/>
+  <rect x="610" y="215" width="240" height="18" rx="9" fill="#7e9ea6"/>
+  <rect x="610" y="250" width="280" height="18" rx="9" fill="#7e9ea6"/>
+  <rect x="610" y="315" width="390" height="110" rx="24" fill="#f0e0c2"/>
+  <text x="220" y="290" fill="#f7f0e4" font-family="Arial, sans-serif" font-size="46" font-weight="700">Company</text>
+  <text x="220" y="350" fill="#f7f0e4" font-family="Arial, sans-serif" font-size="46" font-weight="700">Profile</text>
+  <text x="610" y="470" fill="#6f513c" font-family="Arial, sans-serif" font-size="28">Isi penting untuk website UMKM</text>
+</svg>
