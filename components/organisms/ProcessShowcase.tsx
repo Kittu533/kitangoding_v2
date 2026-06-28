@@ -105,7 +105,7 @@ export function ProcessShowcase() {
                 <div className="mx-auto mt-2 h-3 w-14 rounded-full bg-ink" />
                 <div className="overflow-hidden rounded-b-3xl p-2">
                   <Image
-                    alt=""
+                    alt={`${activeImage.alt} dalam tampilan mobile`}
                     className="h-auto w-full rounded-2xl"
                     height={800}
                     src={activeImage.src}

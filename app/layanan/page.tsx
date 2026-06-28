@@ -40,9 +40,33 @@ export default async function Page() {
   await connection();
 
   const services = await getPublicServices(4);
+  const serviceCatalogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    name: "Layanan Jasa Website Kita Ngoding",
+    url: `${siteConfig.domain}/layanan`,
+    itemListElement: services.map((service, index) => ({
+      "@type": "Offer",
+      position: index + 1,
+      itemOffered: {
+        "@type": "Service",
+        name: service.title,
+        description: service.description,
+        provider: {
+          "@type": "Organization",
+          name: siteConfig.name,
+          url: siteConfig.domain,
+        },
+      },
+    })),
+  };
 
   return (
     <div className="marketplace-page min-h-screen bg-market text-foreground">
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceCatalogJsonLd) }}
+        type="application/ld+json"
+      />
       <FloatingNav />
       <main id="konten">
         <ServicesOverviewSection services={services} />

@@ -33,6 +33,37 @@ export const metadata: Metadata = {
   },
 };
 
+const contactPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: "Kontak Jasa Pembuatan Website Kita Ngoding",
+  description:
+    "Hubungi Kita Ngoding untuk konsultasi website UMKM, landing page, dan toko online.",
+  url: `${siteConfig.domain}/contact`,
+  mainEntity: {
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.domain,
+    email: siteConfig.email,
+    telephone: `+${siteConfig.phoneHref}`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: siteConfig.addressLocality,
+      addressRegion: siteConfig.addressRegion,
+      addressCountry: siteConfig.addressCountry,
+    },
+    sameAs: [siteConfig.instagram, siteConfig.tiktok],
+  },
+};
+
 export default function Page() {
-  return <ContactPage />;
+  return (
+    <>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}
+        type="application/ld+json"
+      />
+      <ContactPage />
+    </>
+  );
 }

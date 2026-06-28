@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { desc, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { blogPosts } from "@/lib/db/schema";
+import { fallbackBlogDetails } from "@/lib/public-content";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -9,6 +10,12 @@ export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date();
   let blogEntries: MetadataRoute.Sitemap = [];
+  const fallbackBlogEntries: MetadataRoute.Sitemap = fallbackBlogDetails.map((post) => ({
+    url: `${siteConfig.domain}/blog/${post.slug}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
 
   try {
     const publishedPosts = await db
@@ -32,7 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.warn("Failed to load blog entries for sitemap.", error);
   }
 
-  return [
+  const entries: MetadataRoute.Sitemap = [
     {
       url: siteConfig.domain,
       lastModified,
@@ -53,6 +60,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${siteConfig.domain}/portfolio`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${siteConfig.domain}/referensi`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.7,
@@ -99,6 +112,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    ...fallbackBlogEntries,
     ...blogEntries,
   ];
+
+  return entries.filter(
+    (entry, index, array) => array.findIndex((item) => item.url === entry.url) === index,
+  );
 }

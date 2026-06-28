@@ -34,8 +34,55 @@ export const metadata: Metadata = {
   },
 };
 
+const shopJsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Template Website & Aset Kreatif",
+    description:
+      "Template website, landing page, dan aset kreatif dari Kita Ngoding untuk kebutuhan bisnis.",
+    url: `${siteConfig.domain}/shop`,
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.domain,
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Katalog Template Website Kita Ngoding",
+    url: `${siteConfig.domain}/shop`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Template Website Company Profile",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Template Landing Page Campaign",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Template Toko Online UMKM",
+      },
+    ],
+  },
+];
+
 export default async function Page() {
   await connection();
 
-  return <ShopPage />;
+  return (
+    <>
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(shopJsonLd) }}
+        type="application/ld+json"
+      />
+      <ShopPage />
+    </>
+  );
 }
