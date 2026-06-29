@@ -1,4 +1,6 @@
+import Link from "next/link";
 import type { AnchorHTMLAttributes, ReactNode } from "react";
+import { getLinkKind, getTransitionTypes } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 type ButtonVariant = "primary" | "outline" | "ghost" | "light";
@@ -17,8 +19,9 @@ const sizeClass: Record<ButtonSize, string> = {
   lg: "px-8 py-4 text-[16px] leading-6",
 };
 
-type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
+type ButtonLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> & {
   children: ReactNode;
+  href: string;
   variant?: ButtonVariant;
   size?: ButtonSize;
   icon?: ReactNode;
@@ -36,20 +39,37 @@ export function ButtonLink({
   const classNameText = typeof className === "string" ? className : "";
   const hasTextOverride = /(^|\s)(!?text-(?!white\b)|hover:text-)/.test(classNameText);
   const shouldUseWhiteText = (variant === "primary" || variant === "ghost" || classNameText.includes("!text-white")) && !hasTextOverride;
+  const sharedProps = {
+    className: cn(
+      "inline-flex items-center justify-center gap-2 rounded-lg font-medium",
+      "hover:-translate-y-0.5 active:translate-y-0",
+      variantClass[variant],
+      sizeClass[size],
+      className
+    ),
+    style: {
+      ...(shouldUseWhiteText ? { color: "#fff" } : {}),
+      ...style,
+    },
+  };
+
+  if (getLinkKind(props.href) === "internal") {
+    return (
+      <Link
+        {...props}
+        {...sharedProps}
+        prefetch
+        transitionTypes={getTransitionTypes(props.href)}
+      >
+        <span>{children}</span>
+        {icon}
+      </Link>
+    );
+  }
 
   return (
     <a
-      className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-lg font-medium",
-        "hover:-translate-y-0.5 active:translate-y-0",
-        variantClass[variant],
-        sizeClass[size],
-        className
-      )}
-      style={{
-        ...(shouldUseWhiteText ? { color: "#fff" } : {}),
-        ...style,
-      }}
+      {...sharedProps}
       {...props}
     >
       <span>{children}</span>

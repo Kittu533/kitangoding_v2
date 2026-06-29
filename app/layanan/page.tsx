@@ -3,19 +3,19 @@ import { connection } from "next/server";
 import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
 import { ServicesOverviewSection } from "@/components/templates/MarketplaceHome";
 import { getPublicServices } from "@/lib/public-content";
-import { siteConfig } from "@/lib/site";
+import { serviceAreas, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Layanan Jasa Website & Aplikasi Web",
   description:
-    "Pilih jasa pembuatan website company profile, landing page, toko online, atau aplikasi web custom untuk jualan dan kredibilitas bisnis.",
+    "Pilih jasa pembuatan website company profile, landing page, toko online, atau aplikasi web custom untuk bisnis di Jogja, Solo, Wonogiri, dan area Jawa.",
   alternates: {
     canonical: `${siteConfig.domain}/layanan`,
   },
   openGraph: {
     title: "Layanan Jasa Website & Aplikasi Web | Kita Ngoding",
     description:
-      "Pilih jasa pembuatan website company profile, landing page, toko online, atau aplikasi web custom untuk jualan dan kredibilitas bisnis.",
+      "Pilih jasa pembuatan website company profile, landing page, toko online, atau aplikasi web custom untuk bisnis di area Jawa.",
     url: `${siteConfig.domain}/layanan`,
     type: "website",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Layanan Jasa Website & Aplikasi Web | Kita Ngoding",
     description:
-      "Pilih jasa pembuatan website company profile, landing page, toko online, atau aplikasi web custom untuk jualan dan kredibilitas bisnis.",
+      "Pilih jasa pembuatan website company profile, landing page, toko online, atau aplikasi web custom untuk bisnis di area Jawa.",
     images: ["/og-image.png"],
   },
 };
@@ -52,6 +52,10 @@ export default async function Page() {
         "@type": "Service",
         name: service.title,
         description: service.description,
+        areaServed: serviceAreas.map((area) => ({
+          "@type": "AdministrativeArea",
+          name: area,
+        })),
         provider: {
           "@type": "Organization",
           name: siteConfig.name,

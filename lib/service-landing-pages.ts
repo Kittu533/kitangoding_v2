@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/lib/site";
+import { serviceAreas, siteConfig } from "@/lib/site";
 
 export type ServiceLandingPageConfig = {
   pathname: string;
@@ -228,7 +228,13 @@ export function createServiceLandingMetadata(page: ServiceLandingPageConfig): Me
       description: page.description,
       images: ["/og-image.png"],
     },
-    keywords: [page.keyword, page.title.toLowerCase()],
+    keywords: [
+      page.keyword,
+      page.title.toLowerCase(),
+      "jasa website jogja",
+      "jasa website solo",
+      "jasa website wonogiri",
+    ],
   };
 }
 
@@ -260,6 +266,14 @@ export function createServiceLandingPageStructuredData(page: ServiceLandingPageC
       name: page.title,
       description: page.description,
       url,
+      areaServed: serviceAreas.map((area) => ({
+        "@type": "AdministrativeArea",
+        name: area,
+      })),
+      availableChannel: {
+        "@type": "ServiceChannel",
+        serviceUrl: url,
+      },
       provider: {
         "@type": "Organization",
         name: siteConfig.name,

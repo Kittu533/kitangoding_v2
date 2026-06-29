@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { LandingPage } from "@/components/templates/LandingPage";
-import { siteConfig } from "@/lib/site";
+import { serviceAreas, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Jasa Pembuatan Website UMKM, Landing Page, dan Toko Online",
   description:
-    "Kita Ngoding membantu UMKM membuat website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan mudah dipakai untuk jualan.",
+    "Kita Ngoding membantu UMKM di Jogja, Solo, Wonogiri, dan area Jawa membuat website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan mudah dipakai untuk jualan.",
   alternates: {
     canonical: siteConfig.domain,
   },
   openGraph: {
     title: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
     description:
-      "Website bisnis yang rapi, meyakinkan, dan siap dipakai untuk promosi, lead, dan order pelanggan.",
+      "Website bisnis yang rapi, meyakinkan, dan siap dipakai untuk promosi, lead, dan order pelanggan di area Jawa.",
     url: siteConfig.domain,
     type: "website",
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
     description:
-      "Website company profile, landing page, toko online, dan aplikasi web untuk bisnis Indonesia.",
+      "Website company profile, landing page, toko online, dan aplikasi web untuk bisnis di area Jawa.",
     images: ["/og-image.png"],
   },
   keywords: [
@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     "jasa landing page",
     "jasa toko online umkm",
     "web developer jawa",
+    "jasa website jogja",
+    "jasa website solo",
+    "jasa website wonogiri",
   ],
 };
 
@@ -54,10 +57,10 @@ const structuredData = {
     addressRegion: siteConfig.addressRegion,
     addressCountry: siteConfig.addressCountry,
   },
-  areaServed: {
-    "@type": "Country",
-    name: "Indonesia",
-  },
+  areaServed: serviceAreas.map((area) => ({
+    "@type": "AdministrativeArea",
+    name: area,
+  })),
   contactPoint: [
     {
       "@type": "ContactPoint",

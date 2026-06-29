@@ -3,7 +3,7 @@ export const siteConfig = {
   shortName: process.env.NEXT_PUBLIC_SITE_SHORT_NAME || "Kita Ngoding",
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    "Kita Ngoding membantu bisnis membuat website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan siap dipakai jualan.",
+    "Kita Ngoding membantu bisnis di Jogja, Solo, Wonogiri, dan area Jawa membuat website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan siap dipakai jualan.",
   domain: process.env.NEXT_PUBLIC_APP_URL || "https://kitangoding.com",
   gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "",
   email: process.env.NEXT_PUBLIC_SITE_EMAIL || "halo@kitangoding.com",
@@ -15,8 +15,17 @@ export const siteConfig = {
   instagram: process.env.NEXT_PUBLIC_SITE_INSTAGRAM || "https://instagram.com/kitangoding.id",
   tiktok: process.env.NEXT_PUBLIC_SITE_TIKTOK || "https://tiktok.com/@ryobisuryaatmaja",
   tagline:
-    process.env.NEXT_PUBLIC_SITE_TAGLINE || "Jasa pembuatan website untuk bisnis yang ingin lebih dipercaya dan mudah dihubungi.",
+    process.env.NEXT_PUBLIC_SITE_TAGLINE || "Jasa pembuatan website untuk bisnis di area Jawa yang ingin lebih dipercaya dan mudah dihubungi.",
 } as const;
+
+export const serviceAreas = [
+  "DI Yogyakarta",
+  "Surakarta (Solo)",
+  "Wonogiri",
+  "Jawa Tengah",
+  "Jawa Timur",
+  "Jawa Barat",
+] as const;
 
 export const navigationLinks = [
   { href: "#layanan", label: "Layanan" },

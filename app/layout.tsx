@@ -1,3 +1,4 @@
+import { ViewTransition } from "react";
 import type { Metadata } from "next";
 import { Inter, Geist } from "next/font/google";
 import { siteConfig } from "@/lib/site";
@@ -30,6 +31,9 @@ export const metadata: Metadata = {
     "website company profile",
     "landing page UMKM",
     "jasa web developer Jawa",
+    "jasa website Jogja",
+    "jasa website Solo",
+    "jasa website Wonogiri",
   ],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
@@ -49,7 +53,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
     description:
-      "Jasa pembuatan website company profile, landing page, toko online, dan aplikasi web untuk bisnis yang ingin lebih dipercaya.",
+      "Jasa pembuatan website company profile, landing page, toko online, dan aplikasi web untuk bisnis di Jogja, Solo, Wonogiri, dan area Jawa yang ingin lebih dipercaya.",
     images: [
       {
         url: "/og-image.png",
@@ -63,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
     description:
-      "Jasa website company profile, landing page, toko online, dan aplikasi web untuk bisnis Indonesia.",
+      "Jasa website company profile, landing page, toko online, dan aplikasi web untuk bisnis di area Jawa.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -96,7 +100,21 @@ export default function RootLayout({
           Langsung ke konten
         </a>
         <TooltipProvider>
-          {children}
+          <ViewTransition
+            default="none"
+            enter={{
+              "nav-forward": "nav-forward",
+              "nav-back": "nav-back",
+              default: "none",
+            }}
+            exit={{
+              "nav-forward": "nav-forward",
+              "nav-back": "nav-back",
+              default: "none",
+            }}
+          >
+            {children}
+          </ViewTransition>
         </TooltipProvider>
         <GoogleAnalytics />
         <TrafficTracker />
