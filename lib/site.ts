@@ -5,7 +5,7 @@ export const siteConfig = {
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
     "Kita Ngoding membantu bisnis di Jogja, Solo, Wonogiri, dan area Jawa membuat website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan siap dipakai jualan.",
   domain: process.env.NEXT_PUBLIC_APP_URL || "https://kitangoding.com",
-  gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "",
+  gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-RY3471CB04",
   email: process.env.NEXT_PUBLIC_SITE_EMAIL || "halo@kitangoding.com",
   phoneDisplay: process.env.NEXT_PUBLIC_SITE_PHONE_DISPLAY || "+62 812-3456-7890",
   phoneHref: process.env.NEXT_PUBLIC_SITE_PHONE_HREF || "6281234567890",
