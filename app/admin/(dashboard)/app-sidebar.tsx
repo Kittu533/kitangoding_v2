@@ -4,7 +4,6 @@ import * as React from "react"
 import {
   BriefcaseIcon,
   ChatBubbleLeftRightIcon,
-  Cog6ToothIcon,
   CurrencyDollarIcon,
   DocumentTextIcon,
   HomeIcon,
@@ -16,7 +15,6 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -72,16 +70,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton render={<Link href="/admin/settings" />} tooltip="Settings">
-              <Cog6ToothIcon />
-              <span>Settings</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   )
 }
