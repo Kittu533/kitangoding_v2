@@ -3,15 +3,18 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "./db"; // your drizzle instance
 import { accounts, sessions, users, verifications } from "./db/schema";
 import { resolveBetterAuthSecret } from "./auth-secret";
+import { getTrustedAuthOrigins } from "./auth-url";
 
 const authSecret = resolveBetterAuthSecret();
+const authBaseURL =
+    process.env.BETTER_AUTH_URL ||
+    process.env.NEXT_PUBLIC_APP_URL ||
+    "http://localhost:3000";
 
 export const auth = betterAuth({
+    trustedOrigins: getTrustedAuthOrigins(authBaseURL),
     secret: authSecret,
-    baseURL:
-        process.env.BETTER_AUTH_URL ||
-        process.env.NEXT_PUBLIC_APP_URL ||
-        "http://localhost:3000",
+    baseURL: authBaseURL,
     database: drizzleAdapter(db, {
         provider: "pg", // or "mysql", "sqlite"
         schema: {
