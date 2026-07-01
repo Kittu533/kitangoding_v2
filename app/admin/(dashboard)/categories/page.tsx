@@ -39,15 +39,18 @@ export default async function CategoriesPage(props: Props) {
   let totalPages = 1;
 
   try {
-    const countResult = await db.select({ value: count() }).from(portfolioCategories);
+    const [countResult, categoriesResult] = await Promise.all([
+      db.select({ value: count() }).from(portfolioCategories),
+      db.select()
+        .from(portfolioCategories)
+        .orderBy(desc(portfolioCategories.createdAt))
+        .limit(ITEMS_PER_PAGE)
+        .offset(offset),
+    ]);
+
     totalItems = countResult[0].value;
     totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
-
-    data = await db.select()
-      .from(portfolioCategories)
-      .orderBy(desc(portfolioCategories.createdAt))
-      .limit(ITEMS_PER_PAGE)
-      .offset(offset);
+    data = categoriesResult;
   } catch (e) {
     console.warn("Database not ready", e);
   }

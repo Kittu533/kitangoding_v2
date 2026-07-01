@@ -78,14 +78,17 @@ export default async function AdminDashboardPage() {
   }
 
   try {
-    latestLeads = await db.select().from(leads).orderBy(desc(leads.createdAt)).limit(5);
-    currentMonthLeads = (
-      await db.select().from(leads).where(gte(leads.createdAt, monthStart))
-    ).length;
-    totalPortfolio = (await db.select().from(portfolios)).length;
-    publishedBlogCount = (
-      await db.select().from(blogPosts).where(eq(blogPosts.status, "published"))
-    ).length;
+    const [latestLeadsResult, currentMonthLeadsResult, totalPortfolioResult, publishedBlogResult] = await Promise.all([
+      db.select().from(leads).orderBy(desc(leads.createdAt)).limit(5),
+      db.select().from(leads).where(gte(leads.createdAt, monthStart)),
+      db.select().from(portfolios),
+      db.select().from(blogPosts).where(eq(blogPosts.status, "published")),
+    ]);
+
+    latestLeads = latestLeadsResult;
+    currentMonthLeads = currentMonthLeadsResult.length;
+    totalPortfolio = totalPortfolioResult.length;
+    publishedBlogCount = publishedBlogResult.length;
   } catch (error) {
     console.warn("Dashboard support data is not ready yet.", error);
   }

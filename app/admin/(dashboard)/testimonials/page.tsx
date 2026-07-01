@@ -39,15 +39,18 @@ export default async function TestimonialsPage(props: Props) {
   let totalPages = 1;
 
   try {
-    const countResult = await db.select({ value: count() }).from(testimonials);
+    const [countResult, testimonialsResult] = await Promise.all([
+      db.select({ value: count() }).from(testimonials),
+      db.select()
+        .from(testimonials)
+        .orderBy(desc(testimonials.createdAt))
+        .limit(ITEMS_PER_PAGE)
+        .offset(offset),
+    ]);
+
     totalItems = countResult[0].value;
     totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
-
-    data = await db.select()
-      .from(testimonials)
-      .orderBy(desc(testimonials.createdAt))
-      .limit(ITEMS_PER_PAGE)
-      .offset(offset);
+    data = testimonialsResult;
   } catch (e) {
     console.warn("Database not ready", e);
   }

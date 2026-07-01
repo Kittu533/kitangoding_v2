@@ -289,7 +289,7 @@ function ProblemSolutionSection() {
   );
 }
 
-function TestimonialsSection() {
+  {
   return (
     <section className="marketplace-grid py-16" id="testimoni">
       <div className="container-shell">

@@ -24,7 +24,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: HomeIcon },
@@ -40,6 +40,13 @@ const navigation = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
+  const router = useRouter()
+
+  React.useEffect(() => {
+    for (const item of navigation) {
+      router.prefetch(item.href)
+    }
+  }, [router])
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -60,7 +67,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu>
               {navigation.map((item) => (
                 <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton render={<Link href={item.href} />} isActive={pathname === item.href} tooltip={item.name}>
+                  <SidebarMenuButton render={<Link href={item.href} prefetch={true} />} isActive={pathname === item.href} tooltip={item.name}>
                     <item.icon />
                     <span>{item.name}</span>
                   </SidebarMenuButton>

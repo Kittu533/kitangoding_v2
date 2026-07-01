@@ -53,26 +53,29 @@ export default async function PortfolioPage(props: Props) {
   let totalPages = 1;
 
   try {
-    const countResult = await db.select({ value: count() }).from(portfolios);
+    const [countResult, portfolioResult, categoriesResult] = await Promise.all([
+      db.select({ value: count() }).from(portfolios),
+      db.select({
+        id: portfolios.id,
+        name: portfolios.name,
+        categoryId: portfolios.categoryId,
+        categoryName: portfolioCategories.name,
+        thumbnail: portfolios.thumbnail,
+        result: portfolios.result,
+        createdAt: portfolios.createdAt,
+      })
+        .from(portfolios)
+        .leftJoin(portfolioCategories, eq(portfolios.categoryId, portfolioCategories.id))
+        .orderBy(desc(portfolios.createdAt))
+        .limit(ITEMS_PER_PAGE)
+        .offset(offset),
+      db.select().from(portfolioCategories).orderBy(portfolioCategories.name),
+    ]);
+
     totalItems = countResult[0].value;
     totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
-
-    data = await db.select({
-      id: portfolios.id,
-      name: portfolios.name,
-      categoryId: portfolios.categoryId,
-      categoryName: portfolioCategories.name,
-      thumbnail: portfolios.thumbnail,
-      result: portfolios.result,
-      createdAt: portfolios.createdAt,
-    })
-      .from(portfolios)
-      .leftJoin(portfolioCategories, eq(portfolios.categoryId, portfolioCategories.id))
-      .orderBy(desc(portfolios.createdAt))
-      .limit(ITEMS_PER_PAGE)
-      .offset(offset);
-
-    categoriesData = await db.select().from(portfolioCategories).orderBy(portfolioCategories.name);
+    data = portfolioResult;
+    categoriesData = categoriesResult;
   } catch (e) {
     console.warn("Database not ready", e);
   }

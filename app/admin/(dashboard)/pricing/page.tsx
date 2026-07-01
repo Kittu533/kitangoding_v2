@@ -40,15 +40,18 @@ export default async function PricingPage(props: Props) {
   let totalPages = 1;
 
   try {
-    const countResult = await db.select({ value: count() }).from(pricings);
+    const [countResult, pricingResult] = await Promise.all([
+      db.select({ value: count() }).from(pricings),
+      db.select()
+        .from(pricings)
+        .orderBy(desc(pricings.createdAt))
+        .limit(ITEMS_PER_PAGE)
+        .offset(offset),
+    ]);
+
     totalItems = countResult[0].value;
     totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
-
-    data = await db.select()
-      .from(pricings)
-      .orderBy(desc(pricings.createdAt))
-      .limit(ITEMS_PER_PAGE)
-      .offset(offset);
+    data = pricingResult;
   } catch (e) {
     console.warn("Database not ready", e);
   }
