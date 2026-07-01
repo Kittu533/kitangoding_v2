@@ -2,20 +2,12 @@ import { betterAuth } from "better-auth/minimal";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "./db"; // your drizzle instance
 import { accounts, sessions, users, verifications } from "./db/schema";
+import { resolveBetterAuthSecret } from "./auth-secret";
 
-const PLACEHOLDER_SECRET = "generate-a-random-secret-key-here";
-const authSecret = process.env.BETTER_AUTH_SECRET;
-const isProductionRuntime =
-    process.env.NODE_ENV === "production" &&
-    process.env.NEXT_PHASE !== "phase-production-build";
-
-if (isProductionRuntime && (!authSecret || authSecret === PLACEHOLDER_SECRET)) {
-    throw new Error(
-        "BETTER_AUTH_SECRET must be set to a real random value in production runtime."
-    );
-}
+const authSecret = resolveBetterAuthSecret();
 
 export const auth = betterAuth({
+    secret: authSecret,
     baseURL:
         process.env.BETTER_AUTH_URL ||
         process.env.NEXT_PUBLIC_APP_URL ||
