@@ -27,6 +27,7 @@ import {
 import { toast } from "sonner";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { createPortfolio, updatePortfolio } from "@/app/admin/(dashboard)/portfolio/actions";
+import { optimizeImageForServerAction } from "@/lib/admin-image-upload";
 
 const formSchema = z.object({
   name: z.string().min(1, "Nama proyek wajib diisi"),
@@ -50,6 +51,7 @@ type PortfolioFormProps = {
 export function PortfolioForm({ initialData, categories, trigger }: PortfolioFormProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [processingImage, setProcessingImage] = useState(false);
   const [previewImage, setPreviewImage] = useState<string>(initialData?.thumbnail || "");
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -62,27 +64,33 @@ export function PortfolioForm({ initialData, categories, trigger }: PortfolioFor
     },
   });
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 10 * 1024 * 1024) {
-        toast.error("Ukuran file maksimal 10MB");
-        return;
-      }
-      
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setPreviewImage(base64String);
-        form.setValue("thumbnail", base64String);
-      };
-      reader.readAsDataURL(file);
+    if (!file) {
+      return;
+    }
+
+    setProcessingImage(true);
+
+    try {
+      const optimizedImage = await optimizeImageForServerAction(file);
+      setPreviewImage(optimizedImage);
+      form.setValue("thumbnail", optimizedImage);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Gagal memproses gambar");
+    } finally {
+      setProcessingImage(false);
     }
   };
 
   const categoryIdValue = useWatch({ control: form.control, name: "categoryId" }) ?? "";
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (processingImage) {
+      toast.error("Tunggu gambar selesai diproses");
+      return;
+    }
+
     setLoading(true);
     
     const response = initialData
@@ -162,8 +170,12 @@ export function PortfolioForm({ initialData, categories, trigger }: PortfolioFor
                 id="thumbnailFile"
                 type="file"
                 accept="image/*"
+                disabled={processingImage}
                 onChange={handleImageChange}
               />
+              {processingImage && (
+                <span className="text-xs text-muted-foreground">Gambar sedang diperkecil sebelum dikirim.</span>
+              )}
               {previewImage && (
                 <div className="mt-2 relative h-32 w-full rounded-md overflow-hidden border border-border">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -181,7 +193,7 @@ export function PortfolioForm({ initialData, categories, trigger }: PortfolioFor
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading || processingImage}>
               {loading ? "Menyimpan..." : "Simpan"}
             </Button>
           </DialogFooter>

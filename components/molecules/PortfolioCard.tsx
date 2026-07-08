@@ -9,7 +9,7 @@ export function PortfolioCard({ item }: { item: PortfolioCardData }) {
       className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-orange/40 hover:shadow-soft"
     >
       {/* Visual: thumbnail with navy scrim, or a generative navy panel when none */}
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="relative aspect-video overflow-hidden">
         {item.thumbnail ? (
           <Image
             alt={item.name}

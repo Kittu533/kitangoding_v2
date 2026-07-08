@@ -27,6 +27,7 @@ import {
 import { toast } from "sonner";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { createBlogPost, updateBlogPost } from "@/app/admin/(dashboard)/blog/actions";
+import { optimizeImageForServerAction } from "@/lib/admin-image-upload";
 
 const formSchema = z.object({
   title: z.string().min(1, "Judul artikel wajib diisi"),
@@ -54,6 +55,7 @@ type BlogFormProps = {
 export function BlogForm({ initialData, categories, trigger }: BlogFormProps) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [processingImage, setProcessingImage] = useState(false);
   const [previewImage, setPreviewImage] = useState<string>(initialData?.thumbnail || "");
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -68,21 +70,22 @@ export function BlogForm({ initialData, categories, trigger }: BlogFormProps) {
     },
   });
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 10 * 1024 * 1024) {
-        toast.error("Ukuran file maksimal 10MB");
-        return;
-      }
-      
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setPreviewImage(base64String);
-        form.setValue("thumbnail", base64String);
-      };
-      reader.readAsDataURL(file);
+    if (!file) {
+      return;
+    }
+
+    setProcessingImage(true);
+
+    try {
+      const optimizedImage = await optimizeImageForServerAction(file);
+      setPreviewImage(optimizedImage);
+      form.setValue("thumbnail", optimizedImage);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Gagal memproses gambar");
+    } finally {
+      setProcessingImage(false);
     }
   };
 
@@ -90,6 +93,11 @@ export function BlogForm({ initialData, categories, trigger }: BlogFormProps) {
   const statusValue = useWatch({ control: form.control, name: "status" }) ?? "draft";
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (processingImage) {
+      toast.error("Tunggu gambar selesai diproses");
+      return;
+    }
+
     setLoading(true);
     
     const response = initialData
@@ -201,8 +209,12 @@ export function BlogForm({ initialData, categories, trigger }: BlogFormProps) {
                 id="thumbnailFile"
                 type="file"
                 accept="image/*"
+                disabled={processingImage}
                 onChange={handleImageChange}
               />
+              {processingImage && (
+                <span className="text-xs text-muted-foreground">Gambar sedang diperkecil sebelum dikirim.</span>
+              )}
               {previewImage && (
                 <div className="mt-2 relative h-32 w-full rounded-md overflow-hidden border border-border">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -232,7 +244,7 @@ export function BlogForm({ initialData, categories, trigger }: BlogFormProps) {
             </div>
           </div>
           <SheetFooter className="mt-auto py-4 border-t border-border">
-            <Button type="submit" disabled={loading} className="w-full sm:w-auto">
+            <Button type="submit" disabled={loading || processingImage} className="w-full sm:w-auto">
               {loading ? "Menyimpan..." : "Simpan Artikel"}
             </Button>
           </SheetFooter>
