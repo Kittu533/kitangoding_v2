@@ -9,7 +9,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -18,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { createPricing, updatePricing } from "@/app/admin/(dashboard)/pricing/actions";
@@ -107,16 +105,16 @@ export function PricingForm({ initialData, trigger }: PricingFormProps) {
           </Button>
         )
       } />
-      <DialogContent className="sm:max-w-[500px]">
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <DialogHeader>
+      <DialogContent className="max-h-[90vh] overflow-hidden p-0 sm:max-w-[560px]">
+        <form className="flex max-h-[90vh] flex-col" onSubmit={form.handleSubmit(onSubmit)}>
+          <DialogHeader className="border-b px-6 pt-6 pb-4">
             <DialogTitle>{initialData ? "Edit Paket" : "Tambah Paket"}</DialogTitle>
             <DialogDescription>
               Atur nama paket, harga, dan daftar fiturnya.
             </DialogDescription>
           </DialogHeader>
-          <ScrollArea className="max-h-[60vh] pr-4 mt-4">
-            <div className="grid gap-4 py-2">
+          <div className="flex-1 overflow-y-auto px-6 py-5">
+            <div className="grid gap-5">
               <div className="grid gap-2">
                 <Label htmlFor="name">Nama Paket</Label>
                 <Input
@@ -144,23 +142,36 @@ export function PricingForm({ initialData, trigger }: PricingFormProps) {
                 <Textarea
                   id="description"
                   placeholder="Deskripsi paket..."
+                  className="min-h-24 resize-y"
                   {...form.register("description")}
                 />
               </div>
               
-              <div className="flex items-center space-x-2 my-2 p-3 border rounded-lg bg-muted/50">
-                <Switch
-                  id="isFeatured"
-                  checked={isFeaturedValue}
-                  onCheckedChange={(checked) => form.setValue("isFeatured", checked)}
-                />
-                <Label htmlFor="isFeatured" className="cursor-pointer">
-                  Jadikan Paket Rekomendasi (Featured)
-                </Label>
+              <div className="rounded-lg border bg-muted/40 p-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="space-y-1">
+                    <Label htmlFor="isFeatured" className="cursor-pointer">
+                      Jadikan paket rekomendasi
+                    </Label>
+                    <p className="text-sm text-muted-foreground">
+                      Paket ini akan ditandai sebagai pilihan utama di halaman publik.
+                    </p>
+                  </div>
+                  <Switch
+                    id="isFeatured"
+                    checked={isFeaturedValue}
+                    onCheckedChange={(checked) => form.setValue("isFeatured", checked)}
+                  />
+                </div>
               </div>
 
               <div className="space-y-3">
-                <Label>Daftar Fitur</Label>
+                <div className="flex items-center justify-between gap-3">
+                  <Label>Daftar Fitur</Label>
+                  <span className="text-xs font-medium text-muted-foreground">
+                    {fields.length} fitur
+                  </span>
+                </div>
                 {fields.map((field, index) => (
                   <div key={field.id} className="flex items-start gap-2">
                     <div className="flex-1">
@@ -178,8 +189,9 @@ export function PricingForm({ initialData, trigger }: PricingFormProps) {
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="shrink-0 text-muted-foreground hover:text-destructive"
+                      className="mt-1 shrink-0 text-muted-foreground hover:text-destructive"
                       onClick={() => remove(index)}
+                      aria-label={`Hapus fitur ${index + 1}`}
                     >
                       <TrashIcon className="h-4 w-4" />
                     </Button>
@@ -197,12 +209,12 @@ export function PricingForm({ initialData, trigger }: PricingFormProps) {
                 </Button>
               </div>
             </div>
-          </ScrollArea>
-          <DialogFooter className="pt-4">
+          </div>
+          <div className="border-t bg-background px-6 py-4">
             <Button type="submit" disabled={loading} className="w-full sm:w-auto">
               {loading ? "Menyimpan..." : "Simpan"}
             </Button>
-          </DialogFooter>
+          </div>
         </form>
       </DialogContent>
     </Dialog>

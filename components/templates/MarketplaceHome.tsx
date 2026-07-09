@@ -99,7 +99,7 @@ export async function MarketplaceHome() {
 }
 
 function MarketplaceHero() {
-  const marqueeItems = ["Company Profile", "Landing Page", "Toko Online", "Web App", "Dashboard"];
+  const focusAreas = ["Company Profile", "Landing Page", "Toko Online", "Web App", "Dashboard"];
 
   return (
     <section className="marketplace-grid relative overflow-hidden pt-24 pb-2" id="hero">
@@ -162,16 +162,17 @@ function MarketplaceHero() {
           </div>
         </Reveal>
 
-        <p className="mt-14 text-sm font-bold text-foreground">Yang biasa kami bantu untuk bisnis</p>
-        <div className="marquee-shell mt-6">
-          <div className="marquee-track">
-            {[...marqueeItems, ...marqueeItems].map((item, index) => (
+        <div className="mt-14">
+          <p className="text-sm font-semibold tracking-[0.12em] text-body uppercase">
+            Yang paling sering kami bantu
+          </p>
+          <div className="mx-auto mt-5 flex max-w-3xl flex-wrap justify-center gap-3">
+            {focusAreas.map((item) => (
               <span
-                key={`${item}-${index}`}
-                className="inline-flex items-center gap-6 text-lg font-extrabold text-black/65"
+                key={item}
+                className="inline-flex items-center rounded-full border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-sm"
               >
-                <span>{item}</span>
-                <span className="size-1.5 rounded-full bg-success/55" />
+                {item}
               </span>
             ))}
           </div>

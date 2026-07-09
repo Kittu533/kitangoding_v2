@@ -82,7 +82,7 @@ function renderContent(content: string) {
 
     if (lines.length === 1 && /^\*\*(.+)\*\*$/.test(lines[0])) {
       return (
-        <h2 key={`${index}-${lines[0]}`} className="text-2xl font-extrabold text-foreground">
+        <h2 key={`${index}-${lines[0]}`} className="text-2xl font-extrabold text-black">
           {stripInlineMarkdown(lines[0])}
         </h2>
       );
@@ -230,7 +230,7 @@ export default async function Page({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         type="application/ld+json"
       />
-      <div className="marketplace-page min-h-screen bg-market text-foreground">
+      <div className="marketplace-page min-h-screen bg-market text-black">
         <FloatingNav />
         <main id="konten">
           <section className="marketplace-grid pt-24 pb-12">
@@ -250,10 +250,10 @@ export default async function Page({ params }: Props) {
                   </span>
                   <span className="text-sm font-medium text-body/75">{post.date}</span>
                 </div>
-                <h1 className="mt-6 max-w-4xl text-4xl leading-tight font-extrabold text-foreground md:text-6xl">
+                <h1 className="mt-6 max-w-4xl text-4xl leading-tight font-extrabold text-black md:text-6xl">
                   {post.title}
                 </h1>
-                <p className="mt-5 max-w-3xl text-lg leading-8 text-muted">
+                <p className="mt-5 max-w-3xl text-lg leading-8 text-black">
                   {post.excerpt}
                 </p>
               </Reveal>
@@ -319,7 +319,7 @@ export default async function Page({ params }: Props) {
                           <h2 className="mt-2 text-lg leading-snug font-extrabold text-foreground transition group-hover:text-success">
                             {item.title}
                           </h2>
-                          <p className="mt-2 text-sm leading-6 text-muted">{item.excerpt}</p>
+                          <p className="mt-2 text-sm leading-6 text-black">{item.excerpt}</p>
                         </Link>
                       ))}
                     </div>
@@ -329,7 +329,7 @@ export default async function Page({ params }: Props) {
                     <p className="text-sm font-bold uppercase tracking-[0.18em] text-success">
                       Butuh website yang rapi?
                     </p>
-                    <p className="mt-3 leading-7 text-muted">
+                    <p className="mt-3 leading-7 text-black">
                       Kalau kamu ingin artikel ini diterjemahkan jadi website yang benar-benar siap
                       dipakai, kita bisa bantu susun struktur dan CTA-nya.
                     </p>

@@ -91,7 +91,7 @@ export function ContactPage() {
           </div>
         </section>
 
-        <section className="marketplace-grid pb-16">
+        {/* <section className="marketplace-grid pb-16">
           <div className="container-shell">
             <Reveal>
               <div className="relative h-[420px] overflow-hidden rounded-3xl border border-border bg-[#edf2f5] shadow-sm">
@@ -129,7 +129,7 @@ export function ContactPage() {
               </div>
             </Reveal>
           </div>
-        </section>
+        </section> */}
       </main>
       <MarketplaceFooter />
     </div>

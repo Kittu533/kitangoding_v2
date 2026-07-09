@@ -14,7 +14,7 @@ const projectTypes = [
   "Landing page promosi",
   "Katalog produk",
   "Toko online sederhana",
-  "Custom UI/UX",
+  "UI/UX custom",
 ] as const;
 
 const budgetOptions = [
@@ -136,15 +136,15 @@ export function ProjectInquiryForm() {
   return (
     <form className="mx-auto grid max-w-4xl gap-7 text-left" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid gap-7 md:grid-cols-2">
-        <Field error={errors.fullName?.message} label="Full Name">
+        <Field error={errors.fullName?.message} label="Nama Lengkap">
           <input
             className={fieldClass}
-            placeholder="Jane Doe"
+            placeholder="Nama kamu"
             type="text"
             {...register("fullName")}
           />
         </Field>
-        <Field error={errors.email?.message} label="Email Address">
+        <Field error={errors.email?.message} label="Alamat Email">
           <input
             className={fieldClass}
             placeholder="info@email.com"
@@ -152,15 +152,15 @@ export function ProjectInquiryForm() {
             {...register("email")}
           />
         </Field>
-        <Field error={errors.phone?.message} label="Phone Number">
+        <Field error={errors.phone?.message} label="Nomor WhatsApp">
           <input
             className={fieldClass}
-            placeholder="Eg. +62 812 3456 7890"
+            placeholder="Contoh: +62 812 3456 7890"
             type="tel"
             {...register("phone")}
           />
         </Field>
-        <Field error={errors.company?.message} label="Company Name (Opt)">
+        <Field error={errors.company?.message} label="Nama Bisnis (Opsional)">
           <input
             className={fieldClass}
             placeholder="Nama bisnis kamu"
@@ -168,14 +168,14 @@ export function ProjectInquiryForm() {
             {...register("company")}
           />
         </Field>
-        <Field error={errors.projectType?.message} label="Project Type">
+        <Field error={errors.projectType?.message} label="Jenis Project">
           <select className={fieldClass} {...register("projectType")}>
             {projectTypes.map((option) => (
               <option key={option} value={option}>{option}</option>
             ))}
           </select>
         </Field>
-        <Field error={errors.budget?.message} label="Project Budget">
+        <Field error={errors.budget?.message} label="Budget Project">
           <select className={fieldClass} {...register("budget")}>
             {budgetOptions.map((option) => (
               <option key={option} value={option}>{option}</option>
@@ -184,10 +184,10 @@ export function ProjectInquiryForm() {
         </Field>
       </div>
 
-        <Field error={errors.description?.message} label="Project Description">
+        <Field error={errors.description?.message} label="Ceritakan Kebutuhan Project">
           <textarea
             className={`${fieldClass} min-h-36 resize-none py-4`}
-            placeholder="Jelaskan singkat kebutuhan project kamu"
+            placeholder="Jelaskan tujuan, fitur, atau gambaran singkat project yang kamu butuhkan"
             {...register("description")}
           />
         </Field>
@@ -199,7 +199,7 @@ export function ProjectInquiryForm() {
         disabled={isSubmitting}
         type="submit"
       >
-        {isSubmitting ? "Sending..." : "Send Inquiry"}
+        {isSubmitting ? "Mengirim..." : "Kirim Inquiry"}
       </button>
 
       {submitError ? <p className="text-sm font-medium text-orange-glow">{submitError}</p> : null}

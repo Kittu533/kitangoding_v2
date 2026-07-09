@@ -68,7 +68,7 @@ export function PricingPlanGrid({
                 "w-full group/btn",
                 plan.featured
                   ? "bg-orange hover:bg-orange-dark text-white shadow-md hover:shadow-lg"
-                  : "bg-surface hover:bg-navy hover:text-white text-foreground border border-border"
+                  : "bg-surface hover:bg-navy  hover:text-white border border-border"
               )}
               href={whatsappHref}
               data-analytics-event="pricing_cta_click"
