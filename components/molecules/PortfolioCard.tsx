@@ -15,6 +15,7 @@ export function PortfolioCard({ item }: { item: PortfolioCardData }) {
             alt={item.name}
             className="object-cover object-top transition duration-700 group-hover:scale-[1.07]"
             fill
+            quality={72}
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             src={item.thumbnail}
           />
@@ -46,7 +47,9 @@ export function PortfolioCard({ item }: { item: PortfolioCardData }) {
         <h3 className="font-display text-xl leading-snug font-bold text-foreground transition group-hover:text-orange-dark">
           {item.name}
         </h3>
-        <p className="mt-3 text-sm leading-7 text-body">{item.result}</p>
+        <p className="mt-3 min-h-[84px] overflow-hidden text-sm leading-7 text-body [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
+          {item.result}
+        </p>
         <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-bold text-navy">
           Bahas project seperti ini
           <ArrowRight aria-hidden="true" className="size-4 transition group-hover:translate-x-1" />

@@ -41,7 +41,7 @@ export function CustomProjectCta() {
         <h2 className="mt-6 text-[32px] leading-9 font-semibold text-foreground">
           Punya bisnis yang butuh website lebih rapi dan meyakinkan?
         </h2>
-        <p className="mx-auto mt-4 max-w-xl text-muted">
+        <p className="mx-auto mt-4 max-w-xl text-black">
           Ceritakan jenis bisnis, tujuan website, dan contoh yang kamu suka. Kami bantu arahkan
           paket, estimasi biaya, dan langkah paling masuk akal.
         </p>
@@ -54,7 +54,7 @@ export function CustomProjectCta() {
         >
           Chat Konsultasi Website
         </ButtonLink>
-        <p className="mt-4 text-sm font-medium text-muted">
+        <p className="mt-4 text-sm font-medium text-black">
           Balas via WhatsApp di jam kerja. Gratis &amp; tanpa wajib lanjut.
         </p>
       </div>

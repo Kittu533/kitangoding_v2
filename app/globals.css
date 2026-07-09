@@ -55,56 +55,6 @@ body {
   font-family: var(--font-inter), sans-serif;
 }
 
-::view-transition-old(.nav-forward) {
-  --slide-offset: -32px;
-  animation:
-    120ms ease-in both fade reverse,
-    240ms ease-out both slide-x reverse;
-}
-
-::view-transition-new(.nav-forward) {
-  --slide-offset: 32px;
-  animation:
-    160ms ease-out 80ms both fade,
-    240ms ease-out both slide-x;
-}
-
-::view-transition-old(.nav-back) {
-  --slide-offset: 32px;
-  animation:
-    120ms ease-in both fade reverse,
-    240ms ease-out both slide-x reverse;
-}
-
-::view-transition-new(.nav-back) {
-  --slide-offset: -32px;
-  animation:
-    160ms ease-out 80ms both fade,
-    240ms ease-out both slide-x;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-    filter: blur(2px);
-  }
-
-  to {
-    opacity: 1;
-    filter: blur(0);
-  }
-}
-
-@keyframes slide-x {
-  from {
-    transform: translateX(var(--slide-offset));
-  }
-
-  to {
-    transform: translateX(0);
-  }
-}
-
 a {
   color: inherit;
   text-decoration: none;
@@ -136,12 +86,6 @@ textarea:focus-visible {
     scroll-behavior: auto;
   }
 
-  ::view-transition-old(*),
-  ::view-transition-new(*),
-  ::view-transition-group(*) {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
-  }
 }
 
 ::selection {

@@ -17,14 +17,14 @@ import {
 import { pricingPlans, portfolioItems, services as fallbackServices } from "@/lib/landing-data";
 
 const fallbackImages = [
-  "/images/project-1.png",
-  "/images/project-2.png",
-  "/images/project-3.png",
+  "/images/project-1.webp",
+  "/images/project-2.webp",
+  "/images/project-3.webp",
   "/images/project-4.webp",
   "/images/project-5.webp",
   "/images/project-6.webp",
-  "/images/project-7.png",
-  "/images/project-8.png",
+  "/images/project-7.webp",
+  "/images/project-8.webp",
 ] as const;
 
 export type PublicCategoryCard = {
@@ -284,8 +284,8 @@ function getPriceOrderValue(price: string) {
   return amount;
 }
 
-function sortPricingPlans<T extends PublicPricingPlan>(plans: T[]) {
-  return [...plans].sort((left, right) => {
+export function normalizePublicPricingPlans<T extends PublicPricingPlan>(plans: T[]) {
+  const sortedPlans = [...plans].sort((left, right) => {
     const leftPrice = getPriceOrderValue(left.price);
     const rightPrice = getPriceOrderValue(right.price);
 
@@ -294,6 +294,15 @@ function sortPricingPlans<T extends PublicPricingPlan>(plans: T[]) {
     }
 
     return left.name.localeCompare(right.name);
+  });
+
+  let hasFeaturedPlan = false;
+
+  return sortedPlans.map((plan) => {
+    const featured = plan.featured && !hasFeaturedPlan;
+    hasFeaturedPlan ||= featured;
+
+    return featured === plan.featured ? plan : { ...plan, featured };
   });
 }
 
@@ -452,7 +461,7 @@ export async function getPublicPricing(): Promise<PublicPricingPlan[]> {
     const pricingRows = await db.select().from(pricings).orderBy(desc(pricings.isFeatured), desc(pricings.createdAt));
 
     if (pricingRows.length > 0) {
-      return sortPricingPlans(pricingRows.map((item) => ({
+      return normalizePublicPricingPlans(pricingRows.map((item) => ({
         name: item.name,
         price: item.price,
         description: item.description || "Paket website yang bisa disesuaikan dengan kebutuhan bisnis kamu.",
@@ -466,7 +475,7 @@ export async function getPublicPricing(): Promise<PublicPricingPlan[]> {
     }
   }
 
-  return sortPricingPlans(pricingPlans.map((item) => ({
+  return normalizePublicPricingPlans(pricingPlans.map((item) => ({
     name: item.name,
     price: item.price,
     description: item.description,

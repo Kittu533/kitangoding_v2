@@ -14,6 +14,7 @@ export function getLinkKind(href: string): LinkKind {
   return href.startsWith("/") ? "internal" : "external";
 }
 
-export function getTransitionTypes(href: string) {
-  return getLinkKind(href) === "internal" ? ["nav-forward"] : undefined;
+export function getTransitionTypes(href?: string) {
+  void href;
+  return undefined;
 }

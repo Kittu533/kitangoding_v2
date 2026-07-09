@@ -58,7 +58,7 @@ export async function PortfolioSection() {
 
         <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-3">
           {items.map((item, index) => (
-            <Reveal key={`${item.name}-${index}`} delay={index * 0.06}>
+            <Reveal key={`${item.name}-${index}`} className="h-full" delay={index * 0.06}>
               <PortfolioCard item={item} />
             </Reveal>
           ))}

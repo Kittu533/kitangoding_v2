@@ -27,7 +27,7 @@ export function SectionHeader({
         {title}
       </h2>
       {description ? (
-        <p className={cn("mt-5 text-white leading-8 ", invert && "text-white")}>
+        <p className={cn("mt-5 leading-8 text-body", invert && "text-white")}>
           {description}
         </p>
       ) : null}

@@ -39,6 +39,9 @@ export function ButtonLink({
   const classNameText = typeof className === "string" ? className : "";
   const hasTextOverride = /(^|\s)(!?text-(?!white\b)|hover:text-)/.test(classNameText);
   const shouldUseWhiteText = (variant === "primary" || variant === "ghost" || classNameText.includes("!text-white")) && !hasTextOverride;
+  const rel = props.target === "_blank"
+    ? Array.from(new Set([...(props.rel?.split(/\s+/) ?? []), "noopener", "noreferrer"])).join(" ")
+    : props.rel;
   const sharedProps = {
     className: cn(
       "inline-flex items-center justify-center gap-2 rounded-lg font-medium",
@@ -47,6 +50,7 @@ export function ButtonLink({
       sizeClass[size],
       className
     ),
+    rel,
     style: {
       ...(shouldUseWhiteText ? { color: "#fff" } : {}),
       ...style,

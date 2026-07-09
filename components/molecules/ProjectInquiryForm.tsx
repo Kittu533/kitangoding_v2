@@ -1,7 +1,11 @@
 "use client";
 
-import type { FormEvent, ReactNode } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { ReactNode } from "react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
 import { saveLeadSubmission } from "@/app/actions/leads";
 import { trackPublicAnalyticsEvent } from "@/lib/analytics-client";
 
@@ -21,23 +25,41 @@ const budgetOptions = [
   "Diskusi dulu",
 ] as const;
 
+const projectInquirySchema = z.object({
+  fullName: z.string().trim().min(2, "Nama minimal 2 karakter."),
+  email: z.string().trim().email("Email tidak valid."),
+  phone: z.string().trim().max(50).optional(),
+  company: z.string().trim().max(255).optional(),
+  projectType: z.enum(projectTypes),
+  budget: z.enum(budgetOptions),
+  description: z.string().trim().min(10, "Jelaskan kebutuhan minimal 10 karakter."),
+  honeypot: z.string().max(0).default(""),
+});
+
+type ProjectInquiryValues = z.input<typeof projectInquirySchema>;
+
 export function ProjectInquiryForm() {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [company, setCompany] = useState("");
-  const [projectType, setProjectType] = useState<(typeof projectTypes)[number]>(projectTypes[0]);
-  const [budget, setBudget] = useState<(typeof budgetOptions)[number]>(budgetOptions[1]);
-  const [description, setDescription] = useState("");
-  const [honeypot, setHoneypot] = useState("");
-  const [loading, setLoading] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const {
+    formState: { errors, isSubmitting },
+    handleSubmit,
+    register,
+  } = useForm<ProjectInquiryValues>({
+    resolver: zodResolver(projectInquirySchema),
+    defaultValues: {
+      budget: budgetOptions[1],
+      company: "",
+      description: "",
+      email: "",
+      fullName: "",
+      honeypot: "",
+      phone: "",
+      projectType: projectTypes[0],
+    },
+  });
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+  async function onSubmit(values: ProjectInquiryValues) {
     setSubmitError("");
-    setLoading(true);
 
     const popup = window.open("", "_blank");
     if (popup) {
@@ -46,14 +68,14 @@ export function ProjectInquiryForm() {
 
     try {
       const result = await saveLeadSubmission({
-        budget,
-        business: company,
-        email,
-        honeypot,
-        message: description,
-        name: fullName,
-        phone,
-        service: projectType,
+        budget: values.budget,
+        business: values.company,
+        email: values.email,
+        honeypot: values.honeypot,
+        message: values.description,
+        name: values.fullName,
+        phone: values.phone,
+        service: values.projectType,
       });
 
       if (!result.success) {
@@ -63,10 +85,10 @@ export function ProjectInquiryForm() {
           path: window.location.pathname,
           source: "project_inquiry",
           params: {
-            budget_range: budget,
+            budget_range: values.budget,
             error_reason: result.reason,
             form_name: "project_inquiry",
-            project_type: projectType,
+            project_type: values.projectType,
           },
         });
         setSubmitError(
@@ -78,129 +100,106 @@ export function ProjectInquiryForm() {
       }
 
       if (popup) {
+        toast.success("Membuka WhatsApp...");
         trackPublicAnalyticsEvent({
           eventType: "lead_submitted",
           path: window.location.pathname,
           source: "project_inquiry",
           params: {
-            budget_range: budget,
+            budget_range: values.budget,
             form_name: "project_inquiry",
-            project_type: projectType,
+            project_type: values.projectType,
           },
         });
         popup.location.assign(result.whatsappHref);
         return;
       }
 
+      toast.success("Membuka WhatsApp...");
       trackPublicAnalyticsEvent({
         eventType: "lead_submitted",
         path: window.location.pathname,
         source: "project_inquiry",
         params: {
-          budget_range: budget,
+          budget_range: values.budget,
           form_name: "project_inquiry",
-          project_type: projectType,
+          project_type: values.projectType,
         },
       });
       window.location.assign(result.whatsappHref);
-    } finally {
-      setLoading(false);
+    } catch {
+      popup?.close();
+      setSubmitError("Belum bisa mengirim data. Coba lagi sebentar lagi.");
     }
   }
 
   return (
-    <form className="mx-auto grid max-w-4xl gap-7 text-left" onSubmit={handleSubmit}>
+    <form className="mx-auto grid max-w-4xl gap-7 text-left" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid gap-7 md:grid-cols-2">
-        <Field label="Full Name">
+        <Field error={errors.fullName?.message} label="Full Name">
           <input
             className={fieldClass}
-            onChange={(event) => setFullName(event.target.value)}
             placeholder="Jane Doe"
-            minLength={2}
-            required
             type="text"
-            value={fullName}
+            {...register("fullName")}
           />
         </Field>
-        <Field label="Email Address">
+        <Field error={errors.email?.message} label="Email Address">
           <input
             className={fieldClass}
-            onChange={(event) => setEmail(event.target.value)}
             placeholder="info@email.com"
-            required
             type="email"
-            value={email}
+            {...register("email")}
           />
         </Field>
-        <Field label="Phone Number">
+        <Field error={errors.phone?.message} label="Phone Number">
           <input
             className={fieldClass}
-            onChange={(event) => setPhone(event.target.value)}
             placeholder="Eg. +62 812 3456 7890"
             type="tel"
-            value={phone}
+            {...register("phone")}
           />
         </Field>
-        <Field label="Company Name (Opt)">
+        <Field error={errors.company?.message} label="Company Name (Opt)">
           <input
             className={fieldClass}
-            onChange={(event) => setCompany(event.target.value)}
             placeholder="Nama bisnis kamu"
             type="text"
-            value={company}
+            {...register("company")}
           />
         </Field>
-        <Field label="Project Type">
-          <select
-            className={fieldClass}
-            onChange={(event) => setProjectType(event.target.value as (typeof projectTypes)[number])}
-            value={projectType}
-          >
+        <Field error={errors.projectType?.message} label="Project Type">
+          <select className={fieldClass} {...register("projectType")}>
             {projectTypes.map((option) => (
-              <option key={option}>{option}</option>
+              <option key={option} value={option}>{option}</option>
             ))}
           </select>
         </Field>
-        <Field label="Project Budget">
-          <select
-            className={fieldClass}
-            onChange={(event) => setBudget(event.target.value as (typeof budgetOptions)[number])}
-            value={budget}
-          >
+        <Field error={errors.budget?.message} label="Project Budget">
+          <select className={fieldClass} {...register("budget")}>
             {budgetOptions.map((option) => (
-              <option key={option}>{option}</option>
+              <option key={option} value={option}>{option}</option>
             ))}
           </select>
         </Field>
       </div>
 
-        <Field label="Project Description">
+        <Field error={errors.description?.message} label="Project Description">
           <textarea
             className={`${fieldClass} min-h-36 resize-none py-4`}
-            onChange={(event) => setDescription(event.target.value)}
             placeholder="Jelaskan singkat kebutuhan project kamu"
-            minLength={10}
-            required
-            value={description}
+            {...register("description")}
           />
         </Field>
 
-      <input
-        className="hidden"
-        autoComplete="off"
-        name="website"
-        tabIndex={-1}
-        type="text"
-        value={honeypot}
-        onChange={(event) => setHoneypot(event.target.value)}
-      />
+      <input className="hidden" autoComplete="off" tabIndex={-1} type="text" {...register("honeypot")} />
 
       <button
         className="w-fit rounded-xl bg-ink px-7 py-4 text-[14px] leading-[17px] font-medium text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-navy active:translate-y-0"
-        disabled={loading}
+        disabled={isSubmitting}
         type="submit"
       >
-        {loading ? "Sending..." : "Send Inquiry"}
+        {isSubmitting ? "Sending..." : "Send Inquiry"}
       </button>
 
       {submitError ? <p className="text-sm font-medium text-orange-glow">{submitError}</p> : null}
@@ -208,11 +207,12 @@ export function ProjectInquiryForm() {
   );
 }
 
-function Field({ children, label }: { children: ReactNode; label: string }) {
+function Field({ children, error, label }: { children: ReactNode; error?: string; label: string }) {
   return (
     <label className="grid gap-3 text-[16px] leading-6 font-medium text-foreground">
       {label}
       {children}
+      {error ? <span className="text-sm font-medium text-orange-glow">{error}</span> : null}
     </label>
   );
 }

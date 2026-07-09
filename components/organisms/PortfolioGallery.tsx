@@ -14,7 +14,7 @@ export async function PortfolioGallery() {
           title="Semua project yang sudah kami kerjakan."
           description="Kumpulan website yang sudah live, dikerjakan dari nol oleh tim Kita Ngoding. Saring per kategori untuk menemukan contoh yang paling dekat dengan bisnis kamu."
         />
-        <p className="mt-4 text-sm font-semibold text-muted">
+        <p className="mt-4 text-sm font-semibold text-black">
           {items.length} project siap jadi referensi project kamu.
         </p>
 

@@ -8,7 +8,7 @@ export const siteConfig = {
   gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-RY3471CB04",
   email: process.env.NEXT_PUBLIC_SITE_EMAIL || "halo@kitangoding.com",
   phoneDisplay: process.env.NEXT_PUBLIC_SITE_PHONE_DISPLAY || "+62 812-3456-7890",
-  phoneHref: process.env.NEXT_PUBLIC_SITE_PHONE_HREF || "6281234567890",
+  phoneHref: normalizePhoneHref(process.env.NEXT_PUBLIC_SITE_PHONE_HREF || "6281234567890"),
   addressLocality: process.env.NEXT_PUBLIC_SITE_ADDRESS_LOCALITY || "Sendangadi, Mlati",
   addressRegion: process.env.NEXT_PUBLIC_SITE_ADDRESS_REGION || "Sleman, DI Yogyakarta",
   addressCountry: process.env.NEXT_PUBLIC_SITE_ADDRESS_COUNTRY || "ID",
@@ -17,6 +17,12 @@ export const siteConfig = {
   tagline:
     process.env.NEXT_PUBLIC_SITE_TAGLINE || "Jasa pembuatan website untuk bisnis di area Jawa yang ingin lebih dipercaya dan mudah dihubungi.",
 } as const;
+
+export function normalizePhoneHref(value: string) {
+  const digits = value.replace(/\D/g, "");
+
+  return digits.length > 0 ? digits : "6281234567890";
+}
 
 export const serviceAreas = [
   "DI Yogyakarta",

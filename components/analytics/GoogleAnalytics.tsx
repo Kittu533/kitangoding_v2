@@ -10,7 +10,7 @@ export function GoogleAnalytics() {
     <>
       <Script
         id="ga4-init"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       >
         {`
           window.dataLayer = window.dataLayer || [];
@@ -22,7 +22,7 @@ export function GoogleAnalytics() {
       <Script
         id="ga4-loader"
         src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.gaMeasurementId}`}
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
     </>
   );

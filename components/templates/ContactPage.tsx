@@ -69,7 +69,12 @@ export function ContactPage() {
 
               return (
                 <Reveal key={item.label} delay={index * 0.04}>
-                  <a className="group flex gap-5 bg-market p-8" href={item.href} rel="noreferrer" target={item.href.startsWith("http") ? "_blank" : undefined}>
+                  <a
+                    className="group flex gap-5 bg-market p-8"
+                    href={item.href}
+                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                  >
                     <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-border bg-white text-foreground transition group-hover:border-success group-hover:text-success">
                       <Icon aria-hidden="true" className="size-5" />
                     </span>
@@ -109,7 +114,7 @@ export function ContactPage() {
                     <a
                       className="mt-4 inline-flex items-center gap-2 text-[14px] leading-[17px] font-medium text-success hover:text-foreground"
                       href={mapsHref}
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       target="_blank"
                     >
                       Get Direction

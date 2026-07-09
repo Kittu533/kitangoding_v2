@@ -128,7 +128,7 @@ export default async function PortfolioPage(props: Props) {
                     <div className="flex items-center">
                       <div className="h-12 w-12 flex-shrink-0">
                         {item.thumbnail ? (
-                          <Image className="h-12 w-12 rounded-md object-cover border" src={item.thumbnail} alt="" width={48} height={48} />
+                          <Image className="h-12 w-12 rounded-md object-cover border" src={item.thumbnail} alt={`Thumbnail portfolio ${item.name}`} width={48} height={48} />
                         ) : (
                           <div className="h-12 w-12 rounded-md bg-muted border flex items-center justify-center">
                             <PhotoIcon className="h-6 w-6 text-muted-foreground" />

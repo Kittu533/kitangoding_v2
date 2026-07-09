@@ -44,7 +44,7 @@ export function PortfolioGalleryGrid({
       {visible.length > 0 ? (
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {visible.map((item, index) => (
-            <Reveal key={`${item.name}-${index}`} delay={index * 0.05}>
+            <Reveal key={`${item.name}-${index}`} className="h-full" delay={index * 0.05}>
               <PortfolioCard item={item} />
             </Reveal>
           ))}

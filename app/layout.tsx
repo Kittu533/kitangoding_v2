@@ -1,15 +1,11 @@
-import { ViewTransition } from "react";
 import type { Metadata } from "next";
-import { Inter, Geist } from "next/font/google";
+import { Inter } from "next/font/google";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { TrafficTracker } from "@/components/analytics/TrafficTracker";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -93,7 +89,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={cn("h-full", inter.variable, "font-sans", geist.variable)}
+      className={cn("h-full", inter.variable, "font-sans")}
     >
       <body className="min-h-full bg-surface text-foreground antialiased">
         <a
@@ -102,23 +98,7 @@ export default function RootLayout({
         >
           Langsung ke konten
         </a>
-        <TooltipProvider>
-          <ViewTransition
-            default="none"
-            enter={{
-              "nav-forward": "nav-forward",
-              "nav-back": "nav-back",
-              default: "none",
-            }}
-            exit={{
-              "nav-forward": "nav-forward",
-              "nav-back": "nav-back",
-              default: "none",
-            }}
-          >
-            {children}
-          </ViewTransition>
-        </TooltipProvider>
+        {children}
         <GoogleAnalytics />
         <TrafficTracker />
         <Toaster position="top-center" richColors />

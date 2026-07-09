@@ -102,7 +102,7 @@ function MarketplaceHero() {
   const marqueeItems = ["Company Profile", "Landing Page", "Toko Online", "Web App", "Dashboard"];
 
   return (
-    <section className="marketplace-grid relative overflow-hidden pt-24 pb-16" id="hero">
+    <section className="marketplace-grid relative overflow-hidden pt-24 pb-2" id="hero">
       <div className="container-shell text-center">
         <Reveal duration={0.95} parallax={14}>
           <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 marketplace-eyebrow text-success">
@@ -112,7 +112,7 @@ function MarketplaceHero() {
             Website bisnis yang bikin calon pelanggan percaya dan langsung menghubungi kamu.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl marketplace-hero-copy">
-            Buat UMKM dan brand lokal yang ingin websitenya benar-benar mendatangkan pelanggan—bukan
+            Buat UMKM dan brand lokal yang ingin websitenya benar-benar mendatangkan pelanggan bukan
             sekadar pajangan. Dari company profile, landing page iklan, toko online, sampai web app
             custom, kami rapikan copy, alur, dan tampilannya supaya pengunjung paham, percaya, lalu chat.
           </p>
@@ -185,7 +185,7 @@ const advantageIcons = [Compass, Layers3, Workflow, SearchCheck] as const;
 
 function ProblemSolutionSection() {
   return (
-    <section className="marketplace-grid py-16" id="masalah">
+    <section className="marketplace-grid py-4" id="masalah">
       <div className="container-shell">
         <Reveal className="mx-auto max-w-3xl text-center" duration={0.95} parallax={10}>
           <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 marketplace-eyebrow text-success">
@@ -257,7 +257,7 @@ function ProblemSolutionSection() {
           <Reveal className="flex flex-col items-center gap-2 text-center" duration={0.9}>
             <p className="text-lg font-extrabold text-foreground">Plus, alasan klien akhirnya percaya ke kami</p>
             <p className="max-w-2xl text-sm leading-7 text-body">
-              Bukan sekadar bikin tampilan baru—kami pikirkan pesan, struktur, dan proses supaya hasilnya benar-benar terasa di bisnismu.
+              Bukan sekadar bikin tampilan baru kami pikirkan pesan, struktur, dan proses supaya hasilnya benar-benar terasa di bisnismu.
             </p>
           </Reveal>
 
@@ -331,7 +331,7 @@ function TestimonialsSection() {
 
 export function ServicesOverviewSection({ services }: { services: PublicServiceCard[] }) {
   return (
-    <section className="marketplace-grid py-16" id="layanan">
+    <section className="marketplace-grid py-4" id="layanan">
       <div className="container-shell">
         <Reveal className="mx-auto max-w-3xl text-center" duration={0.95} parallax={10}>
           <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 marketplace-eyebrow text-success">
@@ -403,7 +403,7 @@ export function ServicesOverviewSection({ services }: { services: PublicServiceC
 
 export function VisualReferenceSection({ items }: { items: PublicCreativeCard[] }) {
   return (
-    <section className="marketplace-grid py-16" id="referensi">
+    <section className="marketplace-grid py-6" id="referensi">
       <div className="container-shell">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <Reveal duration={0.95} parallax={10}>
@@ -440,7 +440,7 @@ export function VisualReferenceSection({ items }: { items: PublicCreativeCard[] 
 
 function MarketplacePricing({ plans }: { plans: PublicPricingPlan[] }) {
   return (
-    <section className="marketplace-grid py-16" id="harga">
+    <section className="marketplace-grid py-6" id="harga">
       <div className="container-shell">
         <Reveal className="mx-auto max-w-3xl text-center" duration={0.95} parallax={10}>
           <h2 className="text-4xl font-extrabold leading-tight text-foreground">
@@ -461,7 +461,7 @@ function MarketplacePricing({ plans }: { plans: PublicPricingPlan[] }) {
 
 function BlogSection({ posts }: { posts: PublicBlogCard[] }) {
   return (
-    <section className="marketplace-grid py-16" id="blog">
+    <section className="marketplace-grid py-6" id="blog">
       <div className="container-shell">
         <Reveal className="mx-auto max-w-3xl text-center" duration={0.95} parallax={10}>
           <h2 className="text-4xl font-extrabold leading-tight text-foreground">
@@ -510,7 +510,7 @@ function BlogSection({ posts }: { posts: PublicBlogCard[] }) {
 
 function HomeFaqSection() {
   return (
-    <section className="marketplace-grid py-16" id="faq">
+    <section className="marketplace-grid py-6" id="faq">
       <div className="container-shell">
         <Reveal className="mx-auto max-w-3xl text-center" duration={0.95} parallax={10}>
           <h2 className="text-4xl font-extrabold leading-tight text-foreground">

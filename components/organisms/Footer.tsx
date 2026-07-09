@@ -24,11 +24,11 @@ export function Footer() {
         <div>
           <p className="font-semibold text-white">Kontak</p>
           <div className="mt-4 flex flex-col gap-3 text-white/65">
-            <a href={whatsappHref} rel="noreferrer" target="_blank">
+            <a href={whatsappHref} rel="noopener noreferrer" target="_blank">
               WhatsApp: {siteConfig.phoneDisplay}
             </a>
             <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-            <a href={siteConfig.instagram} rel="noreferrer" target="_blank">
+            <a href={siteConfig.instagram} rel="noopener noreferrer" target="_blank">
               Instagram
             </a>
           </div>

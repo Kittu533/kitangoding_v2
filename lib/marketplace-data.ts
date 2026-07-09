@@ -56,21 +56,21 @@ export const creatives = [
     category: "Website Bisnis",
     description: "Cocok untuk konsultan, fotografer, kontraktor, dan penyedia jasa.",
     price: "3.5jt",
-    image: "/images/project-7.png",
+    image: "/images/project-7.webp",
   },
   {
     name: "Event Promo",
     category: "Landing Page",
     description: "Halaman cepat untuk event, launching, dan promo terbatas.",
     price: "2.2jt",
-    image: "/images/project-8.png",
+    image: "/images/project-8.webp",
   },
   {
     name: "Brand Starter",
     category: "Branding Basic",
     description: "Arah visual awal agar website dan brand terasa lebih konsisten.",
     price: "By Brief",
-    image: "/images/project-1.png",
+    image: "/images/project-1.webp",
   },
 ] as const;
 
@@ -81,14 +81,14 @@ export const shopCreatives = [
     category: "Mobile App",
     description: "Tampilan app belajar yang cocok untuk kursus, kelas, atau bimbingan.",
     price: "3.5jt",
-    image: "/images/project-2.png",
+    image: "/images/project-2.webp",
   },
   {
     name: "WPStar",
     category: "Branding",
     description: "Arah visual untuk brand yang ingin terlihat lebih modern dan mudah diingat.",
     price: "2jt",
-    image: "/images/project-3.png",
+    image: "/images/project-3.webp",
   },
   {
     name: "Investing App",
@@ -116,7 +116,7 @@ export const shopCreatives = [
     category: "Mobile App",
     description: "Tampilan app ringan untuk kebiasaan, komunitas, atau program pelanggan.",
     price: "3.5jt",
-    image: "/images/project-7.png",
+    image: "/images/project-7.webp",
   },
 ] as const;
 
@@ -160,13 +160,13 @@ export const blogPosts = [
     date: "May 28, 2026",
     title: "Kenapa Website yang Rapi Bisa Membantu Bisnis Terlihat Lebih Serius",
     excerpt: "Tampilan yang jelas membantu orang lebih cepat paham dan percaya.",
-    image: "/images/project-7.png",
+    image: "/images/project-7.webp",
   },
   {
     date: "May 20, 2026",
     title: "Hal yang Perlu Disiapkan Sebelum Membuat Website",
     excerpt: "Checklist sederhana agar proses pembuatan website tidak membingungkan.",
-    image: "/images/project-8.png",
+    image: "/images/project-8.webp",
   },
 ] as const;
 
