@@ -102,11 +102,46 @@ function formatDate(date: Date | null) {
   }).format(date);
 }
 
+function parseDateLabel(dateLabel: string) {
+  const parsed = new Date(dateLabel);
+  return Number.isNaN(parsed.getTime()) ? 0 : parsed.getTime();
+}
+
 function getFallbackImage(index: number) {
   return fallbackImages[index % fallbackImages.length];
 }
 
 export const fallbackBlogDetails: PublicBlogDetail[] = [
+  {
+    slug: "biaya-website-umkm-jogja",
+    title: "Biaya Website UMKM Jogja: Kisaran Budget dan Prioritas Fitur Awal",
+    excerpt: "Kalau kamu sedang hitung budget website UMKM di Jogja, fokus dulu ke tujuan bisnis dan fitur minimum yang benar-benar dipakai.",
+    image: "/images/article-biaya-website.svg",
+    category: "SEO Lokal",
+    date: "July 10, 2026",
+    content:
+      "**Kenapa budget website UMKM bisa beda jauh**\n\nHarga website UMKM di Jogja biasanya tidak beda karena jumlah halaman saja. Perbedaan paling besar justru datang dari kejelasan tujuan bisnis, kualitas copy, kebutuhan desain, dan fitur yang diminta sejak awal.\n\nKalau tujuanmu hanya membuat bisnis terlihat lebih kredibel di Google dan WhatsApp, paket yang dibutuhkan jelas berbeda dibanding website yang harus punya katalog produk, form lead, blog, atau dashboard admin.\n\n**Prioritas fitur yang paling masuk akal untuk tahap awal**\n\n- Hero yang langsung menjelaskan layanan dan area kerja\n- Section layanan atau produk utama\n- CTA WhatsApp atau form inquiry yang jelas\n- Bukti kepercayaan seperti testimoni, portfolio, atau FAQ\n- Metadata, sitemap, canonical, dan struktur dasar SEO yang rapi\n\nUntuk banyak UMKM, kombinasi ini sudah cukup untuk mulai terlihat profesional dan menangkap lead tanpa harus langsung masuk fitur berat.\n\n**Kapan biaya mulai naik**\n\nBiaya biasanya naik saat project butuh desain lebih custom, penulisan konten lebih dalam, integrasi pihak ketiga, banyak halaman layanan, atau alur admin yang tidak standar. Jadi cara paling aman menghitung budget bukan mulai dari tampilan, tapi dari alur bisnis yang memang ingin dibantu website.\n\nKalau targetmu masih tahap validasi, lebih baik mulai dari scope ramping yang bisa launch cepat. Setelah traffic dan kebutuhan kebaca, baru tambahkan fitur berikutnya.",
+  },
+  {
+    slug: "jasa-pembuatan-website-sleman",
+    title: "Jasa Pembuatan Website Sleman: Checklist Sebelum Pilih Vendor",
+    excerpt: "Sebelum pilih jasa pembuatan website di Sleman, cek dulu cara vendor memahami brief, struktur halaman, dan target bisnis kamu.",
+    image: "/images/article-website-jawa.svg",
+    category: "SEO Lokal",
+    date: "July 9, 2026",
+    content:
+      "**Jangan pilih vendor dari visual saja**\n\nBanyak bisnis di Sleman, Jogja, dan sekitarnya memilih vendor website dari tampilan mockup pertama. Padahal hasil akhir website lebih banyak ditentukan oleh kualitas diskusi awal: siapa target pelanggan, layanan utama apa, dan CTA apa yang paling realistis untuk bisnis itu.\n\nVendor yang baik biasanya tidak langsung bicara warna dan animasi. Mereka akan mulai dari brief, struktur informasi, alur pengunjung, dan bukti apa yang perlu ditampilkan supaya calon pelanggan cepat percaya.\n\n**Checklist yang layak dicek sebelum deal**\n\n- Apakah vendor bertanya soal target pelanggan dan tujuan website\n- Apakah mereka bisa menjelaskan struktur halaman, bukan cuma desain\n- Apakah ada contoh project yang mirip dengan kebutuhanmu\n- Apakah revisi, timeline, dan deliverables dijelaskan sejak awal\n- Apakah mereka paham SEO dasar, mobile layout, dan CTA yang bisa dipakai jualan\n\nChecklist ini sederhana, tapi cukup untuk memisahkan vendor yang hanya pasang template dari partner yang benar-benar membantu bisnis.\n\n**Kalau bisnismu melayani area lokal**\n\nUntuk bisnis jasa di Sleman, website sebaiknya juga menyebut area kerja, jenis layanan, dan contoh kebutuhan lokal secara alami. Ini membantu dua hal sekaligus: pengunjung lebih merasa relevan, dan Google lebih gampang memahami konteks bisnis kamu.\n\nSemakin jelas konteks lokalnya, semakin mudah website dipakai untuk pencarian seperti jasa website Sleman, jasa website Jogja, atau website company profile untuk bisnis jasa lokal.",
+  },
+  {
+    slug: "landing-page-iklan-umkm-jogja",
+    title: "Landing Page Iklan untuk UMKM Jogja: Kapan Perlu Halaman Khusus?",
+    excerpt: "Kalau UMKM Jogja mulai jalan iklan Meta Ads atau Google Ads, landing page khusus biasanya lebih efektif daripada mengirim traffic ke homepage.",
+    image: "/images/article-landing-page-ads.svg",
+    category: "SEO Lokal",
+    date: "July 8, 2026",
+    content:
+      "**Kenapa homepage sering kurang cocok untuk traffic iklan**\n\nHomepage biasanya memuat terlalu banyak jalur: profil bisnis, layanan, portfolio, artikel, dan kontak. Untuk traffic iklan, ini sering terlalu lebar. Pengunjung datang dari satu janji iklan, tapi masuk ke halaman yang membahas terlalu banyak hal sekaligus.\n\nLanding page membantu menyempitkan fokus. Satu halaman cukup bicara satu penawaran, satu target pelanggan, dan satu CTA utama.\n\n**Tanda kamu sudah perlu landing page khusus**\n\n- Sudah mulai menjalankan Meta Ads atau Google Ads\n- Punya satu layanan yang ingin didorong lebih agresif\n- Ingin mengukur performa CTA, form, atau klik WhatsApp lebih jelas\n- Merasa homepage terlalu umum untuk campaign tertentu\n\nKalau salah satu dari empat poin ini sudah kejadian, landing page biasanya lebih masuk akal daripada terus memaksa homepage kerja sendirian.\n\n**Struktur minimum yang efektif untuk UMKM Jogja**\n\nLanding page iklan tidak harus panjang. Yang penting ada headline yang nyambung dengan isi iklan, penjelasan masalah pelanggan, manfaat utama, bukti sederhana, FAQ singkat, dan CTA yang jelas.\n\nUntuk bisnis lokal Jogja, kamu juga bisa menyebut konteks area layanan, jenis usaha yang dilayani, dan alur konsultasi singkat. Ini membantu pengunjung merasa halaman tersebut memang dibuat untuk kebutuhan mereka, bukan halaman generik yang dipakai ke semua campaign.",
+  },
   {
     slug: "cara-memilih-template-website-yang-cocok-untuk-umkm",
     title: "Cara Memilih Template Website yang Cocok untuk UMKM",
@@ -501,32 +536,7 @@ export async function getHomepagePricing(): Promise<PublicPricingPlan[]> {
 }
 
 export async function getPublicBlogPosts(limit?: number): Promise<PublicBlogCard[]> {
-  try {
-    const rows = await db
-      .select()
-      .from(blogPostsTable)
-      .where(eq(blogPostsTable.status, "published"))
-      .orderBy(desc(blogPostsTable.publishedAt), desc(blogPostsTable.createdAt));
-
-    if (rows.length > 0) {
-      const items = rows.map((item, index) => ({
-        slug: item.slug,
-        title: item.title,
-        excerpt: item.excerpt || "Insight praktis untuk membantu website bisnis tampil lebih meyakinkan.",
-        image: item.thumbnail || getFallbackImage(index + 2),
-        category: item.category,
-        date: formatDate(item.publishedAt || item.createdAt),
-      }));
-
-      return typeof limit === "number" ? items.slice(0, limit) : items;
-    }
-  } catch (error) {
-    if (!isMissingTableError(error)) {
-      console.warn("Failed to load public blog posts.", error);
-    }
-  }
-
-  const homepageFallback = fallbackBlogDetails.map((item) => ({
+  const fallbackItems = fallbackBlogDetails.map((item) => ({
     slug: item.slug,
     title: item.title,
     excerpt: item.excerpt,
@@ -535,7 +545,52 @@ export async function getPublicBlogPosts(limit?: number): Promise<PublicBlogCard
     date: item.date,
   }));
 
-  return typeof limit === "number" ? homepageFallback.slice(0, limit) : homepageFallback;
+  try {
+    const rows = await db
+      .select()
+      .from(blogPostsTable)
+      .where(eq(blogPostsTable.status, "published"))
+      .orderBy(desc(blogPostsTable.publishedAt), desc(blogPostsTable.createdAt));
+
+    if (rows.length > 0) {
+      const databaseItems = rows.map((item, index) => ({
+        slug: item.slug,
+        title: item.title,
+        excerpt: item.excerpt || "Insight praktis untuk membantu website bisnis tampil lebih meyakinkan.",
+        image: item.thumbnail || getFallbackImage(index + 2),
+        category: item.category,
+        date: formatDate(item.publishedAt || item.createdAt),
+        sortValue: (item.publishedAt || item.createdAt)?.getTime() ?? 0,
+      }));
+
+      const fallbackWithSort = fallbackItems.map((item) => ({
+        ...item,
+        sortValue: parseDateLabel(item.date),
+      }));
+
+      const mergedItems = [...databaseItems, ...fallbackWithSort]
+        .sort((left, right) => right.sortValue - left.sortValue)
+        .filter(
+          (item, index, array) => array.findIndex((entry) => entry.slug === item.slug) === index,
+        )
+        .map((item) => ({
+          slug: item.slug,
+          title: item.title,
+          excerpt: item.excerpt,
+          image: item.image,
+          category: item.category,
+          date: item.date,
+        }));
+
+      return typeof limit === "number" ? mergedItems.slice(0, limit) : mergedItems;
+    }
+  } catch (error) {
+    if (!isMissingTableError(error)) {
+      console.warn("Failed to load public blog posts.", error);
+    }
+  }
+
+  return typeof limit === "number" ? fallbackItems.slice(0, limit) : fallbackItems;
 }
 
 export async function getPublicBlogCategories(): Promise<PublicBlogCategory[]> {

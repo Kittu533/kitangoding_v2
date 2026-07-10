@@ -240,6 +240,7 @@ export function createServiceLandingMetadata(page: ServiceLandingPageConfig): Me
 
 export function createServiceLandingPageStructuredData(page: ServiceLandingPageConfig) {
   const url = createServiceLandingPageUrl(page);
+  const organizationId = `${siteConfig.domain}#organization`;
 
   return [
     {
@@ -266,6 +267,7 @@ export function createServiceLandingPageStructuredData(page: ServiceLandingPageC
       name: page.title,
       description: page.description,
       url,
+      mainEntityOfPage: url,
       areaServed: serviceAreas.map((area) => ({
         "@type": "AdministrativeArea",
         name: area,
@@ -275,10 +277,38 @@ export function createServiceLandingPageStructuredData(page: ServiceLandingPageC
         serviceUrl: url,
       },
       provider: {
-        "@type": "Organization",
-        name: siteConfig.name,
-        url: siteConfig.domain,
+        "@id": organizationId,
       },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": organizationId,
+      name: siteConfig.name,
+      url: siteConfig.domain,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: page.faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `Internal links untuk ${page.title}`,
+      itemListElement: page.relatedLinks.map((link, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `${siteConfig.domain}${link.href}`,
+        name: link.label,
+      })),
     },
   ];
 }

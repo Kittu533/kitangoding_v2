@@ -112,9 +112,10 @@ function MarketplaceHero() {
             Website bisnis yang bikin calon pelanggan percaya dan langsung menghubungi kamu.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl marketplace-hero-copy">
-            Buat UMKM dan brand lokal yang ingin websitenya benar-benar mendatangkan pelanggan bukan
-            sekadar pajangan. Dari company profile, landing page iklan, toko online, sampai web app
-            custom, kami rapikan copy, alur, dan tampilannya supaya pengunjung paham, percaya, lalu chat.
+            Kita Ngoding adalah jasa pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di
+            Jogja, Solo, Wonogiri, dan area Jawa. Dari company profile, landing page iklan, toko online,
+            sampai web app custom, kami rapikan copy, alur, dan tampilannya supaya pengunjung paham,
+            percaya, lalu chat.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <ButtonLink
@@ -132,6 +133,10 @@ function MarketplaceHero() {
           </div>
           <p className="mt-4 text-sm font-medium text-body">
             Gratis konsultasi &amp; estimasi—tanpa wajib lanjut.
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-body">
+            Fokus layanan: website company profile, landing page, toko online, dan aplikasi web custom
+            untuk bisnis yang ingin tampil lebih kredibel di Google.
           </p>
           <div className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-3 text-sm font-semibold text-body">
             <span className="rounded-lg border border-border bg-white px-4 py-2">Company profile</span>

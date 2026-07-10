@@ -15,6 +15,42 @@ type Props = {
 };
 
 const relatedServiceLinksBySlug: Record<string, Array<{ href: string; label: string; description: string }>> = {
+  "biaya-website-umkm-jogja": [
+    {
+      href: "/pricing",
+      label: "Cek paket dan kisaran harga",
+      description: "Lihat scope awal yang paling realistis untuk company profile, landing page, atau toko online.",
+    },
+    {
+      href: "/project-inquiry",
+      label: "Kirim brief project",
+      description: "Kalau butuh estimasi yang lebih akurat berdasarkan kebutuhan bisnismu.",
+    },
+  ],
+  "jasa-pembuatan-website-sleman": [
+    {
+      href: "/jasa-website-company-profile",
+      label: "Jasa website company profile",
+      description: "Cocok untuk bisnis jasa lokal yang butuh profil usaha yang lebih rapi dan meyakinkan.",
+    },
+    {
+      href: "/contact",
+      label: "Hubungi tim Kita Ngoding",
+      description: "Untuk tanya alur kerja, timeline, dan scope yang paling masuk akal lebih dulu.",
+    },
+  ],
+  "landing-page-iklan-umkm-jogja": [
+    {
+      href: "/jasa-landing-page-bisnis",
+      label: "Lihat layanan landing page bisnis",
+      description: "Untuk campaign iklan yang butuh satu halaman fokus konversi dan CTA lebih jelas.",
+    },
+    {
+      href: "/project-inquiry",
+      label: "Konsultasi campaign landing page",
+      description: "Kalau kamu sudah punya iklan aktif dan butuh halaman tujuan yang lebih relevan.",
+    },
+  ],
   "jasa-website-company-profile-umkm": [
     {
       href: "/jasa-website-company-profile",

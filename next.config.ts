@@ -1,10 +1,39 @@
 import type { NextConfig } from "next";
 
+const defaultSiteOrigin = "https://www.kitangoding.my.id";
+
+function resolveCanonicalOrigin() {
+  return (process.env.NEXT_PUBLIC_APP_URL || defaultSiteOrigin).replace(/\/$/, "");
+}
+
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       bodySizeLimit: "4mb",
     },
+  },
+  async redirects() {
+    const canonicalOrigin = resolveCanonicalOrigin();
+    const canonicalHostname = new URL(canonicalOrigin).hostname;
+    return [
+      "kitangoding.com",
+      "www.kitangoding.com",
+      "kitangoding.my.id",
+      "www.kitangoding.my.id",
+    ]
+      .filter((hostname) => hostname !== canonicalHostname)
+      .map((hostname) => ({
+      source: "/:path*",
+      has: [
+        {
+          type: "host" as const,
+          value: hostname,
+        },
+      ],
+      destination: `${canonicalOrigin}/:path*`,
+      basePath: false,
+      permanent: true,
+    }));
   },
   async headers() {
     return [
