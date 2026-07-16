@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Login | Kita Ngoding",
+  title: "Login | kitangoding.id",
   robots: {
     index: false,
     follow: false,

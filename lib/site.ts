@@ -1,9 +1,10 @@
 export const siteConfig = {
-  name: process.env.NEXT_PUBLIC_SITE_NAME || "Kita Ngoding",
-  shortName: process.env.NEXT_PUBLIC_SITE_SHORT_NAME || "Kita Ngoding",
+  name: "kitangoding.id",
+  shortName: "kitangoding.id",
+  alternateName: "Kita Ngoding",
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    "Kita Ngoding adalah jasa pembuatan website untuk UMKM dan bisnis di Jogja, Solo, Wonogiri, dan area Jawa. Layanannya meliputi website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan siap dipakai jualan.",
+    "kitangoding.id adalah jasa pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di Jogja, Solo, Wonogiri, dan area Jawa.",
   domain: process.env.NEXT_PUBLIC_APP_URL || "https://www.kitangoding.my.id",
   gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-RY3471CB04",
   email: process.env.NEXT_PUBLIC_SITE_EMAIL || "halo@kitangoding.com",
@@ -15,7 +16,7 @@ export const siteConfig = {
   instagram: process.env.NEXT_PUBLIC_SITE_INSTAGRAM || "https://instagram.com/kitangoding.id",
   tiktok: process.env.NEXT_PUBLIC_SITE_TIKTOK || "https://tiktok.com/@ryobisuryaatmaja",
   tagline:
-    process.env.NEXT_PUBLIC_SITE_TAGLINE || "Jasa pembuatan website untuk bisnis di area Jawa yang ingin lebih dipercaya dan mudah dihubungi.",
+    "Jasa pembuatan website untuk UMKM, brand lokal, dan bisnis jasa yang ingin lebih mudah dipahami dan dihubungi.",
 } as const;
 
 export function normalizePhoneHref(value: string) {
@@ -42,7 +43,7 @@ export const navigationLinks = [
 ] as const;
 
 export const whatsappHref = `https://wa.me/${siteConfig.phoneHref}?text=${encodeURIComponent(
-  "Halo Kita Ngoding, saya ingin konsultasi website untuk bisnis saya."
+  "Halo kitangoding.id, saya ingin konsultasi website untuk bisnis saya."
 )}`;
 
 export function createWhatsAppHref(message: string) {

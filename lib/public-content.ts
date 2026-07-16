@@ -95,7 +95,7 @@ function formatDate(date: Date | null) {
     return "";
   }
 
-  return new Intl.DateTimeFormat("en-US", {
+  return new Intl.DateTimeFormat("id-ID", {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -189,8 +189,33 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     image: "/images/article-landing-page-ads.svg",
     category: "Digital Marketing",
     date: "June 10, 2026",
-    content:
-      "Homepage biasanya berisi banyak informasi: profil, layanan, portfolio, artikel, dan kontak. Untuk traffic iklan, informasi yang terlalu luas bisa membuat pengunjung bingung. Landing page dibuat lebih fokus: satu campaign, satu pesan utama, satu CTA.\n\nLanding page yang baik menyambungkan janji di iklan dengan isi halaman. Jika iklan menawarkan paket website UMKM, halaman harus langsung menjelaskan masalah UMKM, hasil yang didapat, harga atau rentang investasi, proses kerja, bukti, dan cara konsultasi.\n\nDengan alur yang lebih pendek, tim marketing juga lebih mudah mengukur performa. Headline, CTA, testimoni, dan form bisa dievaluasi satu per satu tanpa terganggu navigasi yang terlalu banyak.",
+    content: `## Klik iklan membutuhkan kelanjutan pesan
+
+Iklan membentuk harapan sebelum pengunjung membuka halaman. Jika iklan menawarkan landing page untuk UMKM, halaman tujuan harus melanjutkan penawaran tersebut. Homepage yang menampilkan banyak layanan memaksa pengunjung mencari hubungan antara iklan dan kebutuhannya. Sebagian pengunjung akan menutup halaman sebelum menemukan jawabannya.
+
+Gunakan headline yang menyebut penawaran, target pengguna, dan hasil yang dapat dipahami. Hindari klaim besar yang tidak memiliki bukti. Tampilkan informasi yang membantu pengunjung memutuskan apakah penawaran cocok sebelum meminta mereka menghubungi tim penjualan.
+
+## Bagian yang wajib ada
+
+Landing page perlu menjelaskan masalah pelanggan, cara penawaran menyelesaikannya, isi paket, bukti yang dapat diperiksa, proses, serta pertanyaan umum. CTA harus menyebut tindakan yang terjadi, misalnya “Minta estimasi via WhatsApp” atau “Kirim brief campaign”. Kata “klik di sini” tidak memberi konteks.
+
+Bukti dapat berupa screenshot proyek, penjelasan scope, testimoni dengan izin, demo, atau informasi kepemilikan source code. Jika bisnis belum memiliki studi kasus publik, gunakan penjelasan proses dan contoh deliverable. Jangan membuat angka penjualan atau nama klien untuk mengisi ruang kosong.
+
+## Data yang perlu dipantau
+
+Pasang analytics sebelum campaign dimulai. Catat kunjungan halaman, klik CTA, form terkirim, dan percakapan WhatsApp yang dimulai. Conversion rate dihitung dari jumlah tindakan utama dibandingkan jumlah kunjungan. Angka ini perlu dibaca bersama kualitas lead dan biaya iklan.
+
+Periksa juga kesesuaian perangkat. Campaign media sosial sering mendapat traffic ponsel, sehingga headline, form, dan CTA harus mudah digunakan pada layar kecil. Kecepatan halaman dan resource yang dapat dimuat crawler ikut memengaruhi pengalaman pengguna.
+
+## Brief sebelum desain
+
+- Penawaran dan harga atau cara mendapatkan estimasi.
+- Sumber traffic yang akan digunakan.
+- Target pelanggan dan area layanan.
+- Bukti, foto, atau testimoni yang boleh dipublikasikan.
+- Target tindakan dan cara tim menindaklanjuti lead.
+
+kitangoding.id memakai brief tersebut untuk menyusun scope landing page, copy, CTA, dan kebutuhan tracking.`,
   },
   {
     slug: "biaya-pembuatan-website-umkm",
@@ -199,8 +224,33 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     image: "/images/article-biaya-website.svg",
     category: "Tips Bisnis",
     date: "June 8, 2026",
-    content:
-      "Biaya pembuatan website UMKM tidak bisa dilihat dari jumlah halaman saja. Website sederhana dengan copywriting rapi, desain responsif, dan CTA jelas sering lebih bernilai daripada website banyak halaman tapi informasinya berantakan.\n\nFaktor yang paling sering mempengaruhi harga adalah jenis website, jumlah section, kebutuhan desain custom, penulisan konten, fitur katalog atau form, integrasi WhatsApp, optimasi dasar SEO, dan dukungan setelah website online. Semakin spesifik kebutuhan bisnis, semakin besar waktu yang diperlukan untuk merancang alurnya.\n\nCara paling aman adalah mulai dari tujuan. Jika targetnya kredibilitas, company profile bisa cukup. Jika targetnya campaign iklan, landing page lebih tepat. Jika ingin menjual produk langsung, toko online atau katalog WhatsApp bisa jadi pilihan.",
+    content: `## Mulai dari tujuan bisnis
+
+Biaya website mengikuti pekerjaan yang harus diselesaikan. Website company profile membantu calon pelanggan memahami profil, layanan, lokasi, dan cara menghubungi bisnis. Landing page iklan membawa pengunjung menuju satu tindakan, seperti mengisi form atau membuka WhatsApp. Katalog online menampilkan produk dan membantu admin menerima order. Aplikasi web custom menangani alur kerja yang tidak dapat diselesaikan oleh halaman informasi biasa.
+
+Tentukan hasil yang ingin dicapai sebelum menghitung halaman. Lima halaman dengan materi siap pakai dapat membutuhkan pekerjaan lebih sedikit daripada satu landing page yang memerlukan riset penawaran, penulisan copy, integrasi tracking, dan beberapa variasi CTA.
+
+## Komponen yang membentuk biaya
+
+Desain dan development hanya dua bagian dari pekerjaan. Vendor juga perlu menyusun struktur informasi, menyesuaikan copy, mengolah gambar, memasang form, menghubungkan WhatsApp, menyiapkan analytics, dan menguji tampilan di ponsel. Integrasi pembayaran, ongkir, akun pengguna, dashboard, atau API menambah waktu pengerjaan karena setiap alur perlu diuji.
+
+Kesiapan konten ikut memengaruhi estimasi. Profil bisnis, daftar layanan, foto, logo, harga, dan bukti kerja yang sudah tersedia mengurangi putaran revisi. Proposal perlu menjelaskan jumlah revisi, domain, hosting, biaya perpanjangan, dukungan saat peluncuran, serta fitur yang tidak termasuk.
+
+## Contoh pilihan berdasarkan kebutuhan
+
+Harga yang tampil di kitangoding.id saat artikel ini diterbitkan dimulai dari Rp1.800.000 untuk landing page iklan dan Rp3.500.000 untuk website company profile. Website bisnis custom dan toko online memiliki biaya lebih tinggi karena halaman, pengelolaan data, serta integrasinya bertambah. Angka di halaman harga berfungsi sebagai titik awal. Tim tetap menulis scope dan estimasi final di proposal setelah brief dibahas.
+
+Bisnis yang baru membangun kehadiran digital dapat memulai dari company profile dan tombol WhatsApp. Campaign berbayar membutuhkan landing page terpisah agar pesan iklan tetap konsisten. Toko dengan produk yang sering berubah perlu mempertimbangkan siapa yang memperbarui katalog setelah website diluncurkan.
+
+## Checklist sebelum meminta estimasi
+
+- Tujuan utama website dan tindakan yang diharapkan dari pengunjung.
+- Jenis pelanggan yang ingin dijangkau.
+- Daftar halaman, produk, atau fitur yang dibutuhkan.
+- Materi yang sudah tersedia: logo, foto, profil, dan harga.
+- Target waktu peluncuran dan kisaran anggaran.
+
+Kirim lima informasi tersebut saat menghubungi kitangoding.id. Brief yang jelas membantu tim memberi pilihan scope yang masuk akal tanpa menambahkan fitur yang belum dibutuhkan.`,
   },
   {
     slug: "jasa-toko-online-untuk-umkm",
@@ -209,8 +259,29 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     image: "/images/article-toko-online-umkm.svg",
     category: "Web Development",
     date: "June 6, 2026",
-    content:
-      "Toko online untuk UMKM sebaiknya mengikuti cara bisnis melayani pelanggan. Jika produk perlu konsultasi, variasi stok sering berubah, atau order masih banyak lewat chat, katalog produk dengan tombol WhatsApp bisa lebih praktis daripada checkout penuh.\n\nCheckout lengkap cocok ketika harga, stok, ongkir, dan pembayaran sudah siap dibuat otomatis. Tapi kalau operasional belum stabil, fitur yang terlalu banyak justru menambah pekerjaan admin. Mulai dari katalog yang rapi sering lebih aman: foto produk, deskripsi, kategori, harga, dan CTA order.\n\nSetelah order mulai konsisten, fitur bisa ditambah bertahap. Misalnya filter produk, halaman detail, form order, integrasi pembayaran, atau dashboard sederhana untuk mengelola katalog.",
+    content: `## Katalog dan checkout menyelesaikan masalah berbeda
+
+Katalog online membantu pelanggan melihat produk, variasi, harga, dan cara memesan. Order dapat diteruskan ke WhatsApp sehingga admin masih mengonfirmasi stok, ongkir, dan pembayaran. Model ini cocok untuk UMKM dengan jumlah produk terbatas atau proses order yang membutuhkan percakapan.
+
+Checkout otomatis menangani keranjang, alamat, pembayaran, ongkir, status pesanan, dan notifikasi. Sistem ini mengurangi pekerjaan manual ketika volume order naik, tetapi membutuhkan pengaturan produk dan operasional yang lebih disiplin. Pemilik bisnis perlu menentukan siapa yang memperbarui stok, memproses pesanan, dan menangani kegagalan pembayaran.
+
+## Mulai dari alur order yang terjadi sekarang
+
+Catat perjalanan pelanggan dari menemukan produk sampai menerima pesanan. Periksa dari mana pelanggan datang, informasi apa yang mereka tanyakan, cara admin mengecek stok, metode pembayaran, pilihan pengiriman, dan layanan setelah pembelian. Website perlu mengikuti alur yang dapat dijalankan tim, bukan menyalin fitur marketplace tanpa kebutuhan.
+
+Jika mayoritas pelanggan masih bertanya tentang ukuran atau custom order, katalog dengan WhatsApp dapat menjadi tahap awal. Jika produk memiliki harga dan stok yang pasti serta order datang setiap hari, checkout otomatis dapat mengurangi langkah admin.
+
+## Hitung biaya operasional setelah peluncuran
+
+Biaya toko online mencakup lebih dari pembuatan halaman. Payment gateway dapat mengenakan biaya transaksi. Integrasi kurir memerlukan konfigurasi asal pengiriman. Hosting perlu menangani traffic dan proses checkout. Tim juga harus memperbarui foto, harga, stok, voucher, dan laporan order.
+
+Proposal perlu menyebut fitur, biaya tahunan, tanggung jawab pengelolaan, serta dukungan saat launch. Informasi ini membantu pemilik bisnis membandingkan biaya website dengan waktu admin yang dapat dihemat.
+
+## Pilihan tahap awal
+
+Tahap pertama dapat berupa katalog dan CTA WhatsApp. Tahap kedua menambahkan kategori, pencarian, serta pengelolaan produk. Checkout, pembayaran, ongkir, akun pelanggan, dan laporan dapat ditambahkan ketika volume transaksi membutuhkannya.
+
+Diskusikan jumlah produk, variasi, alur stok, pembayaran, dan pengiriman dengan kitangoding.id. Tim dapat menyusun scope awal tanpa memaksa bisnis membeli sistem yang belum akan dipakai.`,
   },
   {
     slug: "website-bisnis-agar-mudah-ditemukan-google",
@@ -229,8 +300,29 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     image: "/images/article-website-trust.svg",
     category: "Strategi Branding",
     date: "June 1, 2026",
-    content:
-      "Website bisnis yang meyakinkan tidak harus penuh animasi. Pengunjung biasanya mencari jawaban sederhana: bisnis ini bisa membantu saya atau tidak, sudah pernah mengerjakan hal serupa atau belum, dan mudah dihubungi atau tidak.\n\nMulai dari headline yang langsung menyebut layanan dan target pelanggan. Setelah itu tampilkan manfaat, contoh hasil kerja, testimoni, proses kerja, dan FAQ. Hindari kalimat yang terlalu umum seperti solusi terbaik tanpa bukti pendukung.\n\nDetail kecil juga berpengaruh: nomor kontak aktif, tombol WhatsApp yang jelas, halaman cepat dibuka, gambar tidak pecah, dan tampilan mobile rapi. Semakin sedikit keraguan yang muncul, semakin besar peluang pengunjung menghubungi.",
+    content: `## Jelaskan bisnis dalam satu layar
+
+Bagian pertama website harus membantu pengunjung menjawab empat pertanyaan: bisnis ini melayani siapa, menawarkan apa, beroperasi di mana, dan tindakan apa yang perlu dilakukan. Nama brand tanpa penjelasan layanan membuat pengunjung menebak. Headline perlu menyebut manfaat atau fungsi layanan dengan bahasa pelanggan.
+
+Gunakan satu CTA utama. Bisnis jasa dapat memakai konsultasi WhatsApp atau form brief. Toko dapat memakai lihat katalog atau mulai order. Tampilkan CTA kedua hanya jika membantu orang yang belum siap menghubungi, seperti melihat portfolio atau daftar layanan.
+
+## Tunjukkan bukti yang dapat diperiksa
+
+Foto dan screenshot proyek membantu pengunjung menilai kualitas kerja. Sertakan jenis proyek, scope, peran tim, dan izin publikasi. Jika URL tidak dapat dibagikan, jelaskan batasannya. Testimoni perlu memakai nama dan konteks yang telah disetujui klien. Hindari angka peningkatan, logo, atau nama perusahaan yang tidak dapat diverifikasi.
+
+Bukti proses juga berguna. Tampilkan tahapan brief, penyusunan konten, desain, development, revisi, dan launch. Calon klien dapat menilai cara kerja meski bisnis belum memiliki banyak studi kasus publik.
+
+## Kurangi hambatan sebelum menghubungi
+
+Pengunjung sering menunda karena tidak tahu kisaran biaya, waktu pengerjaan, jumlah revisi, atau kepemilikan hasil. Tampilkan harga awal atau cara menghitung estimasi. Jelaskan bahwa scope dan revisi ditulis di proposal. Sebutkan biaya perpanjangan domain dan hosting serta bantuan setelah peluncuran.
+
+Gunakan kanal kontak yang aktif. Form perlu memberi tahu data yang dibutuhkan dan apa yang terjadi setelah dikirim. Tombol WhatsApp perlu membawa pesan awal yang relevan agar calon pelanggan tidak memulai dari halaman kosong.
+
+## Jaga konsistensi identitas
+
+Gunakan nama kitangoding.id secara konsisten pada title, description, structured data, website, profil sosial, dan komunikasi pelanggan. Samakan nomor telepon, email, area layanan, serta alamat publik yang memang boleh ditampilkan. Konsistensi membantu orang mengenali brand saat berpindah dari Google ke media sosial atau WhatsApp.
+
+Perbarui Google Business Profile jika bisnis melayani pencarian lokal. Gunakan kategori, jam layanan, foto, dan tautan website yang sama dengan informasi di situs. kitangoding.id menerapkan prinsip ini pada halaman brand dan metadata agar pengunjung tidak menemukan identitas yang berbeda.`,
   },
   {
     slug: "perbedaan-website-company-profile-dan-landing-page",
@@ -239,8 +331,29 @@ export const fallbackBlogDetails: PublicBlogDetail[] = [
     image: "/images/article-company-vs-landing.svg",
     category: "Tips Bisnis",
     date: "May 30, 2026",
-    content:
-      "Website company profile dipakai untuk menjelaskan bisnis secara menyeluruh. Biasanya ada profil, layanan, portfolio, testimoni, FAQ, dan kontak. Tujuannya membangun kepercayaan dan memberi gambaran lengkap tentang siapa kamu.\n\nLanding page jauh lebih fokus. Biasanya satu halaman untuk satu penawaran, satu campaign, atau satu CTA utama. Struktur isinya lebih singkat dan diarahkan agar pengunjung cepat mengambil tindakan seperti chat, isi form, atau order.\n\nKalau bisnis kamu butuh aset jangka panjang untuk kredibilitas, company profile sering jadi fondasi. Kalau fokusnya promosi tertentu atau traffic iklan, landing page biasanya lebih efektif.",
+    content: `## Company profile menjawab siapa bisnismu
+
+Website company profile menjadi rujukan utama untuk orang yang mencari nama bisnis, menerima proposal, atau memperoleh rekomendasi dari pelanggan lain. Halamannya biasanya mencakup profil, layanan, proses kerja, portfolio, dan kontak. Pengunjung boleh berpindah halaman karena mereka sedang menilai kredibilitas dan kecocokan bisnis.
+
+Konten company profile bersifat tahan lama. Tim dapat memperbarui layanan, anggota, atau proyek tanpa mengubah tujuan utamanya. Struktur ini cocok untuk UMKM, firma, agensi, produsen, dan bisnis jasa yang perlu terlihat jelas saat dicari di Google atau dibagikan melalui WhatsApp.
+
+## Landing page mengarahkan satu tindakan
+
+Landing page dibuat untuk satu penawaran dan satu sumber traffic. Pengunjung yang mengklik iklan paket tertentu harus menemukan headline, manfaat, bukti, harga atau cara mendapatkan estimasi, serta CTA yang sesuai dengan iklan tersebut. Navigasi dibuat lebih singkat agar perhatian tidak tersebar ke banyak layanan.
+
+Halaman ini juga memerlukan tracking yang terukur. Tim dapat mencatat klik CTA, form yang terkirim, atau percakapan WhatsApp yang dimulai. Data tersebut membantu pemilik campaign membandingkan pesan dan penawaran. Tracking tidak menjamin penjualan, tetapi memberi dasar untuk menilai bagian yang perlu diperbaiki.
+
+## Pilih berdasarkan sumber pengunjung
+
+Pilih company profile jika pengunjung datang dari pencarian nama brand, referral, proposal, kartu nama, atau media sosial dan masih membutuhkan gambaran lengkap. Pilih landing page jika pengunjung datang dari Meta Ads, Google Ads, peluncuran produk, webinar, atau promo dengan tenggat waktu.
+
+Contohnya, studio interior dapat memakai company profile untuk menjelaskan layanan dan portfolio. Saat menawarkan paket renovasi dapur melalui iklan, studio tersebut dapat membuat landing page khusus yang membahas paket, area layanan, contoh hasil, dan tombol konsultasi.
+
+## Kapan keduanya dibutuhkan
+
+Banyak bisnis memakai keduanya. Company profile membangun identitas utama, sedangkan landing page menangani campaign tertentu. Setiap landing page tetap dapat menautkan identitas brand dan kebijakan yang relevan agar pengunjung tahu siapa penyedia layanannya.
+
+kitangoding.id menyediakan halaman layanan terpisah untuk website company profile dan landing page bisnis. Bandingkan tujuan, sumber pengunjung, dan tindakan yang ingin diukur sebelum memilih scope.`,
   },
   {
     slug: "berapa-lama-pembuatan-website-bisnis",

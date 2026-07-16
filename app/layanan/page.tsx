@@ -7,15 +7,19 @@ import { serviceAreas, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Layanan Jasa Website & Aplikasi Web",
-  description:
-    "Pilih jasa pembuatan website company profile, landing page, toko online, atau aplikasi web custom untuk bisnis di Jogja, Solo, Wonogiri, dan area Jawa.",
+  description: `${siteConfig.name} menyediakan website company profile, landing page, toko online, dan aplikasi web custom untuk bisnis di Jogja, Solo, Wonogiri, dan area Jawa.`,
+  keywords: [
+    siteConfig.name,
+    "jasa pembuatan website",
+    "jasa website UMKM",
+    "jasa aplikasi web",
+  ],
   alternates: {
     canonical: `${siteConfig.domain}/layanan`,
   },
   openGraph: {
-    title: "Layanan Jasa Website & Aplikasi Web | Kita Ngoding",
-    description:
-      "Pilih jasa pembuatan website company profile, landing page, toko online, atau aplikasi web custom untuk bisnis di area Jawa.",
+    title: `Layanan Jasa Website & Aplikasi Web | ${siteConfig.name}`,
+    description: `${siteConfig.name} menyediakan website company profile, landing page, toko online, dan aplikasi web custom untuk bisnis di area Jawa.`,
     url: `${siteConfig.domain}/layanan`,
     type: "website",
     images: [
@@ -23,15 +27,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Layanan Jasa Website & Aplikasi Web | Kita Ngoding",
+        alt: `Layanan Jasa Website & Aplikasi Web | ${siteConfig.name}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Layanan Jasa Website & Aplikasi Web | Kita Ngoding",
-    description:
-      "Pilih jasa pembuatan website company profile, landing page, toko online, atau aplikasi web custom untuk bisnis di area Jawa.",
+    title: `Layanan Jasa Website & Aplikasi Web | ${siteConfig.name}`,
+    description: `${siteConfig.name} menyediakan jasa website untuk UMKM dan bisnis jasa di area Jawa.`,
     images: ["/og-image.png"],
   },
 };
@@ -43,7 +46,7 @@ export default async function Page() {
   const serviceCatalogJsonLd = {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
-    name: "Layanan Jasa Website Kita Ngoding",
+    name: "Layanan Jasa Website kitangoding.id",
     url: `${siteConfig.domain}/layanan`,
     itemListElement: services.map((service, index) => ({
       "@type": "Offer",

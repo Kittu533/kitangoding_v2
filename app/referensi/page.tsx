@@ -7,15 +7,19 @@ import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Referensi Tampilan Website",
-  description:
-    "Lihat referensi tampilan website, landing page, katalog produk, dashboard, dan app-like interface untuk menentukan arah visual project.",
+  description: `Lihat referensi tampilan website, landing page, katalog produk, dan dashboard dari ${siteConfig.name} untuk menentukan arah visual proyek.`,
+  keywords: [
+    siteConfig.name,
+    "referensi desain website",
+    "inspirasi landing page",
+    "contoh UI website bisnis",
+  ],
   alternates: {
     canonical: `${siteConfig.domain}/referensi`,
   },
   openGraph: {
-    title: "Referensi Tampilan Website | Kita Ngoding",
-    description:
-      "Lihat referensi tampilan website, landing page, katalog produk, dashboard, dan app-like interface untuk menentukan arah visual project.",
+    title: `Referensi Tampilan Website | ${siteConfig.name}`,
+    description: `Jelajahi referensi website, landing page, katalog produk, dan dashboard dari ${siteConfig.name} untuk menentukan arah visual proyek.`,
     url: `${siteConfig.domain}/referensi`,
     type: "website",
     images: [
@@ -23,15 +27,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Referensi Tampilan Website | Kita Ngoding",
+        alt: `Referensi Tampilan Website | ${siteConfig.name}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Referensi Tampilan Website | Kita Ngoding",
-    description:
-      "Lihat referensi tampilan website, landing page, katalog produk, dashboard, dan app-like interface untuk menentukan arah visual project.",
+    title: `Referensi Tampilan Website | ${siteConfig.name}`,
+    description: `Temukan arah visual website bisnismu bersama ${siteConfig.name}.`,
     images: ["/og-image.png"],
   },
 };
@@ -52,7 +55,7 @@ export default async function Page() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Referensi Visual Kita Ngoding",
+      name: "Referensi Visual kitangoding.id",
       itemListElement: creativeItems.map((item, index) => ({
         "@type": "ListItem",
         position: index + 1,

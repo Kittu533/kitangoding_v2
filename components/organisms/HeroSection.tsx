@@ -15,7 +15,7 @@ export function HeroSection() {
         <Reveal className="max-w-3xl">
           <Badge tone="glass">{"<UMKM/>"} website yang bikin lebih dipercaya</Badge>
           <h1 className="mt-6 font-display text-5xl leading-tight font-extrabold text-white md:text-6xl xl:text-7xl">
-            Kita Ngoding
+            kitangoding.id
           </h1>
           <p className="mt-5 max-w-2xl text-2xl leading-snug font-semibold text-orange-glow md:text-3xl">
             Website profesional untuk UMKM yang ingin terlihat serius sejak 5 detik pertama.

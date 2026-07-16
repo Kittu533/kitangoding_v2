@@ -32,9 +32,9 @@ export async function PortfolioSection() {
               <div className="max-w-2xl text-white">
                 <SectionHeader
                   invert
-                  eyebrow="Portfolio nyata"
-                  title="Bukti kerja yang bisa kamu cek sebelum keluar biaya."
-                  description="Tiap project di bawah ini sudah live dan dikerjakan dari nol oleh tim Kita Ngoding. Pilih tipe yang paling dekat dengan bisnis kamu, lalu ajak kami diskusi."
+                  eyebrow="Contoh proyek"
+                  title="Contoh proyek untuk memahami cara kerja kitangoding.id."
+                  description="Pelajari jenis website dan aplikasi yang pernah kami kerjakan. URL publik dan studi kasus lengkap akan ditambahkan setelah mendapat izin publikasi."
                 />
               </div>
 

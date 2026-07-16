@@ -6,15 +6,19 @@ import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Blog Website UMKM, SEO, dan Branding",
-  description:
-    "Tips praktis seputar website UMKM, SEO, branding, UI/UX, dan strategi digital untuk membantu bisnis tampil lebih meyakinkan.",
+  description: `Baca tips praktis dari ${siteConfig.name} seputar website UMKM, SEO, branding, UI/UX, dan strategi digital untuk bisnis.`,
+  keywords: [
+    siteConfig.name,
+    "blog website UMKM",
+    "tips SEO bisnis",
+    "tips website bisnis",
+  ],
   alternates: {
     canonical: `${siteConfig.domain}/blog`,
   },
   openGraph: {
-    title: "Blog Website UMKM, SEO, dan Branding | Kita Ngoding",
-    description:
-      "Tips praktis seputar website UMKM, SEO, branding, UI/UX, dan strategi digital untuk membantu bisnis tampil lebih meyakinkan.",
+    title: `Blog Website UMKM, SEO, dan Branding | ${siteConfig.name}`,
+    description: `Baca tips praktis dari ${siteConfig.name} seputar website UMKM, SEO, branding, UI/UX, dan strategi digital untuk bisnis.`,
     url: `${siteConfig.domain}/blog`,
     type: "website",
     images: [
@@ -22,15 +26,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Blog Website UMKM, SEO, dan Branding | Kita Ngoding",
+        alt: `Blog Website UMKM, SEO, dan Branding | ${siteConfig.name}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog Website UMKM, SEO, dan Branding | Kita Ngoding",
-    description:
-      "Tips praktis seputar website UMKM, SEO, branding, UI/UX, dan strategi digital untuk membantu bisnis tampil lebih meyakinkan.",
+    title: `Blog Website UMKM, SEO, dan Branding | ${siteConfig.name}`,
+    description: `Pelajari website UMKM, SEO, branding, dan strategi digital bersama ${siteConfig.name}.`,
     images: ["/og-image.png"],
   },
 };
@@ -55,7 +58,7 @@ export default async function Page() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Daftar Artikel Kita Ngoding",
+      name: "Daftar Artikel kitangoding.id",
       itemListElement: posts.map((post, index) => ({
         "@type": "ListItem",
         position: index + 1,

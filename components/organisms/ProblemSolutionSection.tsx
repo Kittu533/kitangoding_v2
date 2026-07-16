@@ -26,7 +26,7 @@ export function ProblemSolutionSection() {
 
         <Reveal delay={0.08}>
           <div className="h-full rounded-lg bg-navy p-8 text-white shadow-soft">
-            <Badge tone="glass">Solusi dari Kita Ngoding</Badge>
+            <Badge tone="glass">Solusi dari kitangoding.id</Badge>
             <h2 className="mt-5 font-display text-4xl leading-tight font-bold text-white">
               Kita rapikan narasi, visual, dan CTA agar bisnismu terlihat lebih matang.
             </h2>

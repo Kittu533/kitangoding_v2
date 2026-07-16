@@ -3,6 +3,7 @@ export const marketplaceNav = [
   { href: "/portfolio", label: "Portfolio" },
   { href: "/pricing", label: "Harga" },
   { href: "/blog", label: "Blog" },
+  { href: "/tentang", label: "Tentang" },
   { href: "/contact", label: "Kontak" },
 ] as const;
 
@@ -229,6 +230,7 @@ export const footerColumns = [
     title: "Halaman",
     links: [
       { label: "Home", href: "/" },
+      { label: "Tentang", href: "/tentang" },
       { label: "Harga", href: "/pricing" },
       { label: "Portfolio", href: "/portfolio" },
       { label: "Blog", href: "/blog" },

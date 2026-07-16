@@ -10,7 +10,7 @@ test("normalizePhoneHref strips non-digits from malformed env values", () => {
 });
 
 test("createWhatsAppHref always produces a valid wa.me URL", () => {
-  const href = createWhatsAppHref("Halo Kita Ngoding, saya ingin konsultasi website.");
+  const href = createWhatsAppHref("Halo kitangoding.id, saya ingin konsultasi website.");
 
   assert.ok(href.startsWith("https://wa.me/"));
   assert.ok(href.includes("?text="));

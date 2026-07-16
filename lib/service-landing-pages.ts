@@ -201,16 +201,17 @@ export function createServiceLandingPageUrl(page: ServiceLandingPageConfig) {
 
 export function createServiceLandingMetadata(page: ServiceLandingPageConfig): Metadata {
   const url = createServiceLandingPageUrl(page);
+  const description = `${page.description} Konsultasikan kebutuhanmu dengan ${siteConfig.name}.`;
 
   return {
     title: page.title,
-    description: page.description,
+    description,
     alternates: {
       canonical: url,
     },
     openGraph: {
       title: `${page.title} | ${siteConfig.name}`,
-      description: page.description,
+      description,
       url,
       type: "website",
       images: [
@@ -225,10 +226,12 @@ export function createServiceLandingMetadata(page: ServiceLandingPageConfig): Me
     twitter: {
       card: "summary_large_image",
       title: `${page.title} | ${siteConfig.name}`,
-      description: page.description,
+      description,
       images: ["/og-image.png"],
     },
     keywords: [
+      siteConfig.name,
+      "kitangoding id",
       page.keyword,
       page.title.toLowerCase(),
       "jasa website jogja",

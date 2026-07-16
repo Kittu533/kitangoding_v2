@@ -6,14 +6,20 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Template Website & Aset Kreatif",
   description:
-    "Pilih template website, landing page, dan aset kreatif dari Kita Ngoding untuk kebutuhan bisnis kamu.",
+    "Pilih template website, landing page, dan aset kreatif dari kitangoding.id untuk kebutuhan bisnis kamu.",
+  keywords: [
+    siteConfig.name,
+    "template website bisnis",
+    "template landing page",
+    "aset kreatif UMKM",
+  ],
   alternates: {
     canonical: `${siteConfig.domain}/shop`,
   },
   openGraph: {
-    title: "Template Website & Aset Kreatif | Kita Ngoding",
+    title: `Template Website & Aset Kreatif | ${siteConfig.name}`,
     description:
-      "Pilih template website, landing page, dan aset kreatif dari Kita Ngoding untuk kebutuhan bisnis kamu.",
+      "Pilih template website, landing page, dan aset kreatif dari kitangoding.id untuk kebutuhan bisnis kamu.",
     url: `${siteConfig.domain}/shop`,
     type: "website",
     images: [
@@ -21,15 +27,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Template Website & Aset Kreatif | Kita Ngoding",
+        alt: `Template Website & Aset Kreatif | ${siteConfig.name}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Template Website & Aset Kreatif | Kita Ngoding",
+    title: `Template Website & Aset Kreatif | ${siteConfig.name}`,
     description:
-      "Pilih template website, landing page, dan aset kreatif dari Kita Ngoding untuk kebutuhan bisnis kamu.",
+      "Pilih template website, landing page, dan aset kreatif dari kitangoding.id untuk kebutuhan bisnis kamu.",
     images: ["/og-image.png"],
   },
 };
@@ -40,7 +46,7 @@ const shopJsonLd = [
     "@type": "CollectionPage",
     name: "Template Website & Aset Kreatif",
     description:
-      "Template website, landing page, dan aset kreatif dari Kita Ngoding untuk kebutuhan bisnis.",
+      "Template website, landing page, dan aset kreatif dari kitangoding.id untuk kebutuhan bisnis.",
     url: `${siteConfig.domain}/shop`,
     publisher: {
       "@type": "Organization",
@@ -51,7 +57,7 @@ const shopJsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Katalog Template Website Kita Ngoding",
+    name: "Katalog Template Website kitangoding.id",
     url: `${siteConfig.domain}/shop`,
     itemListElement: [
       {

@@ -16,17 +16,18 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.domain),
   title: {
-    default: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
+    default: `${siteConfig.name} | Jasa Pembuatan Website UMKM`,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: [
+    "kitangoding.id",
+    "kitangoding id",
+    "Kita Ngoding",
     "jasa pembuatan website",
     "website UMKM",
-    "web developer Indonesia",
     "website company profile",
     "landing page UMKM",
-    "jasa web developer Jawa",
     "jasa website Jogja",
     "jasa website Solo",
     "jasa website Wonogiri",
@@ -47,9 +48,8 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: siteConfig.domain,
     siteName: siteConfig.name,
-    title: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
-    description:
-      "Jasa pembuatan website company profile, landing page, toko online, dan aplikasi web untuk bisnis di Jogja, Solo, Wonogiri, dan area Jawa yang ingin lebih dipercaya.",
+    title: `${siteConfig.name} | Jasa Pembuatan Website UMKM`,
+    description: `${siteConfig.name} membuat website company profile, landing page, toko online, dan aplikasi web untuk bisnis di Jogja, Solo, Wonogiri, dan area Jawa.`,
     images: [
       {
         url: "/og-image.png",
@@ -61,9 +61,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
-    description:
-      "Jasa website company profile, landing page, toko online, dan aplikasi web untuk bisnis di area Jawa.",
+    title: `${siteConfig.name} | Jasa Pembuatan Website UMKM`,
+    description: `${siteConfig.name} membantu UMKM dan bisnis jasa membangun website yang jelas, cepat, dan mudah dihubungi pelanggan.`,
     images: ["/og-image.png"],
   },
   robots: {

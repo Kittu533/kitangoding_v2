@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { siteConfig } from "../lib/site";
+import { serviceAreas, siteConfig } from "../lib/site";
 import {
   createServiceLandingMetadata,
   createServiceLandingPageStructuredData,
@@ -35,36 +35,41 @@ test("service landing page helpers build canonical url and JSON-LD schemas", () 
 
   assert.equal(pageUrl, `${siteConfig.domain}/jasa-website-company-profile`);
   assert.equal(createServiceLandingMetadata(page).alternates?.canonical, pageUrl);
-  assert.deepEqual(createServiceLandingPageStructuredData(page), [
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteConfig.domain,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: page.title,
-          item: pageUrl,
-        },
-      ],
+  const structuredData = createServiceLandingPageStructuredData(page);
+
+  assert.deepEqual(
+    structuredData.map((schema) => schema["@type"]),
+    ["BreadcrumbList", "Service", "Organization", "FAQPage", "ItemList"]
+  );
+  assert.deepEqual(structuredData[1], {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: page.title,
+    description: page.description,
+    url: pageUrl,
+    mainEntityOfPage: pageUrl,
+    areaServed: serviceAreas.map((name) => ({
+      "@type": "AdministrativeArea",
+      name,
+    })),
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceUrl: pageUrl,
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      name: page.title,
-      description: page.description,
-      url: pageUrl,
-      provider: {
-        "@type": "Organization",
-        name: siteConfig.name,
-        url: siteConfig.domain,
+    provider: {
+      "@id": `${siteConfig.domain}#organization`,
+    },
+  });
+  assert.deepEqual(structuredData[3], {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: page.faq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
       },
-    },
-  ]);
+    })),
+  });
 });

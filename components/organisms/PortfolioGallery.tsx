@@ -11,11 +11,11 @@ export async function PortfolioGallery() {
       <div className="container-shell">
         <SectionHeader
           eyebrow="Portfolio"
-          title="Semua project yang sudah kami kerjakan."
-          description="Kumpulan website yang sudah live, dikerjakan dari nol oleh tim Kita Ngoding. Saring per kategori untuk menemukan contoh yang paling dekat dengan bisnis kamu."
+          title="Contoh proyek website dan aplikasi kitangoding.id."
+          description="Pelajari jenis website dan aplikasi yang pernah kami kerjakan. URL publik dan studi kasus lengkap akan ditambahkan setelah mendapat izin publikasi."
         />
         <p className="mt-4 text-sm font-semibold text-black">
-          {items.length} project siap jadi referensi project kamu.
+          {items.length} proyek siap menjadi referensi kebutuhanmu.
         </p>
 
         <div className="mt-10">

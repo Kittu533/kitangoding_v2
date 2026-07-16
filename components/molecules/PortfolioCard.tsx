@@ -15,7 +15,6 @@ export function PortfolioCard({ item }: { item: PortfolioCardData }) {
             alt={item.name}
             className="object-cover object-top transition duration-700 group-hover:scale-[1.07]"
             fill
-            quality={72}
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             src={item.thumbnail}
           />
@@ -51,7 +50,7 @@ export function PortfolioCard({ item }: { item: PortfolioCardData }) {
           {item.result}
         </p>
         <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-bold text-navy">
-          Bahas project seperti ini
+          Pelajari jenis proyek ini
           <ArrowRight aria-hidden="true" className="size-4 transition group-hover:translate-x-1" />
         </span>
       </div>

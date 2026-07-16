@@ -37,6 +37,7 @@ import { whatsappHref } from "@/lib/site";
 const serviceSolutions = [
   {
     title: "Website Company Profile",
+    match: "company profile",
     href: serviceLandingPages[0].pathname,
     description:
       "Bikin bisnismu langsung terlihat kredibel begitu calon klien buka websitenya—profil rapi yang menjawab “ini bisnis serius” dalam 5 detik pertama.",
@@ -46,6 +47,7 @@ const serviceSolutions = [
   },
   {
     title: "Landing Page Iklan",
+    match: "landing page",
     href: serviceLandingPages[1].pathname,
     description:
       "Ubah klik iklan jadi chat WhatsApp. Satu halaman fokus konversi untuk Meta Ads, Google Ads, atau launching produk—dirancang biar pengunjung ambil aksi.",
@@ -55,6 +57,7 @@ const serviceSolutions = [
   },
   {
     title: "Toko Online & Katalog",
+    match: "toko online",
     href: serviceLandingPages[2].pathname,
     description:
       "Terima order lebih rapi tanpa terus bagi-bagi margin ke marketplace. Katalog jelas + alur order yang gampang bikin pembeli nggak ragu checkout.",
@@ -64,6 +67,7 @@ const serviceSolutions = [
   },
   {
     title: "Aplikasi Web Custom",
+    match: "aplikasi web",
     description:
       "Rapikan operasional yang masih manual lewat Excel & WhatsApp. Dashboard dan sistem khusus yang dibangun persis sesuai alur kerja bisnismu.",
     icon: Workflow,
@@ -112,7 +116,7 @@ function MarketplaceHero() {
             Website bisnis yang bikin calon pelanggan percaya dan langsung menghubungi kamu.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl marketplace-hero-copy">
-            Kita Ngoding adalah jasa pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di
+            kitangoding.id adalah jasa pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di
             Jogja, Solo, Wonogiri, dan area Jawa. Dari company profile, landing page iklan, toko online,
             sampai web app custom, kami rapikan copy, alur, dan tampilannya supaya pengunjung paham,
             percaya, lalu chat.
@@ -355,7 +359,9 @@ export function ServicesOverviewSection({ services }: { services: PublicServiceC
         <BentoGrid className="mt-12 auto-rows-auto items-stretch md:auto-rows-auto">
           {serviceSolutions.map((service, index) => {
             const Icon = service.icon;
-            const publicService = services[index];
+            const publicService = services.find((item) =>
+              item.title.toLowerCase().includes(service.match),
+            );
             const hasHref = "href" in service;
 
             return (

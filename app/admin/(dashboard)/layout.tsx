@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard - Kita Ngoding",
+  title: "Admin Dashboard - kitangoding.id",
   description: "Internal Content Management System",
   robots: {
     index: false,

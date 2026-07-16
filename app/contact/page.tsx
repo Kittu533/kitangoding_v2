@@ -5,14 +5,20 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Kontak Jasa Pembuatan Website",
   description:
-    "Hubungi Kita Ngoding untuk konsultasi website UMKM, landing page, dan toko online. Berlokasi di Sendangadi, Mlati, Sleman.",
+    "Hubungi kitangoding.id untuk konsultasi website UMKM, landing page, dan toko online. Berlokasi di Sendangadi, Mlati, Sleman.",
+  keywords: [
+    siteConfig.name,
+    "konsultasi website",
+    "jasa website Jogja",
+    "web developer Sleman",
+  ],
   alternates: {
     canonical: `${siteConfig.domain}/contact`,
   },
   openGraph: {
-    title: "Kontak Jasa Pembuatan Website | Kita Ngoding",
+    title: `Kontak Jasa Pembuatan Website | ${siteConfig.name}`,
     description:
-      "Hubungi Kita Ngoding untuk konsultasi website UMKM, landing page, dan toko online.",
+      "Hubungi kitangoding.id untuk konsultasi website UMKM, landing page, dan toko online.",
     url: `${siteConfig.domain}/contact`,
     type: "website",
     images: [
@@ -20,15 +26,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Kontak Jasa Pembuatan Website | Kita Ngoding",
+        alt: `Kontak Jasa Pembuatan Website | ${siteConfig.name}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kontak Jasa Pembuatan Website | Kita Ngoding",
+    title: `Kontak Jasa Pembuatan Website | ${siteConfig.name}`,
     description:
-      "Hubungi Kita Ngoding untuk konsultasi website UMKM, landing page, dan toko online.",
+      "Hubungi kitangoding.id untuk konsultasi website UMKM, landing page, dan toko online.",
     images: ["/og-image.png"],
   },
 };
@@ -36,9 +42,9 @@ export const metadata: Metadata = {
 const contactPageJsonLd = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  name: "Kontak Jasa Pembuatan Website Kita Ngoding",
+  name: "Kontak Jasa Pembuatan Website kitangoding.id",
   description:
-    "Hubungi Kita Ngoding untuk konsultasi website UMKM, landing page, dan toko online.",
+    "Hubungi kitangoding.id untuk konsultasi website UMKM, landing page, dan toko online.",
   url: `${siteConfig.domain}/contact`,
   mainEntity: {
     "@type": "Organization",

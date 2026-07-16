@@ -35,7 +35,7 @@ const relatedServiceLinksBySlug: Record<string, Array<{ href: string; label: str
     },
     {
       href: "/contact",
-      label: "Hubungi tim Kita Ngoding",
+      label: "Hubungi tim kitangoding.id",
       description: "Untuk tanya alur kerja, timeline, dan scope yang paling masuk akal lebih dulu.",
     },
   ],
@@ -107,6 +107,12 @@ function stripInlineMarkdown(text: string) {
     .trim();
 }
 
+function toIsoDate(value: string) {
+  const date = new Date(value);
+
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
+}
+
 function renderContent(content: string) {
   const blocks = content
     .split(/\n{2,}/)
@@ -115,6 +121,14 @@ function renderContent(content: string) {
 
   return blocks.map((block, index) => {
     const lines = block.split("\n").map((line) => line.trim()).filter(Boolean);
+
+    if (lines.length === 1 && /^##\s+/.test(lines[0])) {
+      return (
+        <h2 key={`${index}-${lines[0]}`} className="text-2xl font-extrabold text-black">
+          {stripInlineMarkdown(lines[0].replace(/^##\s+/, ""))}
+        </h2>
+      );
+    }
 
     if (lines.length === 1 && /^\*\*(.+)\*\*$/.test(lines[0])) {
       return (
@@ -167,16 +181,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const postImageUrl = post.image.startsWith("http")
     ? post.image
     : new URL(post.image, siteConfig.domain).toString();
+  const description = `${post.excerpt} Baca panduan lengkapnya di ${siteConfig.name}.`;
 
   return {
-    title: `${post.title} | Blog Kita Ngoding`,
-    description: post.excerpt,
+    title: {
+      absolute: `${post.title} | ${siteConfig.name}`,
+    },
+    description,
+    keywords: [siteConfig.name, "kitangoding id", post.category, post.title],
     alternates: {
       canonical: `${siteConfig.domain}/blog/${post.slug}`,
     },
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: `${post.title} | ${siteConfig.name}`,
+      description,
       url: `${siteConfig.domain}/blog/${post.slug}`,
       type: "article",
       images: [
@@ -190,8 +208,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
+      title: `${post.title} | ${siteConfig.name}`,
+      description,
       images: [postImageUrl],
     },
   };
@@ -214,6 +232,7 @@ export default async function Page({ params }: Props) {
   const postImageUrl = post.image.startsWith("http")
     ? post.image
     : new URL(post.image, siteConfig.domain).toString();
+  const publishedAt = toIsoDate(post.date);
 
   const structuredData = [
     {
@@ -247,9 +266,11 @@ export default async function Page({ params }: Props) {
       description: post.excerpt,
       image: [postImageUrl],
       articleSection: post.category,
+      ...(publishedAt ? { datePublished: publishedAt, dateModified: publishedAt } : {}),
       author: {
         "@type": "Organization",
         name: siteConfig.name,
+        url: `${siteConfig.domain}/tentang`,
       },
       publisher: {
         "@type": "Organization",

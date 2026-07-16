@@ -4,16 +4,17 @@ import { faqs } from "@/lib/landing-data";
 import { serviceAreas, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Jasa Pembuatan Website UMKM, Landing Page, dan Toko Online",
+  title: {
+    absolute: `${siteConfig.name} | Jasa Pembuatan Website UMKM`,
+  },
   description:
-    "Kita Ngoding adalah jasa pembuatan website untuk UMKM di Jogja, Solo, Wonogiri, dan area Jawa. Kami melayani pembuatan website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan mudah dipakai untuk jualan.",
+    "kitangoding.id adalah jasa pembuatan website untuk UMKM di Jogja, Solo, Wonogiri, dan area Jawa. Kami melayani pembuatan website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan mudah dipakai untuk jualan.",
   alternates: {
     canonical: siteConfig.domain,
   },
   openGraph: {
-    title: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
-    description:
-      "Website bisnis yang rapi, meyakinkan, dan siap dipakai untuk promosi, lead, dan order pelanggan di area Jawa.",
+    title: `${siteConfig.name} | Jasa Pembuatan Website UMKM`,
+    description: `${siteConfig.name} membuat website bisnis yang rapi, meyakinkan, dan siap dipakai untuk promosi, lead, dan order pelanggan di area Jawa.`,
     url: siteConfig.domain,
     type: "website",
     images: [
@@ -27,12 +28,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
-    description:
-      "Website company profile, landing page, toko online, dan aplikasi web untuk bisnis di area Jawa.",
+    title: `${siteConfig.name} | Jasa Pembuatan Website UMKM`,
+    description: `${siteConfig.name} membuat website company profile, landing page, toko online, dan aplikasi web untuk bisnis di area Jawa.`,
     images: ["/og-image.png"],
   },
   keywords: [
+    "kitangoding.id",
+    "kitangoding id",
     "jasa pembuatan website umkm",
     "jasa website company profile",
     "jasa landing page",
@@ -54,6 +56,7 @@ const structuredData = [
     "@type": "Organization",
     "@id": organizationId,
     name: siteConfig.name,
+    alternateName: siteConfig.alternateName,
     url: siteConfig.domain,
     description: siteConfig.description,
     logo: `${siteConfig.domain}/logo-kitangoding.webp`,

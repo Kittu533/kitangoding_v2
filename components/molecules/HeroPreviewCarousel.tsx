@@ -29,7 +29,6 @@ export function HeroPreviewCarousel() {
           alt={activeImage.alt}
           className={`object-cover ${activeImage.position}`}
           fill
-          quality={68}
           sizes="(max-width: 768px) 100vw, 1200px"
           src={activeImage.src}
         />

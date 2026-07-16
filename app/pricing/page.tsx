@@ -10,15 +10,19 @@ import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Harga Jasa Pembuatan Website UMKM",
-  description:
-    "Pilihan paket pembuatan website, landing page, dan toko online untuk UMKM yang sesuai dengan kebutuhan dan budget.",
+  description: `Lihat pilihan harga jasa website, landing page, dan toko online dari ${siteConfig.name} untuk kebutuhan dan anggaran UMKM.`,
+  keywords: [
+    siteConfig.name,
+    "harga jasa pembuatan website",
+    "biaya website UMKM",
+    "harga landing page",
+  ],
   alternates: {
     canonical: `${siteConfig.domain}/pricing`,
   },
   openGraph: {
-    title: "Harga Jasa Pembuatan Website UMKM | Kita Ngoding",
-    description:
-      "Pilih paket website, landing page, atau toko online yang sesuai dengan kebutuhan dan budget bisnismu.",
+    title: `Harga Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
+    description: `Pilih paket website, landing page, atau toko online dari ${siteConfig.name} sesuai kebutuhan dan anggaran bisnismu.`,
     url: `${siteConfig.domain}/pricing`,
     type: "website",
     images: [
@@ -26,15 +30,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Harga Jasa Pembuatan Website UMKM | Kita Ngoding",
+        alt: `Harga Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Harga Jasa Pembuatan Website UMKM | Kita Ngoding",
-    description:
-      "Pilih paket website, landing page, atau toko online yang sesuai dengan kebutuhan dan budget bisnismu.",
+    title: `Harga Jasa Pembuatan Website UMKM | ${siteConfig.name}`,
+    description: `Bandingkan paket website dari ${siteConfig.name} sesuai kebutuhan dan anggaran bisnismu.`,
     images: ["/og-image.png"],
   },
 };
