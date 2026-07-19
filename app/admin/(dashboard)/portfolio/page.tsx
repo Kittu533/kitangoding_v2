@@ -37,6 +37,9 @@ type PortfolioRow = {
   categoryName: string | null;
   thumbnail: string | null;
   result: string | null;
+  role: string | null;
+  features: string[];
+  gallery: string[];
   createdAt: Date;
 };
 
@@ -62,6 +65,9 @@ export default async function PortfolioPage(props: Props) {
         categoryName: portfolioCategories.name,
         thumbnail: portfolios.thumbnail,
         result: portfolios.result,
+        role: portfolios.role,
+        features: portfolios.features,
+        gallery: portfolios.gallery,
         createdAt: portfolios.createdAt,
       })
         .from(portfolios)

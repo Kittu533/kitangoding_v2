@@ -1,7 +1,8 @@
 import { db } from "@/lib/db";
-import { blogCategories, blogPosts } from "@/lib/db/schema";
+import { blogPosts } from "@/lib/db/schema";
 import { desc, count } from "drizzle-orm";
-import { DocumentTextIcon, PencilIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { DocumentTextIcon, PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
 import {
   Table,
   TableBody,
@@ -20,7 +21,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import { BlogForm } from "@/components/admin/blog-form";
 import { DeleteButton } from "@/components/admin/delete-button";
 import { deleteBlogPost } from "./actions";
 
@@ -36,25 +36,22 @@ export default async function BlogPage(props: Props) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   let data: Array<typeof blogPosts.$inferSelect> = [];
-  let categoryOptions: string[] = [];
   let totalItems = 0;
   let totalPages = 1;
 
   try {
-    const [countResult, blogResult, categoryResult] = await Promise.all([
+    const [countResult, blogResult] = await Promise.all([
       db.select({ value: count() }).from(blogPosts),
       db.select()
         .from(blogPosts)
         .orderBy(desc(blogPosts.createdAt))
         .limit(ITEMS_PER_PAGE)
         .offset(offset),
-      db.select().from(blogCategories).orderBy(blogCategories.name),
     ]);
 
     totalItems = countResult[0].value;
     totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
     data = blogResult;
-    categoryOptions = categoryResult.map((item) => item.name);
   } catch (e) {
     console.warn("Database not ready", e);
   }
@@ -68,9 +65,10 @@ export default async function BlogPage(props: Props) {
             Kelola konten publikasi untuk pengunjung website.
           </p>
         </div>
-        <div>
-          <BlogForm categories={categoryOptions} />
-        </div>
+        <Link className={buttonVariants({ variant: "default", className: "!text-white hover:!text-white" })} href="/admin/blog/new">
+          <PlusIcon className="mr-2 h-4 w-4" />
+          Tulis Artikel
+        </Link>
       </div>
       
       <div className="rounded-md border bg-card text-card-foreground shadow-sm">
@@ -79,6 +77,7 @@ export default async function BlogPage(props: Props) {
             <TableRow>
               <TableHead className="w-12 text-center">No</TableHead>
               <TableHead>Judul Artikel</TableHead>
+              <TableHead>Penulis</TableHead>
               <TableHead>Kategori</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Dibuat</TableHead>
@@ -88,7 +87,7 @@ export default async function BlogPage(props: Props) {
           <TableBody>
             {data.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={6} className="h-48 text-center">
+                <TableCell colSpan={7} className="h-48 text-center">
                   <div className="flex flex-col items-center justify-center">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted mb-3">
                       <DocumentTextIcon className="h-6 w-6 text-muted-foreground" />
@@ -106,6 +105,9 @@ export default async function BlogPage(props: Props) {
                   </TableCell>
                   <TableCell className="font-medium max-w-sm truncate">
                     {item.title}
+                  </TableCell>
+                  <TableCell className="max-w-40 truncate text-sm text-muted-foreground">
+                    {item.author}
                   </TableCell>
                   <TableCell>
                     <Badge variant="secondary">
@@ -128,16 +130,10 @@ export default async function BlogPage(props: Props) {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-2">
-                      <BlogForm 
-                        categories={categoryOptions}
-                        initialData={item} 
-                        trigger={
-                          <button className={buttonVariants({ variant: "outline", size: "sm" })}> 
-                            <PencilIcon className="h-4 w-4 mr-1" />
-                            Edit
-                          </button>
-                        } 
-                      />
+                      <Link className={buttonVariants({ variant: "outline", size: "sm" })} href={`/admin/blog/${item.id}/edit`}>
+                        <PencilIcon className="mr-1 h-4 w-4" />
+                        Edit
+                      </Link>
                       <DeleteButton id={item.id} action={deleteBlogPost} />
                     </div>
                   </TableCell>

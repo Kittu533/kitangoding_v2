@@ -1,11 +1,11 @@
-import { MessageCircle } from "lucide-react";
+import { Menu, MessageCircle, X } from "lucide-react";
 import { FaInstagram, FaTiktok } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 import Link from "next/link";
 import { ButtonLink } from "@/components/atoms/Button";
 import { LogoMark } from "@/components/atoms/LogoMark";
 import { MarketplaceNavLinks } from "@/components/molecules/MarketplaceNavLinks";
-import { footerColumns } from "@/lib/marketplace-data";
+import { footerColumns, marketplaceNav } from "@/lib/marketplace-data";
 import { siteConfig, whatsappHref } from "@/lib/site";
 
 export function FloatingNav() {
@@ -18,14 +18,50 @@ export function FloatingNav() {
 
         <MarketplaceNavLinks />
 
-        <ButtonLink
-          className="shadow-soft"
-          href={whatsappHref}
-          rel="noreferrer"
-          target="_blank"
-        >
-          Konsultasi
-        </ButtonLink>
+        <div className="hidden lg:block">
+          <ButtonLink
+            className="shadow-soft"
+            href={whatsappHref}
+            rel="noreferrer"
+            target="_blank"
+          >
+            Konsultasi
+          </ButtonLink>
+        </div>
+
+        <details className="group relative lg:hidden">
+          <summary
+            aria-label="Buka menu navigasi"
+            className="flex size-11 cursor-pointer list-none items-center justify-center rounded-xl border border-border bg-white text-navy shadow-sm [&::-webkit-details-marker]:hidden"
+          >
+            <Menu aria-hidden="true" className="size-5 group-open:hidden" />
+            <X aria-hidden="true" className="hidden size-5 group-open:block" />
+          </summary>
+          <nav
+            aria-label="Navigasi mobile"
+            className="absolute right-0 top-14 z-10 flex w-64 flex-col gap-1 rounded-2xl border border-border bg-white p-2 shadow-soft"
+            id="mobile-navigation"
+          >
+            {marketplaceNav.map((item) => (
+              <Link
+                className="rounded-xl px-4 py-3 font-medium text-foreground hover:bg-orange-light hover:text-orange"
+                href={item.href}
+                key={item.href}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <ButtonLink
+              className="mt-1 w-full"
+              href={whatsappHref}
+              icon={<MessageCircle aria-hidden="true" className="size-4" />}
+              rel="noreferrer"
+              target="_blank"
+            >
+              Konsultasi
+            </ButtonLink>
+          </nav>
+        </details>
       </div>
     </header>
   );

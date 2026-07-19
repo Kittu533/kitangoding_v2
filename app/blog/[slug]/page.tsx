@@ -233,6 +233,8 @@ export default async function Page({ params }: Props) {
     ? post.image
     : new URL(post.image, siteConfig.domain).toString();
   const publishedAt = toIsoDate(post.date);
+  const author = post.author || siteConfig.name;
+  const tags = post.tags || [];
 
   const structuredData = [
     {
@@ -266,11 +268,12 @@ export default async function Page({ params }: Props) {
       description: post.excerpt,
       image: [postImageUrl],
       articleSection: post.category,
+      ...(tags.length > 0 ? { keywords: tags.join(", ") } : {}),
       ...(publishedAt ? { datePublished: publishedAt, dateModified: publishedAt } : {}),
       author: {
-        "@type": "Organization",
-        name: siteConfig.name,
-        url: `${siteConfig.domain}/tentang`,
+        "@type": post.author ? "Person" : "Organization",
+        name: author,
+        ...(post.author ? {} : { url: `${siteConfig.domain}/tentang` }),
       },
       publisher: {
         "@type": "Organization",
@@ -306,6 +309,7 @@ export default async function Page({ params }: Props) {
                     {post.category}
                   </span>
                   <span className="text-sm font-medium text-body/75">{post.date}</span>
+                  <span className="text-sm font-medium text-body/75">Oleh {author}</span>
                 </div>
                 <h1 className="mt-6 max-w-4xl text-4xl leading-tight font-extrabold text-black md:text-6xl">
                   {post.title}
@@ -317,26 +321,49 @@ export default async function Page({ params }: Props) {
             </div>
           </section>
 
+          <section className="marketplace-grid pb-12">
+            <div className="container-shell">
+              <Reveal delay={0.04}>
+                <div className="relative aspect-[16/9] overflow-hidden rounded-[2rem] border border-border bg-surface shadow-card">
+                  <Image
+                    alt={post.title}
+                    className="object-contain"
+                    fill
+                    priority
+                    sizes="(max-width: 1280px) 100vw, 1200px"
+                    src={post.image}
+                  />
+                </div>
+              </Reveal>
+            </div>
+          </section>
+
           <section className="marketplace-grid pb-20">
-            <div className="container-shell grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px]">
+            <div className="container-shell grid gap-10 xl:grid-cols-[minmax(0,780px)_300px] xl:justify-center">
               <Reveal>
-                <article className="overflow-hidden rounded-[2rem] border border-border bg-white shadow-card">
-                  <div className="relative aspect-[16/9] w-full overflow-hidden bg-surface">
-                    <Image
-                      alt={post.title}
-                      className="object-cover"
-                      fill
-                      priority
-                      sizes="(max-width: 1024px) 100vw, 900px"
-                      src={post.image}
-                    />
+                <article className="rounded-[2rem] border border-border bg-white p-7 shadow-card md:p-12">
+                  <div className="space-y-6">
+                    {post.contentFormat === "html" ? (
+                      <div
+                        className="rich-blog-content text-body [&_a]:font-semibold [&_a]:text-success [&_a]:underline [&_a]:underline-offset-4 [&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-success/30 [&_blockquote]:pl-5 [&_h2]:mt-10 [&_h2]:text-2xl [&_h2]:font-extrabold [&_h2]:text-black [&_h3]:mt-8 [&_h3]:text-xl [&_h3]:font-extrabold [&_h3]:text-black [&_h4]:mt-6 [&_h4]:text-lg [&_h4]:font-bold [&_h4]:text-black [&_li]:my-2 [&_ol]:my-5 [&_ol]:list-decimal [&_ol]:pl-6 [&_p]:my-5 [&_p]:leading-8 [&_strong]:font-extrabold [&_ul]:my-5 [&_ul]:list-disc [&_ul]:pl-6"
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                      />
+                    ) : renderContent(post.content)}
+                    {tags.length > 0 ? (
+                      <div className="mt-10 flex flex-wrap gap-2 border-t border-border pt-6">
+                        {tags.map((tag) => (
+                          <span key={tag} className="rounded-full border border-success/20 bg-success-bg px-3 py-1 text-xs font-bold text-success">
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
-                  <div className="space-y-6 p-8 md:p-10">{renderContent(post.content)}</div>
                 </article>
               </Reveal>
 
               <Reveal delay={0.08}>
-                <aside className="space-y-6">
+                <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
                   {relatedServiceLinks.length > 0 ? (
                     <div className="rounded-[2rem] border border-border bg-white p-6 shadow-card">
                       <p className="text-sm font-bold uppercase tracking-[0.18em] text-success">

@@ -25,6 +25,9 @@ export const portfolios = pgTable("portfolios", {
   categoryId: text("category_id").references(() => portfolioCategories.id),
   thumbnail: text("thumbnail"),
   result: text("result"),
+  role: varchar("role", { length: 255 }),
+  features: text("features").array().notNull().default([]),
+  gallery: text("gallery").array().notNull().default([]),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -53,6 +56,8 @@ export const blogPosts = pgTable("blog_posts", {
   excerpt: text("excerpt"),
   content: text("content"),
   category: varchar("category", { length: 120 }).notNull(),
+  author: varchar("author", { length: 120 }).notNull().default("Tim kitangoding"),
+  tags: text("tags").array().notNull().default([]),
   status: varchar("status", { length: 50 }).default("draft").notNull(),
   thumbnail: text("thumbnail"),
   publishedAt: timestamp("published_at"),

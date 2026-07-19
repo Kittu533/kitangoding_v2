@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import type { PortfolioCard as PortfolioCardData } from "@/lib/public-content";
 
 export function PortfolioCard({ item }: { item: PortfolioCardData }) {
   return (
-    <a
-      href="/project-inquiry"
+    <Link
+      href={`/portfolio/${item.id}`}
       className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-orange/40 hover:shadow-soft"
     >
       {/* Visual: thumbnail with navy scrim, or a generative navy panel when none */}
@@ -57,6 +58,6 @@ export function PortfolioCard({ item }: { item: PortfolioCardData }) {
 
       {/* orange underline grows on hover — the one signature flourish */}
       <span className="absolute bottom-0 left-0 h-1 w-0 bg-orange transition-all duration-500 group-hover:w-full" />
-    </a>
+    </Link>
   );
 }

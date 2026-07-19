@@ -8,8 +8,8 @@ export const siteConfig = {
   domain: process.env.NEXT_PUBLIC_APP_URL || "https://www.kitangoding.my.id",
   gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-RY3471CB04",
   email: process.env.NEXT_PUBLIC_SITE_EMAIL || "halo@kitangoding.com",
-  phoneDisplay: process.env.NEXT_PUBLIC_SITE_PHONE_DISPLAY || "+62 812-3456-7890",
-  phoneHref: normalizePhoneHref(process.env.NEXT_PUBLIC_SITE_PHONE_HREF || "6281234567890"),
+  phoneDisplay: process.env.NEXT_PUBLIC_SITE_PHONE_DISPLAY || "+62 822-4190-8389",
+  phoneHref: normalizePhoneHref(process.env.NEXT_PUBLIC_SITE_PHONE_HREF || "6282241908389"),
   addressLocality: process.env.NEXT_PUBLIC_SITE_ADDRESS_LOCALITY || "Sendangadi, Mlati",
   addressRegion: process.env.NEXT_PUBLIC_SITE_ADDRESS_REGION || "Sleman, DI Yogyakarta",
   addressCountry: process.env.NEXT_PUBLIC_SITE_ADDRESS_COUNTRY || "ID",
@@ -22,7 +22,7 @@ export const siteConfig = {
 export function normalizePhoneHref(value: string) {
   const digits = value.replace(/\D/g, "");
 
-  return digits.length > 0 ? digits : "6281234567890";
+  return digits.length > 0 ? digits : "6282241908389";
 }
 
 export const serviceAreas = [

@@ -5,14 +5,15 @@ import { normalizePublicPricingPlans } from "../lib/public-content";
 import { createWhatsAppHref, normalizePhoneHref } from "../lib/site";
 
 test("normalizePhoneHref strips non-digits from malformed env values", () => {
-  assert.equal(normalizePhoneHref('"62822419083839"tam'), "62822419083839");
-  assert.equal(normalizePhoneHref("+62 822-4190-83839"), "62822419083839");
+  assert.equal(normalizePhoneHref('"6282241908389"tam'), "6282241908389");
+  assert.equal(normalizePhoneHref("+62 822-4190-8389"), "6282241908389");
 });
 
 test("createWhatsAppHref always produces a valid wa.me URL", () => {
   const href = createWhatsAppHref("Halo kitangoding.id, saya ingin konsultasi website.");
 
   assert.ok(href.startsWith("https://wa.me/"));
+  assert.ok(href.includes("6282241908389"));
   assert.ok(href.includes("?text="));
   assert.ok(!href.includes('"'));
   assert.ok(!href.endsWith("tam"));

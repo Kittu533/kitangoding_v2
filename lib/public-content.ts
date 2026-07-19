@@ -1,4 +1,5 @@
 import { asc, desc, eq } from "drizzle-orm";
+import { sanitizeRichTextHtml } from "@/lib/blog-content";
 import { db } from "@/lib/db";
 import {
   blogCategories as blogCategoriesTable,
@@ -42,10 +43,17 @@ export type PublicCreativeCard = {
 };
 
 export type PortfolioCard = {
+  id: string;
   category: string;
   name: string;
   result: string;
   thumbnail?: string | null;
+};
+
+export type PortfolioDetail = PortfolioCard & {
+  role: string | null;
+  features: string[];
+  gallery: string[];
 };
 
 export type PublicPricingPlan = {
@@ -79,6 +87,9 @@ export type PublicBlogCategory = {
 
 export type PublicBlogDetail = PublicBlogCard & {
   content: string;
+  contentFormat?: "html";
+  author?: string;
+  tags?: string[];
 };
 
 function isMissingTableError(error: unknown) {
@@ -100,11 +111,6 @@ function formatDate(date: Date | null) {
     day: "numeric",
     year: "numeric",
   }).format(date);
-}
-
-function parseDateLabel(dateLabel: string) {
-  const parsed = new Date(dateLabel);
-  return Number.isNaN(parsed.getTime()) ? 0 : parsed.getTime();
 }
 
 function getFallbackImage(index: number) {
@@ -673,29 +679,9 @@ export async function getPublicBlogPosts(limit?: number): Promise<PublicBlogCard
         image: item.thumbnail || getFallbackImage(index + 2),
         category: item.category,
         date: formatDate(item.publishedAt || item.createdAt),
-        sortValue: (item.publishedAt || item.createdAt)?.getTime() ?? 0,
       }));
 
-      const fallbackWithSort = fallbackItems.map((item) => ({
-        ...item,
-        sortValue: parseDateLabel(item.date),
-      }));
-
-      const mergedItems = [...databaseItems, ...fallbackWithSort]
-        .sort((left, right) => right.sortValue - left.sortValue)
-        .filter(
-          (item, index, array) => array.findIndex((entry) => entry.slug === item.slug) === index,
-        )
-        .map((item) => ({
-          slug: item.slug,
-          title: item.title,
-          excerpt: item.excerpt,
-          image: item.image,
-          category: item.category,
-          date: item.date,
-        }));
-
-      return typeof limit === "number" ? mergedItems.slice(0, limit) : mergedItems;
+      return typeof limit === "number" ? databaseItems.slice(0, limit) : databaseItems;
     }
   } catch (error) {
     if (!isMissingTableError(error)) {
@@ -708,13 +694,21 @@ export async function getPublicBlogPosts(limit?: number): Promise<PublicBlogCard
 
 export async function getPublicBlogCategories(): Promise<PublicBlogCategory[]> {
   try {
-    const rows = await db.select().from(blogCategoriesTable).orderBy(blogCategoriesTable.name);
+    const [rows, publishedPosts] = await Promise.all([
+      db.select().from(blogCategoriesTable).orderBy(blogCategoriesTable.name),
+      db
+        .select({ category: blogPostsTable.category })
+        .from(blogPostsTable)
+        .where(eq(blogPostsTable.status, "published")),
+    ]);
+    const labels = [...rows.map((item) => item.name), ...publishedPosts.map((item) => item.category)]
+      .filter((item, index, array) => array.indexOf(item) === index);
 
-    if (rows.length > 0) {
+    if (labels.length > 0) {
       return [
         { label: "Semua Artikel", active: true },
-        ...rows.map((item) => ({
-          label: item.name,
+        ...labels.map((label) => ({
+          label,
         })),
       ];
     }
@@ -746,7 +740,10 @@ export async function getPublicBlogPostBySlug(slug: string): Promise<PublicBlogD
         image: post.thumbnail || getFallbackImage(0),
         category: post.category,
         date: formatDate(post.publishedAt || post.createdAt),
-        content: post.content || post.excerpt || "Konten artikel akan segera hadir.",
+        content: sanitizeRichTextHtml(post.content || post.excerpt || "Konten artikel akan segera hadir."),
+        contentFormat: "html",
+        author: post.author,
+        tags: post.tags,
       };
     }
   } catch (error) {
@@ -762,6 +759,7 @@ export async function getPortfolioProjects(limit?: number): Promise<PortfolioCar
   try {
     const rows = await db
       .select({
+        id: portfolios.id,
         name: portfolios.name,
         result: portfolios.result,
         thumbnail: portfolios.thumbnail,
@@ -773,6 +771,7 @@ export async function getPortfolioProjects(limit?: number): Promise<PortfolioCar
 
     if (rows.length > 0) {
       const items: PortfolioCard[] = rows.map((item) => ({
+        id: item.id,
         category: item.categoryName || "Tanpa Kategori",
         name: item.name,
         result: item.result || "Portfolio project",
@@ -786,11 +785,65 @@ export async function getPortfolioProjects(limit?: number): Promise<PortfolioCar
     }
   }
 
-  const fallback: PortfolioCard[] = portfolioItems.map((item) => ({
+  const fallback: PortfolioCard[] = portfolioItems.map((item, index) => ({
+    id: `fallback-${index}`,
     category: item.category,
     name: item.name,
     result: item.result,
     thumbnail: null,
   }));
   return typeof limit === "number" ? fallback.slice(0, limit) : fallback;
+}
+
+export async function getPortfolioProject(id: string): Promise<PortfolioDetail | null> {
+  try {
+    const [item] = await db
+      .select({
+        id: portfolios.id,
+        name: portfolios.name,
+        result: portfolios.result,
+        role: portfolios.role,
+        features: portfolios.features,
+        gallery: portfolios.gallery,
+        thumbnail: portfolios.thumbnail,
+        categoryName: portfolioCategories.name,
+      })
+      .from(portfolios)
+      .leftJoin(portfolioCategories, eq(portfolios.categoryId, portfolioCategories.id))
+      .where(eq(portfolios.id, id))
+      .limit(1);
+
+    if (item) {
+      return {
+        id: item.id,
+        category: item.categoryName || "Tanpa Kategori",
+        name: item.name,
+        result: item.result || "Portfolio project",
+        role: item.role,
+        features: item.features,
+        gallery: item.gallery,
+        thumbnail: item.thumbnail,
+      };
+    }
+  } catch (error) {
+    if (!isMissingTableError(error)) {
+      console.warn("Failed to load public portfolio detail.", error);
+    }
+  }
+
+  const index = Number(id.replace("fallback-", ""));
+  const item = id === `fallback-${index}` ? portfolioItems[index] : undefined;
+
+  return item
+    ? {
+        id,
+        category: item.category,
+        name: item.name,
+        result: item.result,
+        role: null,
+        features: [],
+        gallery: [],
+        thumbnail: null,
+      }
+    : null;
 }

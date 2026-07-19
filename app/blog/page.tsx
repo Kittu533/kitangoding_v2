@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import { BlogPage } from "@/components/templates/BlogPage";
-import { getPublicBlogPosts } from "@/lib/public-content";
+import { getPublicBlogCategories, getPublicBlogPosts } from "@/lib/public-content";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -38,9 +38,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Page() {
+type Props = {
+  searchParams: Promise<{ category?: string | string[] }>;
+};
+
+export default async function Page({ searchParams }: Props) {
   await connection();
-  const posts = await getPublicBlogPosts(12);
+  const [posts, categories, params] = await Promise.all([
+    getPublicBlogPosts(),
+    getPublicBlogCategories(),
+    searchParams,
+  ]);
+  const activeCategory = typeof params.category === "string" ? params.category : undefined;
   const blogJsonLd = [
     {
       "@context": "https://schema.org",
@@ -74,7 +83,7 @@ export default async function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
         type="application/ld+json"
       />
-      <BlogPage />
+      <BlogPage activeCategory={activeCategory} categories={categories} posts={posts} />
     </>
   );
 }
