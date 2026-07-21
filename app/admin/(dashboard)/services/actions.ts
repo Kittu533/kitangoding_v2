@@ -20,6 +20,7 @@ export async function createService(data: z.infer<typeof serviceSchema>) {
     const validatedData = serviceSchema.parse(data);
     await db.insert(services).values(validatedData);
     revalidatePath("/admin/services");
+    revalidatePath("/layanan");
     return { success: true };
   } catch (error) {
     if (isUnauthorizedAdminRequest(error)) {
@@ -36,6 +37,7 @@ export async function updateService(id: string, data: z.infer<typeof serviceSche
     const validatedData = serviceSchema.parse(data);
     await db.update(services).set(validatedData).where(eq(services.id, id));
     revalidatePath("/admin/services");
+    revalidatePath("/layanan");
     return { success: true };
   } catch (error) {
     if (isUnauthorizedAdminRequest(error)) {
@@ -51,6 +53,7 @@ export async function deleteService(id: string) {
     await requireAdminSession();
     await db.delete(services).where(eq(services.id, id));
     revalidatePath("/admin/services");
+    revalidatePath("/layanan");
     return { success: true };
   } catch (error) {
     if (isUnauthorizedAdminRequest(error)) {

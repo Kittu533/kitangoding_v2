@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { connection } from "next/server";
 import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
 import { ServicesOverviewSection } from "@/components/templates/MarketplaceHome";
 import { getPublicServices } from "@/lib/public-content";
@@ -40,8 +39,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  await connection();
-
   const services = await getPublicServices(4);
   const serviceCatalogJsonLd = {
     "@context": "https://schema.org",

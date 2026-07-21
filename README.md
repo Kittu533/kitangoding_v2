@@ -1,53 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kita Ngoding
 
-## Supabase Database Setup
+Website pemasaran dan dashboard pengelolaan konten untuk [kitangoding.id](https://www.kitangoding.my.id). Repository ini berisi situs publik, portofolio, blog, formulir prospek, serta dashboard admin untuk mengelola konten.
 
-Admin dashboard dan Better Auth di project ini memakai `drizzle-orm` + `postgres` dan membaca koneksi dari environment variables berikut:
+## Fitur utama
 
-```bash
-DATABASE_URL="postgresql://postgres.lfmlibtzaxsisgojyjei:[YOUR-PASSWORD]@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
-DIRECT_URL="postgresql://postgres.lfmlibtzaxsisgojyjei:[YOUR-PASSWORD]@aws-1-ap-northeast-1.pooler.supabase.com:5432/postgres"
-BETTER_AUTH_SECRET="<generate with: openssl rand -base64 48>"
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
-```
+- Halaman layanan, harga, portofolio, blog, kontak, dan landing page.
+- Detail portofolio dengan galeri gambar.
+- Blog dengan kategori, tag, author, cover, dan rich-text editor yang disanitasi sebelum disimpan.
+- Dashboard admin untuk layanan, harga, portofolio, testimoni, leads, artikel, serta kategori.
+- Autentikasi admin menggunakan Better Auth.
+- PostgreSQL/Supabase melalui Drizzle ORM.
 
-Gunakan:
+## Tech stack
 
-1. `DATABASE_URL` untuk runtime aplikasi dan query dashboard.
-2. `DIRECT_URL` untuk Drizzle migrations.
-3. Salin `.env.example` menjadi `.env.local`, lalu ganti `[YOUR-PASSWORD]` dengan password database Supabase milikmu.
+- Next.js 16 dan React 19
+- TypeScript dan Tailwind CSS 4
+- PostgreSQL, Supabase, Drizzle ORM, dan Drizzle Kit
+- Better Auth
+- Tiptap dan sanitize-html
 
-## Getting Started
+## Persyaratan
 
-First, run the development server:
+- Node.js >= 20.9.0
+- npm
+- Database PostgreSQL atau project Supabase
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Mulai lokal
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Instal dependensi.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ~~~bash
+   npm ci
+   ~~~
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Buat konfigurasi environment lokal.
 
-## Learn More
+   ~~~bash
+   cp .env.example .env.local
+   ~~~
 
-To learn more about Next.js, take a look at the following resources:
+3. Isi <code>DATABASE_URL</code>, <code>DIRECT_URL</code>, <code>BETTER_AUTH_SECRET</code>, dan kredensial admin di <code>.env.local</code>.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   Buat secret autentikasi dengan:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ~~~bash
+   openssl rand -base64 48
+   ~~~
 
-## Deploy on Vercel
+4. Terapkan schema database.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ~~~bash
+   npm run db:push
+   ~~~
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. Isi data awal dan akun admin.
+
+   ~~~bash
+   npm run seed
+   ~~~
+
+6. Jalankan aplikasi.
+
+   ~~~bash
+   npm run dev
+   ~~~
+
+   Buka [http://localhost:3000](http://localhost:3000) untuk situs publik dan [http://localhost:3000/admin/login](http://localhost:3000/admin/login) untuk dashboard.
+
+## Environment
+
+Salin <code>.env.example</code> ke <code>.env.local</code>. File <code>.env*</code> diabaikan Git, jadi jangan menyimpan secret di repository.
+
+| Variabel | Kegunaan |
+| --- | --- |
+| <code>DATABASE_URL</code> | Koneksi PostgreSQL runtime, biasanya URL pooler Supabase. |
+| <code>DIRECT_URL</code> | Koneksi PostgreSQL langsung untuk Drizzle Kit dan seeding. |
+| <code>BETTER_AUTH_SECRET</code> | Secret untuk sesi Better Auth. |
+| <code>NEXT_PUBLIC_APP_URL</code> | URL aplikasi, misalnya <code>http://localhost:3000</code>. |
+| <code>ADMIN_EMAIL</code> | Email akun admin awal. |
+| <code>ADMIN_PASSWORD</code> | Password akun admin awal. |
+| <code>ADMIN_NAME</code> | Nama akun admin awal. |
+
+Variabel <code>NEXT_PUBLIC_SITE_*</code> mengatur identitas situs, kontak, alamat, dan WhatsApp. Nilai dengan awalan <code>NEXT_PUBLIC_</code> dikirim ke browser, jadi jangan gunakan untuk secret.
+
+## Database dan seed
+
+Schema Drizzle berada di <code>lib/db/schema.ts</code>, sedangkan migration SQL berada di <code>supabase/migrations/</code>.
+
+| Perintah | Kegunaan |
+| --- | --- |
+| <code>npm run db:generate</code> | Membuat migration Drizzle dari perubahan schema. |
+| <code>npm run db:push</code> | Menerapkan schema ke database yang dikonfigurasi. |
+| <code>npm run seed</code> | Mengisi data awal dan menyiapkan akun admin dari <code>.env.local</code> atau <code>.env</code>. |
+| <code>npm run db:seed</code> | Menjalankan seed data dari <code>lib/db/seed.ts</code>; pastikan <code>DATABASE_URL</code> tersedia di shell. |
+| <code>npm run seed:blog-categories</code> | Menambahkan kategori blog awal; pastikan URL database tersedia di shell. |
+
+Gunakan database development saat menjalankan seed. Beberapa seed menulis atau memperbarui data contoh.
+
+## Perintah
+
+| Perintah | Kegunaan |
+| --- | --- |
+| <code>npm run dev</code> | Menjalankan server development. |
+| <code>npm run build</code> | Membuat build production. |
+| <code>npm run start</code> | Menjalankan hasil build production. |
+| <code>npm run lint</code> | Memeriksa ESLint. |
+| <code>npm run test:seo</code> | Menjalankan smoke test SEO. |
+| <code>npx tsx --test tests/production-readiness.test.ts</code> | Menjalankan test kesiapan produksi. |
+
+Sebelum mengirim perubahan, jalankan:
+
+~~~bash
+npm run lint
+npm run build
+~~~
+
+## Struktur repository
+
+~~~text
+app/                    Route publik, API, autentikasi, dan dashboard admin
+components/             Komponen UI, template halaman, dan form admin
+lib/                    Konfigurasi situs, autentikasi, database, dan data publik
+supabase/migrations/    Migration PostgreSQL
+scripts/                Seeder dan smoke test
+tests/                  Test runtime
+public/                 Asset statis
+~~~
+
+## Pengelolaan konten
+
+Masuk ke <code>/admin/login</code> menggunakan kredensial admin dari environment.
+
+- <code>/admin/services</code> mengelola layanan.
+- <code>/admin/pricing</code> mengelola paket harga.
+- <code>/admin/portfolio</code> dan <code>/admin/categories</code> mengelola portofolio.
+- <code>/admin/blog</code> dan <code>/admin/blog-categories</code> mengelola artikel dan kategorinya.
+- <code>/admin/testimonials</code> dan <code>/admin/leads</code> mengelola social proof serta prospek.
+
+Artikel berstatus <code>published</code> tampil di <code>/blog</code>. Draft tetap hanya tersedia di dashboard.
+
+## Deploy
+
+1. Atur semua environment variable yang ada di <code>.env.example</code> pada platform hosting.
+2. Gunakan build command:
+
+   ~~~bash
+   npm run build
+   ~~~
+
+3. Gunakan start command:
+
+   ~~~bash
+   npm run start
+   ~~~
+
+Pastikan <code>NEXT_PUBLIC_APP_URL</code> memakai domain production dan database production sudah menerima migration yang diperlukan.
