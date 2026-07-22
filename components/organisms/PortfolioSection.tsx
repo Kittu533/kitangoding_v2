@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { ButtonLink } from "@/components/atoms/Button";
 import { Reveal } from "@/components/atoms/Reveal";
 import { SectionHeader } from "@/components/molecules/SectionHeader";
 import { PortfolioCard } from "@/components/molecules/PortfolioCard";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getPortfolioProjects } from "@/lib/public-content";
 
 const trustPoints = [
@@ -10,9 +12,38 @@ const trustPoints = [
   { value: "Brief → live", label: "alur kerja transparan, kamu pantau tiap tahap" },
 ] as const;
 
-export async function PortfolioSection() {
+async function PortfolioCards() {
   const items = await getPortfolioProjects(3);
 
+  return (
+    <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {items.map((item, index) => (
+        <Reveal key={`${item.name}-${index}`} className="h-full" delay={index * 0.06}>
+          <PortfolioCard item={item} />
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+function PortfolioCardsSkeleton() {
+  return (
+    <div aria-busy="true" aria-label="Memuat proyek pilihan" className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {Array.from({ length: 3 }, (_, index) => (
+        <div className="overflow-hidden rounded-3xl border border-border bg-white" key={index}>
+          <Skeleton className="aspect-[4/3] rounded-none" />
+          <div className="space-y-3 p-6">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-7 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function PortfolioSection() {
   return (
     <section className="marketplace-grid py-20 md:py-24" id="portfolio">
       <div className="container-shell">
@@ -56,13 +87,9 @@ export async function PortfolioSection() {
           </div>
         </Reveal>
 
-        <div className="mx-auto mt-14 grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {items.map((item, index) => (
-            <Reveal key={`${item.name}-${index}`} className="h-full" delay={index * 0.06}>
-              <PortfolioCard item={item} />
-            </Reveal>
-          ))}
-        </div>
+        <Suspense fallback={<PortfolioCardsSkeleton />}>
+          <PortfolioCards />
+        </Suspense>
 
         <div className="mt-12 flex justify-center">
           <ButtonLink

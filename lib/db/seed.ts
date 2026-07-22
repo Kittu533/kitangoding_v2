@@ -8,6 +8,7 @@ import {
   pricingPlans as seedPricings,
   testimonials as seedTestimonials,
 } from "../landing-data";
+import { slugify } from "../slug";
 
 // Setup connection specifically for the seeder
 const connectionString = process.env.DATABASE_URL;
@@ -61,6 +62,7 @@ async function main() {
       if (catId) {
         await db.insert(schema.portfolios).values({
           name: item.name,
+          slug: slugify(item.name),
           categoryId: catId,
           result: item.result,
           thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80", // Dummy image

@@ -431,10 +431,11 @@ async function seedPortfolio() {
 
     if (!exists.length) {
       await sql`
-        insert into portfolios (id, name, category, thumbnail, result, created_at)
+        insert into portfolios (id, name, slug, category, thumbnail, result, created_at)
         values (
           ${randomUUID()},
           ${item.name},
+          ${item.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "")},
           ${item.category},
           ${item.thumbnail},
           ${item.result},

@@ -6,9 +6,14 @@ import { portfolios } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { slugify } from "@/lib/slug";
 
 const portfolioSchema = z.object({
-  name: z.string().min(1, "Nama proyek wajib diisi"),
+  name: z
+    .string()
+    .trim()
+    .min(1, "Nama proyek wajib diisi")
+    .refine((name) => Boolean(slugify(name)), "Nama proyek belum bisa dijadikan URL"),
   categoryId: z.string().min(1, "Kategori wajib diisi"),
   thumbnail: z.string().optional(),
   result: z.string().optional(),
@@ -29,6 +34,7 @@ function toPortfolioValues(data: z.infer<typeof portfolioSchema>) {
 
   return {
     ...portfolio,
+    slug: slugify(portfolio.name),
     role: role || null,
     features: parseFeatures(features),
     gallery,
@@ -58,12 +64,16 @@ export async function updatePortfolio(id: string, data: z.infer<typeof portfolio
   try {
     await requireAdminSession();
     const validatedData = portfolioSchema.parse(data);
-    await db.update(portfolios).set(toPortfolioValues(validatedData)).where(eq(portfolios.id, id));
+    const [updated] = await db
+      .update(portfolios)
+      .set(toPortfolioValues(validatedData))
+      .where(eq(portfolios.id, id))
+      .returning({ slug: portfolios.slug });
     revalidatePath("/admin/portfolio");
     revalidatePath("/");
     revalidatePath("/shop");
     revalidatePath("/portfolio");
-    revalidatePath(`/portfolio/${id}`);
+    if (updated) revalidatePath(`/portfolio/${updated.slug}`);
     return { success: true };
   } catch (error) {
     if (isUnauthorizedAdminRequest(error)) {
@@ -77,12 +87,12 @@ export async function updatePortfolio(id: string, data: z.infer<typeof portfolio
 export async function deletePortfolio(id: string) {
   try {
     await requireAdminSession();
-    await db.delete(portfolios).where(eq(portfolios.id, id));
+    const [deleted] = await db.delete(portfolios).where(eq(portfolios.id, id)).returning({ slug: portfolios.slug });
     revalidatePath("/admin/portfolio");
     revalidatePath("/");
     revalidatePath("/shop");
     revalidatePath("/portfolio");
-    revalidatePath(`/portfolio/${id}`);
+    if (deleted) revalidatePath(`/portfolio/${deleted.slug}`);
     return { success: true };
   } catch (error) {
     if (isUnauthorizedAdminRequest(error)) {

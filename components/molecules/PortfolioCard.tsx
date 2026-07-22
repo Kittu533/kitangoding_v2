@@ -6,7 +6,7 @@ import type { PortfolioCard as PortfolioCardData } from "@/lib/public-content";
 export function PortfolioCard({ item }: { item: PortfolioCardData }) {
   return (
     <Link
-      href={`/portfolio/${item.id}`}
+      href={`/portfolio/${item.slug}`}
       className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-orange/40 hover:shadow-soft"
     >
       {/* Visual: thumbnail with navy scrim, or a generative navy panel when none */}
@@ -18,6 +18,7 @@ export function PortfolioCard({ item }: { item: PortfolioCardData }) {
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
             src={item.thumbnail}
+            unoptimized
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy-mid to-navy-dark">

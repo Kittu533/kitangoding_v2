@@ -21,6 +21,7 @@ export function PortfolioImageGallery({ images, projectName }: PortfolioImageGal
           priority
           sizes="(min-width: 1024px) 55vw, 100vw"
           src={activeImage}
+          unoptimized
         />
       </div>
 
@@ -45,6 +46,7 @@ export function PortfolioImageGallery({ images, projectName }: PortfolioImageGal
                 fill
                 sizes="(min-width: 1024px) 18vw, 30vw"
                 src={image}
+                unoptimized
               />
             </button>
           );

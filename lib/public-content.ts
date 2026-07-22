@@ -1,4 +1,4 @@
-import { asc, desc, eq } from "drizzle-orm";
+import { asc, desc, eq, sql } from "drizzle-orm";
 import { sanitizeRichTextHtml } from "@/lib/blog-content";
 import { db } from "@/lib/db";
 import {
@@ -16,6 +16,7 @@ import {
   shopCreatives,
 } from "@/lib/marketplace-data";
 import { pricingPlans, portfolioItems, services as fallbackServices } from "@/lib/landing-data";
+import { slugify } from "@/lib/slug";
 
 const fallbackImages = [
   "/images/project-1.webp",
@@ -44,6 +45,7 @@ export type PublicCreativeCard = {
 
 export type PortfolioCard = {
   id: string;
+  slug: string;
   category: string;
   name: string;
   result: string;
@@ -757,27 +759,32 @@ export async function getPublicBlogPostBySlug(slug: string): Promise<PublicBlogD
 
 export async function getPortfolioProjects(limit?: number): Promise<PortfolioCard[]> {
   try {
-    const rows = await db
+    const query = db
       .select({
         id: portfolios.id,
+        slug: portfolios.slug,
         name: portfolios.name,
         result: portfolios.result,
-        thumbnail: portfolios.thumbnail,
+        thumbnailHash: sql<string | null>`md5(nullif(${portfolios.thumbnail}, ''))`,
         categoryName: portfolioCategories.name,
       })
       .from(portfolios)
       .leftJoin(portfolioCategories, eq(portfolios.categoryId, portfolioCategories.id))
       .orderBy(desc(portfolios.createdAt));
+    const rows = typeof limit === "number" ? await query.limit(limit) : await query;
 
     if (rows.length > 0) {
       const items: PortfolioCard[] = rows.map((item) => ({
         id: item.id,
+        slug: item.slug,
         category: item.categoryName || "Tanpa Kategori",
         name: item.name,
         result: item.result || "Portfolio project",
-        thumbnail: item.thumbnail,
+        thumbnail: item.thumbnailHash
+          ? `/api/portfolio-images/${encodeURIComponent(item.id)}/thumbnail/${item.thumbnailHash}`
+          : null,
       }));
-      return typeof limit === "number" ? items.slice(0, limit) : items;
+      return items;
     }
   } catch (error) {
     if (!isMissingTableError(error)) {
@@ -787,6 +794,7 @@ export async function getPortfolioProjects(limit?: number): Promise<PortfolioCar
 
   const fallback: PortfolioCard[] = portfolioItems.map((item, index) => ({
     id: `fallback-${index}`,
+    slug: slugify(item.name),
     category: item.category,
     name: item.name,
     result: item.result,
@@ -795,34 +803,41 @@ export async function getPortfolioProjects(limit?: number): Promise<PortfolioCar
   return typeof limit === "number" ? fallback.slice(0, limit) : fallback;
 }
 
-export async function getPortfolioProject(id: string): Promise<PortfolioDetail | null> {
+export async function getPortfolioProjectBySlug(slug: string): Promise<PortfolioDetail | null> {
   try {
     const [item] = await db
       .select({
         id: portfolios.id,
+        slug: portfolios.slug,
         name: portfolios.name,
         result: portfolios.result,
         role: portfolios.role,
         features: portfolios.features,
-        gallery: portfolios.gallery,
-        thumbnail: portfolios.thumbnail,
+        thumbnailHash: sql<string | null>`md5(nullif(${portfolios.thumbnail}, ''))`,
+        galleryHash0: sql<string | null>`md5(nullif((${portfolios.gallery})[1], ''))`,
+        galleryHash1: sql<string | null>`md5(nullif((${portfolios.gallery})[2], ''))`,
         categoryName: portfolioCategories.name,
       })
       .from(portfolios)
       .leftJoin(portfolioCategories, eq(portfolios.categoryId, portfolioCategories.id))
-      .where(eq(portfolios.id, id))
+      .where(eq(portfolios.slug, slug))
       .limit(1);
 
     if (item) {
       return {
         id: item.id,
+        slug: item.slug,
         category: item.categoryName || "Tanpa Kategori",
         name: item.name,
         result: item.result || "Portfolio project",
         role: item.role,
         features: item.features,
-        gallery: item.gallery,
-        thumbnail: item.thumbnail,
+        gallery: [item.galleryHash0, item.galleryHash1].flatMap((hash, index) =>
+          hash ? [`/api/portfolio-images/${encodeURIComponent(item.id)}/gallery-${index}/${hash}`] : [],
+        ),
+        thumbnail: item.thumbnailHash
+          ? `/api/portfolio-images/${encodeURIComponent(item.id)}/thumbnail/${item.thumbnailHash}`
+          : null,
       };
     }
   } catch (error) {
@@ -831,12 +846,13 @@ export async function getPortfolioProject(id: string): Promise<PortfolioDetail |
     }
   }
 
-  const index = Number(id.replace("fallback-", ""));
-  const item = id === `fallback-${index}` ? portfolioItems[index] : undefined;
+  const index = portfolioItems.findIndex((item) => slugify(item.name) === slug);
+  const item = portfolioItems[index];
 
   return item
     ? {
-        id,
+        id: `fallback-${index}`,
+        slug,
         category: item.category,
         name: item.name,
         result: item.result,

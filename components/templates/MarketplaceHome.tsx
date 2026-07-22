@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Suspense } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -21,11 +21,10 @@ import { PortfolioSection } from "@/components/organisms/PortfolioSection";
 import { PricingPlanGrid } from "@/components/organisms/PricingPlanGrid";
 import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
 import { Reveal } from "@/components/atoms/Reveal";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
-  getPublicBlogPosts,
   getPublicPricing,
   getPublicServices,
-  type PublicBlogCard,
   type PublicCreativeCard,
   type PublicPricingPlan,
   type PublicServiceCard,
@@ -76,12 +75,37 @@ const serviceSolutions = [
   },
 ] as const;
 
-export async function MarketplaceHome() {
-  const [pricingItems, blogItems, serviceItems] = await Promise.all([
-    getPublicPricing(),
-    getPublicBlogPosts(3),
-    getPublicServices(4),
-  ]);
+async function HomeServices() {
+  return <ServicesOverviewSection services={await getPublicServices(4)} />;
+}
+
+async function HomePricing() {
+  return <MarketplacePricing plans={await getPublicPricing()} />;
+}
+
+function HomeDataSectionSkeleton({ cards }: { cards: number }) {
+  return (
+    <section aria-busy="true" aria-label="Memuat konten" className="marketplace-grid py-20">
+      <div className="container-shell">
+        <Skeleton className="h-9 w-36" />
+        <Skeleton className="mt-5 h-10 max-w-xl" />
+        <Skeleton className="mt-4 h-5 max-w-2xl" />
+        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {Array.from({ length: cards }, (_, index) => (
+            <div className="space-y-4 rounded-3xl border border-border bg-white p-6" key={index}>
+              <Skeleton className="size-12 rounded-xl" />
+              <Skeleton className="h-7 w-3/4" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-5/6" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function MarketplaceHome() {
 
   return (
     <div className="marketplace-page min-h-screen bg-market text-foreground">
@@ -89,11 +113,14 @@ export async function MarketplaceHome() {
       <main id="konten">
         <MarketplaceHero />
         <ProblemSolutionSection />
-        <ServicesOverviewSection services={serviceItems} />
+        <Suspense fallback={<HomeDataSectionSkeleton cards={4} />}>
+          <HomeServices />
+        </Suspense>
         <PortfolioSection />
         <TestimonialsSection />
-        <MarketplacePricing plans={pricingItems} />
-        <BlogSection posts={blogItems} />
+        <Suspense fallback={<HomeDataSectionSkeleton cards={2} />}>
+          <HomePricing />
+        </Suspense>
         <HomeFaqSection />
         <CustomProjectCta />
       </main>
@@ -471,54 +498,54 @@ function MarketplacePricing({ plans }: { plans: PublicPricingPlan[] }) {
   );
 }
 
-function BlogSection({ posts }: { posts: PublicBlogCard[] }) {
-  return (
-    <section className="marketplace-grid py-6" id="blog">
-      <div className="container-shell">
-        <Reveal className="mx-auto max-w-3xl text-center" duration={0.95} parallax={10}>
-          <h2 className="text-4xl font-extrabold leading-tight text-foreground">
-            Panduan singkat sebelum bikin website bisnis.
-          </h2>
-          <p className="mt-5 text-base leading-8 text-body">
-            Baca dulu kalau kamu masih bingung harus mulai dari company profile, landing page,
-            toko online, atau sistem web custom.
-          </p>
-        </Reveal>
-        <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-3">
-          {posts.map((post, index) => (
-            <Reveal
-              key={post.title}
-              delay={index * 0.08}
-              duration={0.95}
-              variant={index % 2 === 0 ? "fade-up" : "zoom-in"}
-            >
-              <article className="bg-market p-7">
-                <div className="blog-thumb relative h-52 overflow-hidden rounded-lg border border-border/60 bg-white">
-                  <Image
-                    alt={post.title}
-                    className="object-cover object-top"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    src={post.image}
-                  />
-                </div>
-                <p className="mt-5 text-xs font-medium text-body/80">{post.date}</p>
-                <p className="mt-3 inline-flex rounded-full border border-success/20 bg-success-bg px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-success">
-                  {post.category}
-                </p>
-                <h3 className="mt-3 text-xl leading-tight font-extrabold text-foreground">{post.title}</h3>
-                <p className="mt-4 min-h-16 leading-7 text-black">{post.excerpt}</p>
-                <ButtonLink className="mt-5 w-full shadow-soft" href={`/blog/${post.slug}`}>
-                  Baca Artikel
-                </ButtonLink>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+// function BlogSection({ posts }: { posts: PublicBlogCard[] }) {
+//   return (
+//     <section className="marketplace-grid py-6" id="blog">
+//       <div className="container-shell">
+//         <Reveal className="mx-auto max-w-3xl text-center" duration={0.95} parallax={10}>
+//           <h2 className="text-4xl font-extrabold leading-tight text-foreground">
+//             Panduan singkat sebelum bikin website bisnis.
+//           </h2>
+//           <p className="mt-5 text-base leading-8 text-body">
+//             Baca dulu kalau kamu masih bingung harus mulai dari company profile, landing page,
+//             toko online, atau sistem web custom.
+//           </p>
+//         </Reveal>
+//         <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-3">
+//           {posts.map((post, index) => (
+//             <Reveal
+//               key={post.title}
+//               delay={index * 0.08}
+//               duration={0.95}
+//               variant={index % 2 === 0 ? "fade-up" : "zoom-in"}
+//             >
+//               <article className="bg-market p-7">
+//                 <div className="blog-thumb relative h-52 overflow-hidden rounded-lg border border-border/60 bg-white">
+//                   <Image
+//                     alt={post.title}
+//                     className="object-cover object-top"
+//                     fill
+//                     sizes="(max-width: 768px) 100vw, 33vw"
+//                     src={post.image}
+//                   />
+//                 </div>
+//                 <p className="mt-5 text-xs font-medium text-body/80">{post.date}</p>
+//                 <p className="mt-3 inline-flex rounded-full border border-success/20 bg-success-bg px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-success">
+//                   {post.category}
+//                 </p>
+//                 <h3 className="mt-3 text-xl leading-tight font-extrabold text-foreground">{post.title}</h3>
+//                 <p className="mt-4 min-h-16 leading-7 text-black">{post.excerpt}</p>
+//                 <ButtonLink className="mt-5 w-full shadow-soft" href={`/blog/${post.slug}`}>
+//                   Baca Artikel
+//                 </ButtonLink>
+//               </article>
+//             </Reveal>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 
 function HomeFaqSection() {
   return (

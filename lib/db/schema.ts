@@ -22,6 +22,7 @@ export const portfolioCategories = pgTable("portfolio_categories", {
 export const portfolios = pgTable("portfolios", {
   id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   name: varchar("name", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
   categoryId: text("category_id").references(() => portfolioCategories.id),
   thumbnail: text("thumbnail"),
   result: text("result"),
