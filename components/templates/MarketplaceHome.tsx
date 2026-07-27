@@ -6,11 +6,12 @@ import {
   Layers3,
   Quote,
 } from "lucide-react";
+import Image from "next/image";
 import { ButtonLink } from "@/components/atoms/Button";
 import { Features as ProblemSolutionFeatures } from "@/components/ui/features-4";
 import { Features as ServicesFeatures } from "@/components/ui/features-8";
-import { ShopCatalog } from "@/components/molecules/ShopCatalog";
 import { HeroPreviewCarousel } from "@/components/molecules/HeroPreviewCarousel";
+import { ShopCatalog } from "@/components/molecules/ShopCatalog";
 import { PortfolioSection } from "@/components/organisms/PortfolioSection";
 import { PricingPlanGrid } from "@/components/organisms/PricingPlanGrid";
 import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
@@ -77,62 +78,79 @@ export function MarketplaceHome() {
 }
 
 function MarketplaceHero() {
-  const focusAreas = ["Company Profile", "Landing Page", "Toko Online", "Web App", "Dashboard"];
+  const trustPoints = ["Pesan bisnis lebih jelas", "Tampilan siap mobile", "CTA mudah ditemukan"];
 
   return (
-    <section className="marketplace-grid relative overflow-hidden pt-24 pb-2" id="hero">
-      <div className="container-shell text-center">
-        <Reveal duration={0.95} parallax={14}>
-          <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 marketplace-eyebrow text-success">
-            <span className="sm:hidden">Website untuk bisnis</span>
-            <span className="hidden sm:inline">Jasa pembuatan website untuk bisnis</span>
-          </span>
-          <h1 className="mx-auto mt-7 max-w-3xl text-[2.25rem] leading-[1.08] font-extrabold text-foreground sm:mt-8 sm:text-5xl sm:leading-tight md:text-6xl">
-            <span className="sm:hidden">Website bisnis yang bikin pelanggan percaya.</span>
-            <span className="hidden sm:inline">
-              Website bisnis yang bikin calon pelanggan percaya dan langsung menghubungi kamu.
+    <section className="relative overflow-hidden bg-white pt-24 pb-28 sm:pt-28 lg:pt-32" id="hero">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-32 -right-24 size-[28rem] rounded-full bg-orange-light/70 blur-3xl"
+      />
+      <div className="container-shell relative">
+        <div className="grid items-center gap-16 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
+          <Reveal className="relative z-10 max-w-xl" duration={0.95} parallax={14}>
+            <span className="inline-flex rounded-full border border-orange/20 bg-orange-light px-4 py-2 marketplace-eyebrow text-orange-dark">
+              Jasa website untuk bisnis
             </span>
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl marketplace-hero-copy">
-            <span className="sm:hidden">
-              Website profesional agar bisnismu lebih dipercaya dan mudah dihubungi.
-            </span>
-            <span className="hidden sm:inline">
-              kitangoding.id adalah jasa pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di
-              Jogja, Solo, Wonogiri, dan area Jawa. Dari company profile, landing page iklan, toko
-              online, sampai web app custom, kami rapikan copy, alur, dan tampilannya supaya pengunjung
-              paham, percaya, lalu chat.
-            </span>
-          </p>
-          <div className="mt-7 grid grid-cols-2 justify-center gap-2 sm:mt-8 sm:flex sm:gap-3">
-            <ButtonLink
-              className="w-full shadow-soft sm:w-auto"
-              href={whatsappHref}
-              icon={<ArrowRight aria-hidden="true" className="size-4" />}
-              rel="noreferrer"
-              target="_blank"
-            >
-              <span className="sm:hidden">Konsultasi</span>
-              <span className="hidden sm:inline">Konsultasi Gratis via WhatsApp</span>
-            </ButtonLink>
-            <ButtonLink
-              className="w-full sm:w-auto"
-              href="#layanan"
-              icon={<Compass aria-hidden="true" className="size-4" />}
-              variant="outline"
-            >
-              <span className="sm:hidden">Layanan</span>
-              <span className="hidden sm:inline">Lihat Layanan</span>
-            </ButtonLink>
-          </div>
-          <p className="mt-4 hidden text-sm font-medium text-body sm:block">
-            Gratis konsultasi &amp; estimasi—tanpa wajib lanjut.
-          </p>
-        </Reveal>
+            <h1 className="mt-7 max-w-2xl text-[2.75rem] leading-[1.01] font-extrabold tracking-[-0.06em] text-foreground sm:text-6xl lg:text-[5.25rem]">
+              Website bisnis yang bikin pelanggan percaya.
+            </h1>
+            <p className="mt-7 max-w-xl text-lg leading-8 text-body sm:text-xl sm:leading-9">
+              Kami rapikan copy, alur, dan tampilan website supaya calon pelanggan cepat paham,
+              percaya, lalu menghubungi bisnismu.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-3">
+              <ButtonLink
+                className="shadow-soft"
+                href={whatsappHref}
+                icon={<ArrowRight aria-hidden="true" className="size-4" />}
+                rel="noreferrer"
+                size="lg"
+                target="_blank"
+              >
+                Konsultasi Gratis
+              </ButtonLink>
+              <ButtonLink
+                href="#layanan"
+                icon={<Compass aria-hidden="true" className="size-4" />}
+                size="lg"
+                variant="outline"
+              >
+                Lihat Layanan
+              </ButtonLink>
+            </div>
+            <p className="mt-5 text-sm font-medium text-body">Gratis konsultasi &amp; estimasi.</p>
+          </Reveal>
 
-        <Reveal className="mt-10 sm:mt-16" delay={0.2} duration={1.05} parallax={26} variant="zoom-in">
-          <div className="rounded-2xl border border-border bg-white p-2 shadow-card sm:p-4">
-            <div className="mb-2 flex gap-2 px-2 pt-1 sm:mb-4">
+          <Reveal className="relative mx-auto w-full max-w-[760px] lg:ml-auto" delay={0.2} duration={1.05} parallax={20} variant="zoom-in">
+            <div aria-hidden="true" className="absolute -top-7 right-7 h-32 w-32 rounded-[2rem] bg-orange sm:h-44 sm:w-44" />
+            <div aria-hidden="true" className="absolute -bottom-8 left-10 size-28 rounded-full bg-orange-light sm:size-40" />
+            <Image
+              alt="Contoh website bisnis yang dibuat kitangoding"
+              className="relative z-10 h-auto w-full rounded-[2rem] object-cover shadow-soft"
+              height={1536}
+              priority
+              sizes="(max-width: 1024px) 100vw, 64vw"
+              src="/images/hero-img.webp"
+              width={2816}
+            />
+            <div className="absolute -bottom-8 left-3 z-20 w-[min(18rem,calc(100%-1.5rem))] rounded-2xl border border-border bg-white p-4 shadow-soft sm:-left-8 sm:bottom-8 sm:p-5">
+              <p className="text-xs font-bold tracking-[0.14em] text-orange-dark uppercase">Mulai dari tujuan bisnis</p>
+              <div className="mt-3 space-y-2.5">
+                {trustPoints.map((point) => (
+                  <div className="flex items-center gap-2.5 text-sm font-semibold text-foreground" key={point}>
+                    <span className="flex size-5 flex-none items-center justify-center rounded-full bg-success-bg text-xs text-success">✓</span>
+                    {point}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal className="mt-16" delay={0.2} duration={1.05} parallax={26} variant="zoom-in">
+          <div className="rounded-2xl border border-border bg-white p-4 shadow-card">
+            <div className="mb-4 flex gap-2 px-2 pt-1">
               <span className="size-2 rounded-full bg-danger" />
               <span className="size-2 rounded-full bg-orange" />
               <span className="size-2 rounded-full bg-success" />
@@ -150,22 +168,6 @@ function MarketplaceHero() {
             </div>
           </div>
         </Reveal>
-
-        <div className="mt-14 hidden sm:block">
-          <p className="text-sm font-semibold tracking-[0.12em] text-body uppercase">
-            Yang paling sering kami bantu
-          </p>
-          <div className="mx-auto mt-5 flex max-w-3xl flex-wrap justify-center gap-3">
-            {focusAreas.map((item) => (
-              <span
-                key={item}
-                className="inline-flex items-center rounded-full border border-border bg-white px-4 py-2 text-sm font-semibold text-foreground shadow-sm"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );

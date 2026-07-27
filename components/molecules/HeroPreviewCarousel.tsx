@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const previewImages = [
-  "/images/portofolio-1.png",
-  "/images/portofolio-2.png",
-  "/images/portofolio-3.png",
-  "/images/portofolio-4.png",
-  "/images/portofolio-5.png",
-  "/images/portofolio-6.png",
+  "/images/portofolio-1.webp",
+  "/images/portofolio-2.webp",
+  "/images/portofolio-3.webp",
+  "/images/portofolio-4.webp",
+  "/images/portofolio-5.webp",
+  "/images/portofolio-6.webp",
 ] as const;
 
 export function HeroPreviewCarousel() {

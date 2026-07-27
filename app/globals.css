@@ -106,15 +106,6 @@ textarea:focus-visible {
   min-height: calc(100vh - 68px);
 }
 
-.marketplace-page {
-  --market-line: rgba(15, 32, 64, 0.14);
-  --market-dot: rgba(15, 32, 64, 0.2);
-  --market-grid-width: min(1200px, calc(100vw - 2rem));
-  --market-grid-x: calc((100vw - var(--market-grid-width)) / 2);
-  --market-grid-col: calc(var(--market-grid-width) / 4);
-  --market-row: 96px;
-}
-
 .marketplace-page h1 {
   color: rgb(21, 20, 25);
   font-size: clamp(2.25rem, 4vw, 2.5rem);
@@ -161,64 +152,6 @@ textarea:focus-visible {
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.5rem;
-}
-
-.marketplace-grid {
-  --market-x-0: var(--market-grid-x);
-  --market-x-1: calc(var(--market-grid-x) + var(--market-grid-col));
-  --market-x-2: calc(var(--market-grid-x) + var(--market-grid-col) + var(--market-grid-col));
-  --market-x-3: calc(var(--market-grid-x) + var(--market-grid-col) + var(--market-grid-col) + var(--market-grid-col));
-  --market-x-4: calc(var(--market-grid-x) + var(--market-grid-width));
-  background-image:
-    radial-gradient(circle at var(--market-x-0) 0, var(--market-dot) 0 2px, transparent 2.5px),
-    radial-gradient(circle at var(--market-x-1) 0, var(--market-dot) 0 2px, transparent 2.5px),
-    radial-gradient(circle at var(--market-x-2) 0, var(--market-dot) 0 2px, transparent 2.5px),
-    radial-gradient(circle at var(--market-x-3) 0, var(--market-dot) 0 2px, transparent 2.5px),
-    radial-gradient(circle at var(--market-x-4) 0, var(--market-dot) 0 2px, transparent 2.5px),
-    linear-gradient(
-      to right,
-      transparent calc(var(--market-x-0) - 0.5px),
-      var(--market-line) calc(var(--market-x-0) - 0.5px) calc(var(--market-x-0) + 0.5px),
-      transparent calc(var(--market-x-0) + 0.5px)
-    ),
-    linear-gradient(
-      to right,
-      transparent calc(var(--market-x-1) - 0.5px),
-      var(--market-line) calc(var(--market-x-1) - 0.5px) calc(var(--market-x-1) + 0.5px),
-      transparent calc(var(--market-x-1) + 0.5px)
-    ),
-    linear-gradient(
-      to right,
-      transparent calc(var(--market-x-2) - 0.5px),
-      var(--market-line) calc(var(--market-x-2) - 0.5px) calc(var(--market-x-2) + 0.5px),
-      transparent calc(var(--market-x-2) + 0.5px)
-    ),
-    linear-gradient(
-      to right,
-      transparent calc(var(--market-x-3) - 0.5px),
-      var(--market-line) calc(var(--market-x-3) - 0.5px) calc(var(--market-x-3) + 0.5px),
-      transparent calc(var(--market-x-3) + 0.5px)
-    ),
-    linear-gradient(
-      to right,
-      transparent calc(var(--market-x-4) - 0.5px),
-      var(--market-line) calc(var(--market-x-4) - 0.5px) calc(var(--market-x-4) + 0.5px),
-      transparent calc(var(--market-x-4) + 0.5px)
-    ),
-    linear-gradient(to bottom, var(--market-line) 1px, transparent 1px);
-  background-repeat: repeat-y, repeat-y, repeat-y, repeat-y, repeat-y, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
-  background-size:
-    100% var(--market-row),
-    100% var(--market-row),
-    100% var(--market-row),
-    100% var(--market-row),
-    100% var(--market-row),
-    100% 100%,
-    100% 100%,
-    100% 100%,
-    100% 100%,
-    100% 100%,
-    100% var(--market-row);
 }
 
 .marketplace-preview {
