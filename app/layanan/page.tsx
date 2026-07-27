@@ -73,7 +73,7 @@ export default async function Page() {
       />
       <FloatingNav />
       <main id="konten">
-        <ServicesOverviewSection services={services} />
+        <ServicesOverviewSection />
         <CustomProjectCta />
       </main>
       <MarketplaceFooter />

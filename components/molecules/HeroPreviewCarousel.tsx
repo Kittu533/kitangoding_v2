@@ -1,45 +1,53 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 const previewImages = [
-  {
-    src: "/images/img-1.webp",
-    alt: "Preview website marketplace utama",
-    position: "object-[center_8%]",
-  },
-  {
-    src: "/images/img-2.webp",
-    alt: "Preview website marketplace alternatif",
-    position: "object-[center_14%]",
-  },
-  {
-    src: "/images/img-3.webp",
-    alt: "Preview website marketplace ketiga",
-    position: "object-[center_10%]",
-  },
+  "/images/portofolio-1.png",
+  "/images/portofolio-2.png",
+  "/images/portofolio-3.png",
+  "/images/portofolio-4.png",
+  "/images/portofolio-5.png",
+  "/images/portofolio-6.png",
 ] as const;
 
 export function HeroPreviewCarousel() {
-  const activeImage = previewImages[0];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % previewImages.length);
+    }, 2800);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   return (
     <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-white">
       <div className="absolute inset-0">
-        <Image
-          priority
-          alt={activeImage.alt}
-          className={`object-cover ${activeImage.position}`}
-          fill
-          sizes="(max-width: 768px) 100vw, 1200px"
-          src={activeImage.src}
-        />
+        {previewImages.map((image, index) => (
+          <Image
+            priority={index === 0}
+            alt={index === activeIndex ? "Preview portofolio website Kitangoding" : ""}
+            aria-hidden={index !== activeIndex}
+            className={`object-cover object-top transition-opacity duration-700 ${
+              index === activeIndex ? "opacity-100" : "opacity-0"
+            }`}
+            fill
+            key={image}
+            sizes="(max-width: 768px) 100vw, 1200px"
+            src={image}
+          />
+        ))}
       </div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center gap-2 px-4 pb-4">
         {previewImages.map((image, index) => (
           <span
-            key={image.src}
+            key={image}
             className={`h-1.5 rounded-full transition-all duration-500 ${
-              index === 0 ? "w-8 bg-white/95" : "w-2.5 bg-white/45"
+              index === activeIndex ? "w-8 bg-white/95" : "w-2.5 bg-white/45"
             }`}
           />
         ))}

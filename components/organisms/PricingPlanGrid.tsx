@@ -13,12 +13,23 @@ export function PricingPlanGrid({
   delayStep?: number;
 }) {
   return (
-    <div className="grid max-w-7xl gap-8 mx-auto md:grid-cols-2 xl:grid-cols-3">
-      {plans.map((plan, index) => (
-        <Reveal key={plan.name} delay={index * delayStep}>
+    <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 md:gap-8 xl:grid-cols-3">
+      {plans.map((plan, index) => {
+        const isLastUnpaired = plans.length > 1 && plans.length % 2 === 1 && index === plans.length - 1;
+
+        return (
+        <Reveal
+          className={cn(
+            "h-full",
+            isLastUnpaired &&
+              "md:col-span-2 md:mx-auto md:w-[calc(50%-1rem)] xl:col-span-1 xl:mx-0 xl:w-auto",
+          )}
+          key={plan.name}
+          delay={index * delayStep}
+        >
           <div
             className={cn(
-              "relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] p-8 transition-all duration-300",
+              "relative flex h-full flex-col justify-between overflow-hidden rounded-[2rem] p-6 transition-all duration-300 sm:p-8",
               plan.featured
                 ? "bg-navy text-white shadow-card ring-2 ring-orange ring-offset-2 ring-offset-market md:-translate-y-4 md:hover:-translate-y-6 z-10"
                 : "bg-white text-foreground border border-border shadow-sm hover:shadow-md hover:-translate-y-2 hover:border-orange/30"
@@ -88,7 +99,8 @@ export function PricingPlanGrid({
             )}
           </div>
         </Reveal>
-      ))}
+        );
+      })}
     </div>
   );
 }

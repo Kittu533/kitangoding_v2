@@ -1,82 +1,31 @@
-import { Suspense } from "react";
+import { Suspense, type ComponentProps } from "react";
 import {
   ArrowRight,
-  CheckCircle2,
   ChevronDown,
-  CircleAlert,
   Compass,
   Layers3,
-  MonitorSmartphone,
   Quote,
-  SearchCheck,
-  Store,
-  Workflow,
 } from "lucide-react";
 import { ButtonLink } from "@/components/atoms/Button";
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import { cn } from "@/lib/utils";
+import { Features as ProblemSolutionFeatures } from "@/components/ui/features-4";
+import { Features as ServicesFeatures } from "@/components/ui/features-8";
 import { ShopCatalog } from "@/components/molecules/ShopCatalog";
 import { HeroPreviewCarousel } from "@/components/molecules/HeroPreviewCarousel";
 import { PortfolioSection } from "@/components/organisms/PortfolioSection";
 import { PricingPlanGrid } from "@/components/organisms/PricingPlanGrid";
 import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
-import { Reveal } from "@/components/atoms/Reveal";
+import { Reveal as BaseReveal } from "@/components/atoms/Reveal";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   getPublicPricing,
-  getPublicServices,
   type PublicCreativeCard,
   type PublicPricingPlan,
-  type PublicServiceCard,
 } from "@/lib/public-content";
-import { advantages, faqs, painPoints, solutions, testimonials } from "@/lib/landing-data";
-import { serviceLandingPages } from "@/lib/service-landing-pages";
+import { faqs, testimonials } from "@/lib/landing-data";
 import { whatsappHref } from "@/lib/site";
 
-const serviceSolutions = [
-  {
-    title: "Website Company Profile",
-    match: "company profile",
-    href: serviceLandingPages[0].pathname,
-    description:
-      "Bikin bisnismu langsung terlihat kredibel begitu calon klien buka websitenya—profil rapi yang menjawab “ini bisnis serius” dalam 5 detik pertama.",
-    icon: MonitorSmartphone,
-    points: ["Profil & layanan yang meyakinkan", "Kontak + Google Maps", "SEO nama brand di Google"],
-    span: "md:col-span-2",
-  },
-  {
-    title: "Landing Page Iklan",
-    match: "landing page",
-    href: serviceLandingPages[1].pathname,
-    description:
-      "Ubah klik iklan jadi chat WhatsApp. Satu halaman fokus konversi untuk Meta Ads, Google Ads, atau launching produk—dirancang biar pengunjung ambil aksi.",
-    icon: SearchCheck,
-    points: ["Copy penawaran yang menjual", "CTA WhatsApp / form lead", "Pixel & analytics siap pakai"],
-    span: "md:col-span-1",
-  },
-  {
-    title: "Toko Online & Katalog",
-    match: "toko online",
-    href: serviceLandingPages[2].pathname,
-    description:
-      "Terima order lebih rapi tanpa terus bagi-bagi margin ke marketplace. Katalog jelas + alur order yang gampang bikin pembeli nggak ragu checkout.",
-    icon: Store,
-    points: ["Katalog & kategori produk", "Checkout / order via WA", "Promo & laporan penjualan"],
-    span: "md:col-span-1",
-  },
-  {
-    title: "Aplikasi Web Custom",
-    match: "aplikasi web",
-    description:
-      "Rapikan operasional yang masih manual lewat Excel & WhatsApp. Dashboard dan sistem khusus yang dibangun persis sesuai alur kerja bisnismu.",
-    icon: Workflow,
-    points: ["Sesuai SOP bisnismu", "Role user & audit log", "Integrasi API / notifikasi"],
-    span: "md:col-span-2",
-  },
-] as const;
-
-async function HomeServices() {
-  return <ServicesOverviewSection services={await getPublicServices(4)} />;
+function Reveal(props: ComponentProps<typeof BaseReveal>) {
+  return <BaseReveal {...props} once={false} />;
 }
 
 async function HomePricing() {
@@ -113,9 +62,7 @@ export function MarketplaceHome() {
       <main id="konten">
         <MarketplaceHero />
         <ProblemSolutionSection />
-        <Suspense fallback={<HomeDataSectionSkeleton cards={4} />}>
-          <HomeServices />
-        </Suspense>
+        <ServicesOverviewSection />
         <PortfolioSection />
         <TestimonialsSection />
         <Suspense fallback={<HomeDataSectionSkeleton cards={2} />}>
@@ -137,49 +84,55 @@ function MarketplaceHero() {
       <div className="container-shell text-center">
         <Reveal duration={0.95} parallax={14}>
           <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 marketplace-eyebrow text-success">
-            Jasa pembuatan website untuk bisnis
+            <span className="sm:hidden">Website untuk bisnis</span>
+            <span className="hidden sm:inline">Jasa pembuatan website untuk bisnis</span>
           </span>
-          <h1 className="mx-auto mt-8 max-w-3xl text-5xl leading-tight font-extrabold text-foreground md:text-6xl">
-            Website bisnis yang bikin calon pelanggan percaya dan langsung menghubungi kamu.
+          <h1 className="mx-auto mt-7 max-w-3xl text-[2.25rem] leading-[1.08] font-extrabold text-foreground sm:mt-8 sm:text-5xl sm:leading-tight md:text-6xl">
+            <span className="sm:hidden">Website bisnis yang bikin pelanggan percaya.</span>
+            <span className="hidden sm:inline">
+              Website bisnis yang bikin calon pelanggan percaya dan langsung menghubungi kamu.
+            </span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl marketplace-hero-copy">
-            kitangoding.id adalah jasa pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di
-            Jogja, Solo, Wonogiri, dan area Jawa. Dari company profile, landing page iklan, toko online,
-            sampai web app custom, kami rapikan copy, alur, dan tampilannya supaya pengunjung paham,
-            percaya, lalu chat.
+            <span className="sm:hidden">
+              Website profesional agar bisnismu lebih dipercaya dan mudah dihubungi.
+            </span>
+            <span className="hidden sm:inline">
+              kitangoding.id adalah jasa pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di
+              Jogja, Solo, Wonogiri, dan area Jawa. Dari company profile, landing page iklan, toko
+              online, sampai web app custom, kami rapikan copy, alur, dan tampilannya supaya pengunjung
+              paham, percaya, lalu chat.
+            </span>
           </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <div className="mt-7 grid grid-cols-2 justify-center gap-2 sm:mt-8 sm:flex sm:gap-3">
             <ButtonLink
-              className="shadow-soft"
+              className="w-full shadow-soft sm:w-auto"
               href={whatsappHref}
               icon={<ArrowRight aria-hidden="true" className="size-4" />}
               rel="noreferrer"
               target="_blank"
             >
-              Konsultasi Gratis via WhatsApp
+              <span className="sm:hidden">Konsultasi</span>
+              <span className="hidden sm:inline">Konsultasi Gratis via WhatsApp</span>
             </ButtonLink>
-            <ButtonLink href="#layanan" icon={<Compass aria-hidden="true" className="size-4" />} variant="outline">
-              Lihat Layanan
+            <ButtonLink
+              className="w-full sm:w-auto"
+              href="#layanan"
+              icon={<Compass aria-hidden="true" className="size-4" />}
+              variant="outline"
+            >
+              <span className="sm:hidden">Layanan</span>
+              <span className="hidden sm:inline">Lihat Layanan</span>
             </ButtonLink>
           </div>
-          <p className="mt-4 text-sm font-medium text-body">
+          <p className="mt-4 hidden text-sm font-medium text-body sm:block">
             Gratis konsultasi &amp; estimasi—tanpa wajib lanjut.
           </p>
-          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-body">
-            Fokus layanan: website company profile, landing page, toko online, dan aplikasi web custom
-            untuk bisnis yang ingin tampil lebih kredibel di Google.
-          </p>
-          <div className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-3 text-sm font-semibold text-body">
-            <span className="rounded-lg border border-border bg-white px-4 py-2">Company profile</span>
-            <span className="rounded-lg border border-border bg-white px-4 py-2">Landing page iklan</span>
-            <span className="rounded-lg border border-border bg-white px-4 py-2">Toko online</span>
-            <span className="rounded-lg border border-border bg-white px-4 py-2">Web app custom</span>
-          </div>
         </Reveal>
 
-        <Reveal className="mt-16" delay={0.2} duration={1.05} parallax={26} variant="zoom-in">
-          <div className="rounded-2xl border border-border bg-white p-4 shadow-card">
-            <div className="mb-4 flex gap-2 px-2 pt-1">
+        <Reveal className="mt-10 sm:mt-16" delay={0.2} duration={1.05} parallax={26} variant="zoom-in">
+          <div className="rounded-2xl border border-border bg-white p-2 shadow-card sm:p-4">
+            <div className="mb-2 flex gap-2 px-2 pt-1 sm:mb-4">
               <span className="size-2 rounded-full bg-danger" />
               <span className="size-2 rounded-full bg-orange" />
               <span className="size-2 rounded-full bg-success" />
@@ -198,7 +151,7 @@ function MarketplaceHero() {
           </div>
         </Reveal>
 
-        <div className="mt-14">
+        <div className="mt-14 hidden sm:block">
           <p className="text-sm font-semibold tracking-[0.12em] text-body uppercase">
             Yang paling sering kami bantu
           </p>
@@ -218,112 +171,8 @@ function MarketplaceHero() {
   );
 }
 
-const advantageIcons = [Compass, Layers3, Workflow, SearchCheck] as const;
-
 function ProblemSolutionSection() {
-  return (
-    <section className="marketplace-grid py-4" id="masalah">
-      <div className="container-shell">
-        <Reveal className="mx-auto max-w-3xl text-center" duration={0.95} parallax={10}>
-          <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 marketplace-eyebrow text-success">
-            Kenapa website lama sering gagal jualan
-          </span>
-          <h2 className="mt-5 text-4xl font-extrabold leading-tight text-foreground">
-            Punya website tapi calon pelanggan tetap ragu? Ini biasanya penyebabnya.
-          </h2>
-          <p className="mt-4 text-base leading-7 text-body">
-            Kabar baiknya: setiap masalah di bawah ini ada lawannya. Lihat bagaimana kami ubah website
-            yang cuma “ada” menjadi website yang benar-benar bekerja menjual.
-          </p>
-        </Reveal>
-
-        <div className="mt-12 grid items-stretch gap-6 lg:grid-cols-[1fr_auto_1fr]">
-          <Reveal className="h-full" variant="fade-right">
-            <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-danger/20 bg-gradient-to-b from-danger/[0.06] to-white p-7 shadow-sm">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex size-10 flex-none items-center justify-center rounded-full bg-danger/10 text-danger">
-                  <CircleAlert aria-hidden="true" className="size-5" />
-                </span>
-                <div>
-                  <p className="marketplace-eyebrow text-danger">Sebelum</p>
-                  <h3 className="text-xl font-extrabold leading-tight text-foreground">Website yang bikin calon pelanggan ragu</h3>
-                </div>
-              </div>
-              <ul className="mt-6 space-y-4">
-                {painPoints.map((point) => (
-                  <li key={point} className="flex items-start gap-3 rounded-xl border border-danger/10 bg-white/70 p-4 text-sm leading-7 text-body">
-                    <CircleAlert aria-hidden="true" className="mt-0.5 size-5 flex-none text-danger" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-
-          <div className="flex items-center justify-center" aria-hidden="true">
-            <span className="inline-flex size-12 items-center justify-center rounded-full border border-success/30 bg-white text-success shadow-card">
-              <ArrowRight className="size-5 lg:block hidden" />
-              <ArrowRight className="size-5 rotate-90 lg:hidden" />
-            </span>
-          </div>
-
-          <Reveal className="h-full" delay={0.1} duration={0.95} variant="fade-left">
-            <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-success/30 bg-gradient-to-b from-success/[0.08] to-white p-7 shadow-card">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex size-10 flex-none items-center justify-center rounded-full bg-success/15 text-success">
-                  <CheckCircle2 aria-hidden="true" className="size-5" />
-                </span>
-                <div>
-                  <p className="marketplace-eyebrow text-success">Sesudah dibenahi</p>
-                  <h3 className="text-xl font-extrabold leading-tight text-foreground">Website yang siap mengubah pengunjung jadi pembeli</h3>
-                </div>
-              </div>
-              <ul className="mt-6 space-y-4">
-                {solutions.map((point) => (
-                  <li key={point} className="flex items-start gap-3 rounded-xl border border-success/15 bg-white/70 p-4 text-sm leading-7 text-foreground">
-                    <CheckCircle2 aria-hidden="true" className="mt-0.5 size-5 flex-none text-success" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
-
-        <div className="mt-14">
-          <Reveal className="flex flex-col items-center gap-2 text-center" duration={0.9}>
-            <p className="text-lg font-extrabold text-foreground">Plus, alasan klien akhirnya percaya ke kami</p>
-            <p className="max-w-2xl text-sm leading-7 text-body">
-              Bukan sekadar bikin tampilan baru kami pikirkan pesan, struktur, dan proses supaya hasilnya benar-benar terasa di bisnismu.
-            </p>
-          </Reveal>
-
-          <BentoGrid className="mt-8 md:auto-rows-[1fr] md:grid-cols-2 lg:grid-cols-4">
-            {advantages.map((item, index) => {
-              const Icon = advantageIcons[index % advantageIcons.length];
-              return (
-                <Reveal
-                  key={item.title}
-                  className="h-full"
-                  delay={(index + 1) * 0.08}
-                  duration={0.9}
-                  variant={index % 2 === 0 ? "fade-up" : "zoom-in"}
-                >
-                  <div className="group flex h-full flex-col gap-4 rounded-2xl border border-border bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-success/30 hover:shadow-card">
-                    <span className="inline-flex size-11 flex-none items-center justify-center rounded-xl bg-success/10 text-success transition duration-200 group-hover:bg-success group-hover:text-white">
-                      <Icon aria-hidden="true" className="size-5" />
-                    </span>
-                    <h3 className="text-lg font-extrabold leading-snug text-foreground">{item.title}</h3>
-                    <p className="text-sm leading-7 text-body">{item.description}</p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </BentoGrid>
-        </div>
-      </div>
-    </section>
-  );
+  return <ProblemSolutionFeatures />;
 }
 
 function TestimonialsSection() {
@@ -366,78 +215,8 @@ function TestimonialsSection() {
   );
 }
 
-export function ServicesOverviewSection({ services }: { services: PublicServiceCard[] }) {
-  return (
-    <section className="marketplace-grid py-4" id="layanan">
-      <div className="container-shell">
-        <Reveal className="mx-auto max-w-3xl text-center" duration={0.95} parallax={10}>
-          <span className="inline-flex rounded-lg border border-success/20 bg-white px-3 py-2 marketplace-eyebrow text-success">
-            Layanan utama
-          </span>
-          <h2 className="mt-5 text-4xl font-extrabold leading-tight text-foreground">
-            Satu partner untuk semua kebutuhan website bisnismu.
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-body">
-            Apa pun jenis websitemu, tujuannya sama: calon pelanggan paham bisnismu, percaya dengan
-            penawaranmu, lalu langsung tahu tombol mana yang harus diklik untuk menghubungi.
-          </p>
-        </Reveal>
-
-        <BentoGrid className="mt-12 auto-rows-auto items-stretch md:auto-rows-auto">
-          {serviceSolutions.map((service, index) => {
-            const Icon = service.icon;
-            const publicService = services.find((item) =>
-              item.title.toLowerCase().includes(service.match),
-            );
-            const hasHref = "href" in service;
-
-            return (
-              <Reveal
-                key={service.title}
-                className={cn("h-full", service.span)}
-                delay={index * 0.08}
-                duration={0.95}
-                variant={index % 2 === 0 ? "fade-right" : "fade-left"}
-              >
-                <BentoGridItem
-                  className="h-full min-h-[20rem] border-border bg-white shadow-sm hover:shadow-card"
-                  icon={
-                    <div className="flex size-12 items-center justify-center rounded-xl bg-navy text-white">
-                      <Icon aria-hidden="true" className="size-6" />
-                    </div>
-                  }
-                  title={<span className="text-xl font-extrabold text-foreground">{service.title}</span>}
-                  description={
-                    <div className="flex h-full flex-col">
-                      <p className="text-sm leading-7 text-body">
-                        {publicService?.description || service.description}
-                      </p>
-                      <div className="mt-5 space-y-2.5">
-                        {service.points.map((point) => (
-                          <div key={point} className="flex items-start gap-2.5 text-sm font-medium text-foreground">
-                            <CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 flex-none text-success" />
-                            <span>{point}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-6 flex flex-wrap gap-3">
-                        {hasHref ? (
-                          <ButtonLink href={service.href} variant="outline">
-                            Detail layanan
-                          </ButtonLink>
-                        ) : null}
-                        <ButtonLink href="/project-inquiry">Minta estimasi</ButtonLink>
-                      </div>
-                    </div>
-                  }
-                />
-              </Reveal>
-            );
-          })}
-        </BentoGrid>
-      </div>
-    </section>
-  );
+export function ServicesOverviewSection() {
+  return <ServicesFeatures />;
 }
 
 export function VisualReferenceSection({ items }: { items: PublicCreativeCard[] }) {
@@ -482,10 +261,10 @@ function MarketplacePricing({ plans }: { plans: PublicPricingPlan[] }) {
     <section className="marketplace-grid py-6" id="harga">
       <div className="container-shell">
         <Reveal className="mx-auto max-w-3xl text-center" duration={0.95} parallax={10}>
-          <h2 className="text-4xl font-extrabold leading-tight text-foreground">
+          <h2 className="text-3xl font-extrabold leading-tight text-foreground sm:text-4xl">
             Paket harga yang gampang dipilih sebelum konsultasi.
           </h2>
-          <p className="mt-5 text-base leading-8 text-body">
+          <p className="mt-4 text-sm leading-7 text-body sm:mt-5 sm:text-base sm:leading-8">
             Mulai dari website profil sampai sistem custom. Harga final tetap kami validasi setelah
             tahu jumlah halaman, fitur, dan bahan konten yang sudah kamu punya.
           </p>
