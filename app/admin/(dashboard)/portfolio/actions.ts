@@ -17,6 +17,7 @@ const portfolioSchema = z.object({
   categoryId: z.string().min(1, "Kategori wajib diisi"),
   thumbnail: z.string().optional(),
   result: z.string().optional(),
+  linkPreview: z.string().url("URL tidak valid").or(z.string().max(0)).optional(),
   role: z.string().trim().max(255, "Role maksimal 255 karakter").optional(),
   features: z.string().optional(),
   gallery: z.array(z.string()).max(2, "Maksimal 2 screenshot tambahan").optional(),
@@ -30,12 +31,13 @@ function parseFeatures(features?: string) {
 }
 
 function toPortfolioValues(data: z.infer<typeof portfolioSchema>) {
-  const { features, gallery = [], role, ...portfolio } = data;
+  const { features, gallery = [], role, linkPreview, ...portfolio } = data;
 
   return {
     ...portfolio,
     slug: slugify(portfolio.name),
     role: role || null,
+    linkPreview: linkPreview || null,
     features: parseFeatures(features),
     gallery,
   };

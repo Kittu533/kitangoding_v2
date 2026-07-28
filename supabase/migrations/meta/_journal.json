@@ -1,0 +1,11 @@
+{"version":"7","dialect":"postgresql","entries":[
+  {"idx":0,"version":"7","when":1700000000000,"tag":"0001_dashboard_init.sql","broken":false},
+  {"idx":1,"version":"7","when":1700000001000,"tag":"0002_analytics_events.sql","broken":false},
+  {"idx":2,"version":"7","when":1700000002000,"tag":"0003_blog_categories.sql","broken":false},
+  {"idx":3,"version":"7","when":1700000003000,"tag":"0004_users_role.sql","broken":false},
+  {"idx":4,"version":"7","when":1700000004000,"tag":"0005_portfolio_details.sql","broken":false},
+  {"idx":5,"version":"7","when":1700000005000,"tag":"0006_portfolio_gallery.sql","broken":false},
+  {"idx":6,"version":"7","when":1700000006000,"tag":"0007_blog_authors_and_tags.sql","broken":false},
+  {"idx":7,"version":"7","when":1700000007000,"tag":"0008_portfolio_slugs.sql","broken":false},
+  {"idx":8,"version":"7","when":1785261315424,"tag":"0009_add_link_preview.sql","broken":false}
+]}

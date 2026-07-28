@@ -50,6 +50,7 @@ export type PortfolioCard = {
   name: string;
   result: string;
   thumbnail?: string | null;
+  linkPreview?: string | null;
 };
 
 export type PortfolioDetail = PortfolioCard & {
@@ -765,6 +766,7 @@ export async function getPortfolioProjects(limit?: number): Promise<PortfolioCar
         slug: portfolios.slug,
         name: portfolios.name,
         result: portfolios.result,
+        linkPreview: portfolios.linkPreview,
         thumbnailHash: sql<string | null>`md5(nullif(${portfolios.thumbnail}, ''))`,
         categoryName: portfolioCategories.name,
       })
@@ -780,6 +782,7 @@ export async function getPortfolioProjects(limit?: number): Promise<PortfolioCar
         category: item.categoryName || "Tanpa Kategori",
         name: item.name,
         result: item.result || "Portfolio project",
+        linkPreview: item.linkPreview,
         thumbnail: item.thumbnailHash
           ? `/api/portfolio-images/${encodeURIComponent(item.id)}/thumbnail/${item.thumbnailHash}`
           : null,
@@ -811,6 +814,7 @@ export async function getPortfolioProjectBySlug(slug: string): Promise<Portfolio
         slug: portfolios.slug,
         name: portfolios.name,
         result: portfolios.result,
+        linkPreview: portfolios.linkPreview,
         role: portfolios.role,
         features: portfolios.features,
         thumbnailHash: sql<string | null>`md5(nullif(${portfolios.thumbnail}, ''))`,
@@ -830,6 +834,7 @@ export async function getPortfolioProjectBySlug(slug: string): Promise<Portfolio
         category: item.categoryName || "Tanpa Kategori",
         name: item.name,
         result: item.result || "Portfolio project",
+        linkPreview: item.linkPreview,
         role: item.role,
         features: item.features,
         gallery: [item.galleryHash0, item.galleryHash1].flatMap((hash, index) =>

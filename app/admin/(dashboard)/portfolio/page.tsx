@@ -37,6 +37,7 @@ type PortfolioRow = {
   categoryName: string | null;
   thumbnail: string | null;
   result: string | null;
+  linkPreview: string | null;
   role: string | null;
   features: string[];
   gallery: string[];
@@ -65,6 +66,7 @@ export default async function PortfolioPage(props: Props) {
         categoryName: portfolioCategories.name,
         thumbnail: portfolios.thumbnail,
         result: portfolios.result,
+        linkPreview: portfolios.linkPreview,
         role: portfolios.role,
         features: portfolios.features,
         gallery: portfolios.gallery,
@@ -108,13 +110,14 @@ export default async function PortfolioPage(props: Props) {
               <TableHead>Nama Proyek</TableHead>
               <TableHead>Kategori</TableHead>
               <TableHead>Result</TableHead>
+              <TableHead>Link</TableHead>
               <TableHead className="text-right">Aksi</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="h-48 text-center">
+                <TableCell colSpan={6} className="h-48 text-center">
                   <div className="flex flex-col items-center justify-center">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted mb-3">
                       <PhotoIcon className="h-6 w-6 text-muted-foreground" />
@@ -153,6 +156,20 @@ export default async function PortfolioPage(props: Props) {
                   </TableCell>
                   <TableCell className="max-w-xs truncate">
                     {item.result || '-'}
+                  </TableCell>
+                  <TableCell>
+                    {item.linkPreview ? (
+                      <a
+                        href={item.linkPreview}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-blue-600 underline hover:text-blue-800"
+                      >
+                        Buka
+                      </a>
+                    ) : (
+                      <span className="text-sm text-muted-foreground">-</span>
+                    )}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex items-center justify-end gap-2">

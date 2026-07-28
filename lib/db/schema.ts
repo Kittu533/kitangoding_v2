@@ -26,6 +26,7 @@ export const portfolios = pgTable("portfolios", {
   categoryId: text("category_id").references(() => portfolioCategories.id),
   thumbnail: text("thumbnail"),
   result: text("result"),
+  linkPreview: text("link_preview"),
   role: varchar("role", { length: 255 }),
   features: text("features").array().notNull().default([]),
   gallery: text("gallery").array().notNull().default([]),

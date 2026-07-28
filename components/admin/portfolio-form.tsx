@@ -34,6 +34,7 @@ const formSchema = z.object({
   categoryId: z.string().min(1, "Kategori wajib diisi"),
   thumbnail: z.string().optional(),
   result: z.string().optional(),
+  linkPreview: z.string().optional(),
   role: z.string().max(255, "Role maksimal 255 karakter").optional(),
   features: z.string().optional(),
   gallery: z.array(z.string()).max(2, "Maksimal 2 screenshot tambahan").optional(),
@@ -46,6 +47,7 @@ type PortfolioFormProps = {
     categoryId: string | null;
     thumbnail: string | null;
     result: string | null;
+    linkPreview: string | null;
     role: string | null;
     features: string[];
     gallery: string[];
@@ -68,6 +70,7 @@ export function PortfolioForm({ initialData, categories, trigger }: PortfolioFor
       categoryId: initialData?.categoryId || "",
       thumbnail: initialData?.thumbnail || "",
       result: initialData?.result || "",
+      linkPreview: initialData?.linkPreview || "",
       role: initialData?.role || "",
       features: initialData?.features.join("\n") || "",
       gallery: initialData?.gallery || [],
@@ -229,6 +232,18 @@ export function PortfolioForm({ initialData, categories, trigger }: PortfolioFor
                 placeholder="Misal: Meningkatkan konversi 200%"
                 {...form.register("result")}
               />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="linkPreview">Link Preview</Label>
+              <Input
+                id="linkPreview"
+                type="url"
+                placeholder="https://example.com"
+                {...form.register("linkPreview")}
+              />
+              {form.formState.errors.linkPreview && (
+                <span className="text-xs text-destructive">{form.formState.errors.linkPreview.message}</span>
+              )}
             </div>
             <div className="grid gap-2">
               <Label htmlFor="galleryFiles">Screenshot Tambahan</Label>
