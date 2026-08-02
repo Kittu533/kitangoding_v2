@@ -63,7 +63,7 @@ export function MarketplaceHome() {
       <main id="konten">
         <MarketplaceHero />
         <ProblemSolutionSection />
-        <ServicesOverviewSection />
+        {/* <ServicesOverviewSection /> */}
         <PortfolioSection />
         <TestimonialsSection />
         <Suspense fallback={<HomeDataSectionSkeleton cards={2} />}>
@@ -82,10 +82,6 @@ function MarketplaceHero() {
 
   return (
     <section className="relative overflow-hidden bg-white pt-24 pb-28 sm:pt-28 lg:pt-32" id="hero">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-32 -right-24 size-[28rem] rounded-full bg-orange-light/70 blur-3xl"
-      />
       <div className="container-shell relative">
         <div className="grid items-center gap-16 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
           <Reveal className="relative z-10 max-w-xl" duration={0.95} parallax={14}>
@@ -217,9 +213,9 @@ function TestimonialsSection() {
   );
 }
 
-export function ServicesOverviewSection() {
-  return <ServicesFeatures />;
-}
+// export function ServicesOverviewSection() {
+//   return <ServicesFeatures />;
+// }
 
 export function VisualReferenceSection({ items }: { items: PublicCreativeCard[] }) {
   return (

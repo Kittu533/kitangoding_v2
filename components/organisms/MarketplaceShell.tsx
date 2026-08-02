@@ -11,7 +11,7 @@ import { siteConfig, whatsappHref } from "@/lib/site";
 export function FloatingNav() {
   return (
     <header className="sticky top-4 z-50 px-4">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 rounded-3xl border border-white/70 bg-white/45 px-5 shadow-[0_24px_70px_rgba(17,17,24,0.12)] backdrop-blur-2xl ring-1 ring-white/55 supports-[backdrop-filter]:bg-white/35">
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between gap-4 rounded-3xl border border-border bg-white px-5 shadow-[0_24px_70px_rgba(17,17,24,0.12)]">
         <Link className="flex shrink-0 items-center" href="/" aria-label="Kembali ke homepage">
           <LogoMark showText={false} />
         </Link>
