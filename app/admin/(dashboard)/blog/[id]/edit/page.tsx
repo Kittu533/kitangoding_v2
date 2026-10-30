@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { notFound } from "next/navigation";
-import { BlogForm } from "@/components/admin/blog-form";
-import { db } from "@/lib/db";
-import { blogCategories, blogPosts } from "@/lib/db/schema";
-import { asc, eq } from "drizzle-orm";
+import { BlogForm } from "@/features/blog/components/blog-form";
+import { getAdminBlogPostForEdit } from "@/features/blog/queries";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -12,12 +10,9 @@ type Props = {
 
 export default async function EditBlogPage({ params }: Props) {
   const { id } = await params;
-  const [post, categories] = await Promise.all([
-    db.select().from(blogPosts).where(eq(blogPosts.id, id)).limit(1),
-    db.select({ name: blogCategories.name }).from(blogCategories).orderBy(asc(blogCategories.name)),
-  ]);
+  const { post, categories } = await getAdminBlogPostForEdit(id);
 
-  if (!post[0]) {
+  if (!post) {
     notFound();
   }
 
@@ -31,7 +26,7 @@ export default async function EditBlogPage({ params }: Props) {
         <h1 className="text-3xl font-bold tracking-tight">Edit Artikel</h1>
         <p className="mt-2 text-muted-foreground">Perbarui isi artikel sebelum dipublikasikan.</p>
       </div>
-      <BlogForm categories={categories.map((category) => category.name)} initialData={post[0]} />
+      <BlogForm categories={categories.map((category) => category.name)} initialData={post} />
     </div>
   );
 }

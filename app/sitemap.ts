@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { desc, eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { blogPosts } from "@/lib/db/schema";
-import { fallbackBlogDetails } from "@/lib/public-content";
+import { fallbackBlogDetails } from "@/features/blog/content";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -72,6 +72,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${siteConfig.domain}/jasa-toko-online-umkm`,
+    },
+    {
+      url: `${siteConfig.domain}/jasa-redesign-website`,
     },
     ...fallbackBlogEntries,
     ...blogEntries,

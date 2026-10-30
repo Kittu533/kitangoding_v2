@@ -54,9 +54,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="flex h-12 items-center px-4">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold">
-              K
+              R
             </div>
-            <span className="text-lg font-semibold tracking-tight">KitaNgoding</span>
+            <span className="text-lg font-semibold tracking-tight">Rekalur</span>
           </div>
         </div>
       </SidebarHeader>

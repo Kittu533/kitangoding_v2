@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LandingPage } from "@/components/templates/LandingPage";
+import { LandingPage } from "@/components/marketing/pages/LandingPage";
 import { faqs } from "@/lib/landing-data";
 import { serviceAreas, siteConfig } from "@/lib/site";
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     absolute: `${siteConfig.name} | Jasa Pembuatan Website UMKM`,
   },
   description:
-    "kitangoding.id adalah jasa pembuatan website untuk UMKM di Jogja, Solo, Wonogiri, dan area Jawa. Kami melayani pembuatan website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan mudah dipakai untuk jualan.",
+    "Rekalur adalah jasa pembuatan website untuk UMKM di Jogja, Solo, Wonogiri, dan area Jawa. Kami melayani pembuatan website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan mudah dipakai untuk jualan.",
   alternates: {
     canonical: siteConfig.domain,
   },
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
   keywords: [
-    "kitangoding.id",
-    "kitangoding id",
+    "Rekalur",
+    "Rekalur Studio",
     "jasa pembuatan website umkm",
     "jasa website company profile",
     "jasa landing page",
@@ -59,7 +59,7 @@ const structuredData = [
     alternateName: siteConfig.alternateName,
     url: siteConfig.domain,
     description: siteConfig.description,
-    logo: `${siteConfig.domain}/logo-kitangoding.webp`,
+    logo: `${siteConfig.domain}/rekalur-mark.svg`,
     email: siteConfig.email,
     sameAs: [
       siteConfig.instagram,

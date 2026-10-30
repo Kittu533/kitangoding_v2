@@ -283,9 +283,9 @@ Create `app/tentang/page.tsx` with existing components and this content contract
 
 ```tsx
 import type { Metadata } from "next";
-import { ButtonLink } from "@/components/atoms/Button";
-import { Reveal } from "@/components/atoms/Reveal";
-import { FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
+import { ButtonLink } from "@/components/marketing/ui/ButtonLink";
+import { Reveal } from "@/components/marketing/ui/Reveal";
+import { FloatingNav, MarketplaceFooter } from "@/components/marketing/sections/MarketplaceShell";
 import { serviceAreas, siteConfig, whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -401,10 +401,10 @@ rtk git commit -m "feat: add kitangoding.id brand entity page"
 ### Task 4: Service, Portfolio, Pricing, and FAQ Copy
 
 **Files:**
-- Modify: `components/templates/MarketplaceHome.tsx`
-- Modify: `components/organisms/PortfolioSection.tsx`
-- Modify: `components/molecules/PortfolioCard.tsx`
-- Modify: `components/organisms/PortfolioGallery.tsx`
+- Modify: `components/marketing/pages/MarketplaceHome.tsx`
+- Modify: `components/marketing/sections/PortfolioSection.tsx`
+- Modify: `components/marketing/components/PortfolioCard.tsx`
+- Modify: `components/marketing/sections/PortfolioGallery.tsx`
 - Modify: `lib/landing-data.ts`
 - Modify: `scripts/seo-smoke-test.mjs`
 
@@ -417,12 +417,12 @@ rtk git commit -m "feat: add kitangoding.id brand entity page"
 Add:
 
 ```js
-const marketplaceHome = read("components/templates/MarketplaceHome.tsx");
+const marketplaceHome = read("components/marketing/pages/MarketplaceHome.tsx");
 assert.doesNotMatch(marketplaceHome, /services\[index\]/, "services must not be paired by array order");
 
 for (const file of [
-  "components/organisms/PortfolioSection.tsx",
-  "components/organisms/PortfolioGallery.tsx",
+  "components/marketing/sections/PortfolioSection.tsx",
+  "components/marketing/sections/PortfolioGallery.tsx",
 ]) {
   assert.doesNotMatch(read(file), /sudah live|bisa kamu cek/i, `${file} must not claim unverified live URLs`);
 }
@@ -505,7 +505,7 @@ Expected: PASS.
 Commit:
 
 ```bash
-rtk git add components/templates/MarketplaceHome.tsx components/organisms/PortfolioSection.tsx components/molecules/PortfolioCard.tsx components/organisms/PortfolioGallery.tsx lib/landing-data.ts scripts/seo-smoke-test.mjs
+rtk git add components/marketing/pages/MarketplaceHome.tsx components/marketing/sections/PortfolioSection.tsx components/marketing/components/PortfolioCard.tsx components/marketing/sections/PortfolioGallery.tsx lib/landing-data.ts scripts/seo-smoke-test.mjs
 rtk git commit -m "fix: make service and proof copy trustworthy"
 ```
 

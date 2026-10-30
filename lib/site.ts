@@ -1,10 +1,10 @@
 export const siteConfig = {
-  name: "kitangoding.id",
-  shortName: "kitangoding.id",
-  alternateName: "Kita Ngoding",
+  name: "Rekalur",
+  shortName: "Rekalur",
+  alternateName: "Rekalur Studio",
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    "kitangoding.id adalah jasa pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di Jogja, Solo, Wonogiri, dan area Jawa.",
+    "Rekalur adalah studio desain dan pengembangan website untuk UMKM, brand lokal, dan bisnis jasa di Jogja, Solo, Wonogiri, dan area Jawa.",
   domain: process.env.NEXT_PUBLIC_APP_URL || "https://www.kitangoding.my.id",
   gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-RY3471CB04",
   email: process.env.NEXT_PUBLIC_SITE_EMAIL || "halo@kitangoding.com",
@@ -43,7 +43,7 @@ export const navigationLinks = [
 ] as const;
 
 export const whatsappHref = `https://wa.me/${siteConfig.phoneHref}?text=${encodeURIComponent(
-  "Halo kitangoding.id, saya ingin konsultasi website untuk bisnis saya."
+  `Halo ${siteConfig.name}, saya ingin konsultasi website untuk bisnis saya.`
 )}`;
 
 export function createWhatsAppHref(message: string) {

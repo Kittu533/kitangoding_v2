@@ -1,12 +1,13 @@
+import studio from "@/components/marketing/Studio.module.css";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Newspaper } from "lucide-react";
 import { notFound } from "next/navigation";
-import { ButtonLink } from "@/components/atoms/Button";
-import { Reveal } from "@/components/atoms/Reveal";
-import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
-import { getPublicBlogPostBySlug, getPublicBlogPosts } from "@/lib/public-content";
+import { ButtonLink } from "@/components/marketing/ui/ButtonLink";
+import { Reveal } from "@/components/marketing/ui/Reveal";
+import { StudioProjectCta, StudioHeader, StudioFooter } from "@/components/marketing/sections/StudioChrome";
+import { getPublicBlogPostBySlug, getPublicBlogPosts } from "@/features/blog/queries";
 import { siteConfig } from "@/lib/site";
 
 type Props = {
@@ -34,7 +35,7 @@ const relatedServiceLinksBySlug: Record<string, Array<{ href: string; label: str
     },
     {
       href: "/contact",
-      label: "Hubungi tim kitangoding.id",
+      label: "Hubungi tim Rekalur",
       description: "Untuk tanya alur kerja, timeline, dan scope yang paling masuk akal lebih dulu.",
     },
   ],
@@ -192,7 +193,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       absolute: `${post.title} | ${siteConfig.name}`,
     },
     description,
-    keywords: [siteConfig.name, "kitangoding id", post.category, post.title],
+    keywords: [siteConfig.name, "Rekalur Studio", post.category, post.title],
     alternates: {
       canonical: `${siteConfig.domain}/blog/${post.slug}`,
     },
@@ -292,8 +293,8 @@ export default async function Page({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         type="application/ld+json"
       />
-      <div className="marketplace-page min-h-screen bg-market text-black">
-        <FloatingNav />
+      <div className={`marketplace-page ${studio.publicPage}`}>
+        <StudioHeader />
         <main id="konten">
           <section className="marketplace-grid pt-24 pb-12">
             <div className="container-shell">
@@ -434,9 +435,9 @@ export default async function Page({ params }: Props) {
             </div>
           </section>
 
-          <CustomProjectCta />
+          <StudioProjectCta />
         </main>
-        <MarketplaceFooter />
+        <StudioFooter />
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ServiceLandingPage } from "@/components/templates/ServiceLandingPage";
+import { ServiceLandingPage } from "@/components/marketing/pages/ServiceLandingPage";
 import {
   createServiceLandingMetadata,
   getServiceLandingPage,

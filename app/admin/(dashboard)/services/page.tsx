@@ -1,6 +1,3 @@
-import { db } from "@/lib/db";
-import { services } from "@/lib/db/schema";
-import { desc, count } from "drizzle-orm";
 import { PencilIcon, SquaresPlusIcon } from "@heroicons/react/24/outline";
 import {
   Table,
@@ -19,9 +16,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import { ServiceForm } from "@/components/admin/service-form";
+import { ServiceForm } from "@/features/services/components/service-form";
 import { DeleteButton } from "@/components/admin/delete-button";
-import { deleteService } from "./actions";
+import { deleteService } from "@/features/services/actions";
+import { getAdminServicesPage } from "@/features/services/queries";
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -33,27 +31,7 @@ export default async function ServicesPage(props: Props) {
   const currentPage = parseInt(pageParam, 10) || 1;
   const ITEMS_PER_PAGE = 5;
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
-  let data: Array<typeof services.$inferSelect> = [];
-  let totalItems = 0;
-  let totalPages = 1;
-
-  try {
-    const [countResult, servicesResult] = await Promise.all([
-      db.select({ value: count() }).from(services),
-      db.select()
-        .from(services)
-        .orderBy(desc(services.createdAt))
-        .limit(ITEMS_PER_PAGE)
-        .offset(offset),
-    ]);
-
-    totalItems = countResult[0].value;
-    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
-    data = servicesResult;
-  } catch (e) {
-    console.warn("Database not ready", e);
-  }
+  const { data, totalPages } = await getAdminServicesPage(currentPage, ITEMS_PER_PAGE);
 
   return (
     <div className="flex flex-col gap-6">

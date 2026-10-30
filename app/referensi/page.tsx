@@ -1,8 +1,9 @@
+import studio from "@/components/marketing/Studio.module.css";
 import type { Metadata } from "next";
 import { connection } from "next/server";
-import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
-import { VisualReferenceSection } from "@/components/templates/MarketplaceHome";
-import { getPublicCreatives } from "@/lib/public-content";
+import { StudioProjectCta, StudioHeader, StudioFooter } from "@/components/marketing/sections/StudioChrome";
+import { VisualReferenceSection } from "@/components/marketing/sections/VisualReferenceSection";
+import { getPublicCreatives } from "@/features/marketplace/queries";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -55,7 +56,7 @@ export default async function Page() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Referensi Visual kitangoding.id",
+      name: "Referensi Visual Rekalur",
       itemListElement: creativeItems.map((item, index) => ({
         "@type": "ListItem",
         position: index + 1,
@@ -66,17 +67,17 @@ export default async function Page() {
   ];
 
   return (
-    <div className="marketplace-page min-h-screen bg-market text-foreground">
+    <div className={`marketplace-page ${studio.publicPage}`}>
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(referenceJsonLd) }}
         type="application/ld+json"
       />
-      <FloatingNav />
+      <StudioHeader />
       <main id="konten">
         <VisualReferenceSection items={creativeItems} />
-        <CustomProjectCta />
+        <StudioProjectCta />
       </main>
-      <MarketplaceFooter />
+      <StudioFooter />
     </div>
   );
 }

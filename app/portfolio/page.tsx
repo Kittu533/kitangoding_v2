@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
-import { PortfolioGallery } from "@/components/organisms/PortfolioGallery";
+import { StudioHeader, StudioFooter } from "@/components/marketing/sections/StudioChrome";
+import studio from "@/components/marketing/Studio.module.css";
+import { PortfolioGallery } from "@/components/marketing/sections/PortfolioGallery";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Portfolio Website Bisnis",
   description:
-    "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja kitangoding.id sebelum konsultasi.",
+    "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja Rekalur sebelum konsultasi.",
   keywords: [
     siteConfig.name,
     "portfolio website bisnis",
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Portfolio Website Bisnis | ${siteConfig.name}`,
     description:
-      "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja kitangoding.id sebelum konsultasi.",
+      "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja Rekalur sebelum konsultasi.",
     url: `${siteConfig.domain}/portfolio`,
     type: "website",
     images: [
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Portfolio Website Bisnis | ${siteConfig.name}`,
     description:
-      "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja kitangoding.id sebelum konsultasi.",
+      "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja Rekalur sebelum konsultasi.",
     images: ["/og-image.png"],
   },
 };
@@ -46,22 +47,21 @@ export default function Page() {
     "@type": "CollectionPage",
     name: "Portfolio Website Bisnis",
     description:
-      "Contoh project website bisnis, landing page, dan toko online yang dikerjakan oleh kitangoding.id.",
+      "Contoh project website bisnis, landing page, dan toko online yang dikerjakan oleh Rekalur.",
     url: `${siteConfig.domain}/portfolio`,
   };
 
   return (
-    <div className="marketplace-page min-h-screen bg-market text-foreground">
+    <div className={studio.root}>
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioJsonLd) }}
         type="application/ld+json"
       />
-      <FloatingNav />
+      <StudioHeader />
       <main id="konten">
         <PortfolioGallery />
-        <CustomProjectCta />
       </main>
-      <MarketplaceFooter />
+      <StudioFooter />
     </div>
   );
 }

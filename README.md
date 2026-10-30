@@ -1,6 +1,6 @@
-# Kita Ngoding
+# Rekalur
 
-Website pemasaran dan dashboard pengelolaan konten untuk [kitangoding.id](https://www.kitangoding.my.id). Repository ini berisi situs publik, portofolio, blog, formulir prospek, serta dashboard admin untuk mengelola konten.
+Website pemasaran dan dashboard pengelolaan konten Rekalur, sebelumnya Kita Ngoding. Domain dan kontak aktif tetap dipakai selama transisi. Repository ini berisi situs publik, portofolio, blog, formulir prospek, serta dashboard admin untuk mengelola konten.
 
 ## Fitur utama
 

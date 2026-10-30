@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { normalizePublicPricingPlans } from "../lib/public-content";
+import { normalizePublicPricingPlans } from "../features/pricing/queries";
 import { createWhatsAppHref, normalizePhoneHref } from "../lib/site";
 
 test("normalizePhoneHref strips non-digits from malformed env values", () => {

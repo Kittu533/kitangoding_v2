@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { mapPublicServices } from "../lib/public-content";
+import { mapPublicServices } from "../features/services/queries";
 
 test("mapPublicServices keeps database content and falls back when description is missing", () => {
   const services = mapPublicServices([

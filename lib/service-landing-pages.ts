@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { serviceAreas, siteConfig } from "@/lib/site";
 
 export type ServiceLandingPageConfig = {
+  name: string;
+  image: string;
   pathname: string;
   keyword: string;
   title: string;
@@ -26,6 +28,8 @@ export type ServiceLandingPageConfig = {
 export const serviceLandingPages = [
   {
     pathname: "/jasa-website-company-profile",
+    name: "Company Profile",
+    image: "/images/studio/company-profile.webp",
     keyword: "jasa website company profile",
     title: "Jasa Website Company Profile untuk UMKM",
     description:
@@ -81,6 +85,8 @@ export const serviceLandingPages = [
   },
   {
     pathname: "/jasa-landing-page-bisnis",
+    name: "Landing Page",
+    image: "/images/studio/landing-page.webp",
     keyword: "jasa landing page bisnis",
     title: "Jasa Landing Page Bisnis untuk Campaign",
     description:
@@ -136,6 +142,8 @@ export const serviceLandingPages = [
   },
   {
     pathname: "/jasa-toko-online-umkm",
+    name: "Toko Online",
+    image: "/images/studio/online-store.webp",
     keyword: "jasa toko online umkm",
     title: "Jasa Toko Online UMKM yang Mudah Dipakai",
     description:
@@ -185,6 +193,33 @@ export const serviceLandingPages = [
       { href: "/jasa-website-company-profile", label: "Company profile" },
       { href: "/jasa-landing-page-bisnis", label: "Landing page bisnis" },
       { href: "/blog/jasa-toko-online-untuk-umkm", label: "Artikel toko online UMKM" },
+      { href: "/pricing", label: "Lihat harga" },
+      { href: "/contact", label: "Kontak" },
+    ],
+  },
+  {
+    pathname: "/jasa-redesign-website",
+    name: "Redesign Website",
+    image: "/images/studio/website-redesign.webp",
+    keyword: "jasa redesign website",
+    title: "Jasa Redesign Website untuk Bisnis",
+    description: "Perbarui website lama dengan tampilan yang relevan, navigasi yang jelas, dan pengalaman mobile yang nyaman.",
+    heroTitle: "Website lama, pengalaman baru yang lebih sesuai dengan bisnismu.",
+    heroDescription: "Untuk bisnis yang sudah punya website, tetapi tampilan, isi, atau alurnya sudah tidak mewakili kebutuhan pelanggan. Kita mulai dari evaluasi, lalu tentukan bagian yang perlu diperbaiki.",
+    highlights: [
+      { title: "Evaluasi website yang ada", description: "Tinjau struktur halaman, konten, dan alur kontak untuk menemukan hambatan yang dialami pengunjung." },
+      { title: "Desain yang lebih relevan", description: "Rapikan identitas visual dan hierarki informasi agar pesan bisnis lebih mudah dipahami di desktop maupun HP." },
+      { title: "Migrasi yang direncanakan", description: "Petakan konten dan URL penting sebelum perubahan agar perpindahan website lebih tertata." },
+    ],
+    deliverables: ["Evaluasi halaman dan kebutuhan bisnis", "Struktur navigasi dan konten yang diperbarui", "Desain responsif sesuai identitas brand", "Implementasi halaman sesuai scope yang disepakati", "Pemetaan URL lama dan redirect bila diperlukan"],
+    faq: [
+      { question: "Apakah semua halaman harus dibuat ulang?", answer: "Tidak. Kita evaluasi dulu bagian yang masih berguna, lalu sepakati halaman dan fitur yang perlu diperbarui." },
+      { question: "Bisa memakai domain yang sekarang?", answer: "Bisa. Akses domain, hosting, dan website lama perlu ditinjau sebelum menentukan proses pemindahan." },
+      { question: "Bagaimana dengan konten dan URL lama?", answer: "Konten penting dipetakan sebelum implementasi. Jika URL berubah, kebutuhan redirect dibahas agar pengunjung tetap menemukan halaman yang dituju." },
+    ],
+    relatedLinks: [
+      { href: "/jasa-website-company-profile", label: "Company profile" },
+      { href: "/jasa-landing-page-bisnis", label: "Landing page bisnis" },
       { href: "/pricing", label: "Lihat harga" },
       { href: "/contact", label: "Kontak" },
     ],

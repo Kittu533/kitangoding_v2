@@ -40,7 +40,7 @@ function buildLeadMessage(data: LeadSubmissionInput) {
     `Catatan: ${data.message}`,
   ].filter(Boolean) as string[];
 
-  return ["Halo kitangoding.id, saya ingin konsultasi website.", ...details].join("\n");
+  return ["Halo Rekalur, saya ingin konsultasi website.", ...details].join("\n");
 }
 
 export async function saveLeadSubmission(input: unknown): Promise<SaveLeadSubmissionResult> {

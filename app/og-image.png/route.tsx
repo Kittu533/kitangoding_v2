@@ -13,7 +13,7 @@ export async function GET() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "linear-gradient(135deg, #f7f2e8 0%, #f97316 100%)",
+          background: "linear-gradient(135deg, #f0f9ff 0%, #7dd3fc 100%)",
           color: "#0f172a",
           padding: 72,
           fontFamily: "sans-serif",

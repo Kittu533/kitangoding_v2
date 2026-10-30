@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { ContactPage } from "@/components/templates/ContactPage";
+import { ContactPage } from "@/components/marketing/pages/ContactPage";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Kontak Jasa Pembuatan Website",
   description:
-    "Hubungi kitangoding.id untuk konsultasi website UMKM, landing page, dan toko online. Berlokasi di Sendangadi, Mlati, Sleman.",
+    "Hubungi Rekalur untuk konsultasi website UMKM, landing page, dan toko online. Berlokasi di Sendangadi, Mlati, Sleman.",
   keywords: [
     siteConfig.name,
     "konsultasi website",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Kontak Jasa Pembuatan Website | ${siteConfig.name}`,
     description:
-      "Hubungi kitangoding.id untuk konsultasi website UMKM, landing page, dan toko online.",
+      "Hubungi Rekalur untuk konsultasi website UMKM, landing page, dan toko online.",
     url: `${siteConfig.domain}/contact`,
     type: "website",
     images: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Kontak Jasa Pembuatan Website | ${siteConfig.name}`,
     description:
-      "Hubungi kitangoding.id untuk konsultasi website UMKM, landing page, dan toko online.",
+      "Hubungi Rekalur untuk konsultasi website UMKM, landing page, dan toko online.",
     images: ["/og-image.png"],
   },
 };
@@ -42,9 +42,9 @@ export const metadata: Metadata = {
 const contactPageJsonLd = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  name: "Kontak Jasa Pembuatan Website kitangoding.id",
+  name: "Kontak Jasa Pembuatan Website Rekalur",
   description:
-    "Hubungi kitangoding.id untuk konsultasi website UMKM, landing page, dan toko online.",
+    "Hubungi Rekalur untuk konsultasi website UMKM, landing page, dan toko online.",
   url: `${siteConfig.domain}/contact`,
   mainEntity: {
     "@type": "Organization",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { BlogPage } from "@/components/templates/BlogPage";
-import { getPublicBlogCategories, getPublicBlogPosts } from "@/lib/public-content";
+import { BlogPage } from "@/components/marketing/pages/BlogPage";
+import { getPublicBlogCategories, getPublicBlogPosts } from "@/features/blog/queries";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -59,7 +59,7 @@ export default async function Page() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Daftar Artikel kitangoding.id",
+      name: "Daftar Artikel Rekalur",
       itemListElement: posts.map((post, index) => ({
         "@type": "ListItem",
         position: index + 1,

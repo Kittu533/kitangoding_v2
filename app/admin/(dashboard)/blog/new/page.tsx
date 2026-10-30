@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { BlogForm } from "@/components/admin/blog-form";
-import { db } from "@/lib/db";
-import { blogCategories } from "@/lib/db/schema";
-import { asc } from "drizzle-orm";
+import { BlogForm } from "@/features/blog/components/blog-form";
+import { getBlogCategoryNames } from "@/features/blog/queries";
 
 export default async function NewBlogPage() {
-  const categories = await db.select({ name: blogCategories.name }).from(blogCategories).orderBy(asc(blogCategories.name));
+  const categories = await getBlogCategoryNames();
 
   return (
     <div className="mx-auto w-full max-w-4xl space-y-6">

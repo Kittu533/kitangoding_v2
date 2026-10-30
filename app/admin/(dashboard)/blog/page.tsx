@@ -1,6 +1,3 @@
-import { db } from "@/lib/db";
-import { blogPosts } from "@/lib/db/schema";
-import { desc, count } from "drizzle-orm";
 import Link from "next/link";
 import { DocumentTextIcon, PencilIcon, PlusIcon } from "@heroicons/react/24/outline";
 import {
@@ -22,7 +19,8 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import { DeleteButton } from "@/components/admin/delete-button";
-import { deleteBlogPost } from "./actions";
+import { deleteBlogPost } from "@/features/blog/actions";
+import { getAdminBlogPostsPage } from "@/features/blog/queries";
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -34,27 +32,7 @@ export default async function BlogPage(props: Props) {
   const currentPage = parseInt(pageParam, 10) || 1;
   const ITEMS_PER_PAGE = 5;
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
-  let data: Array<typeof blogPosts.$inferSelect> = [];
-  let totalItems = 0;
-  let totalPages = 1;
-
-  try {
-    const [countResult, blogResult] = await Promise.all([
-      db.select({ value: count() }).from(blogPosts),
-      db.select()
-        .from(blogPosts)
-        .orderBy(desc(blogPosts.createdAt))
-        .limit(ITEMS_PER_PAGE)
-        .offset(offset),
-    ]);
-
-    totalItems = countResult[0].value;
-    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
-    data = blogResult;
-  } catch (e) {
-    console.warn("Database not ready", e);
-  }
+  const { data, totalPages } = await getAdminBlogPostsPage(currentPage, ITEMS_PER_PAGE);
 
   return (
     <div className="flex flex-col gap-6">

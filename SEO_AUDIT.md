@@ -16,7 +16,7 @@ Yang paling perlu dibenahi adalah hal kecil yang berdampak langsung:
 | Sedang | Belum ada web manifest | Sinyal PWA/installability dan identitas aplikasi belum lengkap | `app/manifest.ts` belum ada |
 | Sedang | Route typo `/project-inqury` masih ada sebagai redirect | Tidak fatal, tapi menambah route legacy yang sebaiknya jelas statusnya | `app/project-inqury/page.tsx` |
 | Sedang | Structured data belum merata untuk halaman komersial | Search engine kurang konteks untuk layanan, produk, dan halaman kontak | `app/layanan`, `app/shop`, service landing pages |
-| Rendah | Ada `alt=""` di image non-dekoratif potensial | Aksesibilitas dan pemahaman gambar oleh crawler bisa turun | `components/organisms/ProcessShowcase.tsx` |
+| Rendah | Ada `alt=""` di image non-dekoratif potensial | Aksesibilitas dan pemahaman gambar oleh crawler bisa turun | `components/marketing/sections/ProcessShowcase.tsx` |
 
 ## Yang Sudah Bagus
 
@@ -129,7 +129,7 @@ Rekomendasi minimal:
 Bukti hasil audit JSX lintas baris:
 
 - `app/admin/(dashboard)/portfolio/page.tsx:128` punya `<Image>` dengan `alt=""`.
-- `components/organisms/ProcessShowcase.tsx:107` punya `<Image>` dengan `alt=""`.
+- `components/marketing/sections/ProcessShowcase.tsx:107` punya `<Image>` dengan `alt=""`.
 
 Dampak:
 

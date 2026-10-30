@@ -1,7 +1,8 @@
+import studio from "@/components/marketing/Studio.module.css";
 import type { Metadata } from "next";
-import { CustomProjectCta, FloatingNav, MarketplaceFooter } from "@/components/organisms/MarketplaceShell";
-import { ServicesOverviewSection } from "@/components/templates/MarketplaceHome";
-import { getPublicServices } from "@/lib/public-content";
+import { StudioProjectCta, StudioHeader, StudioFooter } from "@/components/marketing/sections/StudioChrome";
+import { ServicesOverviewSection } from "@/components/marketing/sections/ServicesOverviewSection";
+import { getPublicServices } from "@/features/services/queries";
 import { serviceAreas, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -43,7 +44,7 @@ export default async function Page() {
   const serviceCatalogJsonLd = {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
-    name: "Layanan Jasa Website kitangoding.id",
+    name: "Layanan Jasa Website Rekalur",
     url: `${siteConfig.domain}/layanan`,
     itemListElement: services.map((service, index) => ({
       "@type": "Offer",
@@ -66,17 +67,17 @@ export default async function Page() {
   };
 
   return (
-    <div className="marketplace-page min-h-screen bg-market text-foreground">
+    <div className={`marketplace-page ${studio.publicPage}`}>
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceCatalogJsonLd) }}
         type="application/ld+json"
       />
-      <FloatingNav />
+      <StudioHeader />
       <main id="konten">
-        <ServicesOverviewSection />
-        <CustomProjectCta />
+        <ServicesOverviewSection services={services} />
+        <StudioProjectCta />
       </main>
-      <MarketplaceFooter />
+      <StudioFooter />
     </div>
   );
 }

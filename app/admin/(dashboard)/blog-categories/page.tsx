@@ -1,6 +1,3 @@
-import { db } from "@/lib/db";
-import { blogCategories } from "@/lib/db/schema";
-import { desc, count } from "drizzle-orm";
 import { DocumentDuplicateIcon, PencilIcon } from "@heroicons/react/24/outline";
 import {
   Table,
@@ -20,8 +17,9 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { DeleteButton } from "@/components/admin/delete-button";
-import { BlogCategoryForm } from "@/components/admin/blog-category-form";
-import { deleteBlogCategory } from "./actions";
+import { BlogCategoryForm } from "@/features/blog/components/blog-category-form";
+import { deleteBlogCategory } from "@/features/blog/category-actions";
+import { getAdminBlogCategoriesPage } from "@/features/blog/queries";
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -33,27 +31,7 @@ export default async function BlogCategoriesPage(props: Props) {
   const currentPage = Number.parseInt(pageParam, 10) || 1;
   const itemsPerPage = 8;
   const offset = (currentPage - 1) * itemsPerPage;
-
-  let data: Array<typeof blogCategories.$inferSelect> = [];
-  let totalItems = 0;
-  let totalPages = 1;
-
-  try {
-    const [countResult, categoriesResult] = await Promise.all([
-      db.select({ value: count() }).from(blogCategories),
-      db.select()
-        .from(blogCategories)
-        .orderBy(desc(blogCategories.createdAt))
-        .limit(itemsPerPage)
-        .offset(offset),
-    ]);
-
-    totalItems = countResult[0].value;
-    totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
-    data = categoriesResult;
-  } catch (error) {
-    console.warn("Blog categories table is not ready yet.", error);
-  }
+  const { data, totalPages } = await getAdminBlogCategoriesPage(currentPage, itemsPerPage);
 
   return (
     <div className="flex flex-col gap-6">

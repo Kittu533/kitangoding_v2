@@ -1,19 +1,20 @@
+import studio from "@/components/marketing/Studio.module.css";
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ButtonLink } from "@/components/atoms/Button";
-import { Reveal } from "@/components/atoms/Reveal";
+import { ButtonLink } from "@/components/marketing/ui/ButtonLink";
+import { Reveal } from "@/components/marketing/ui/Reveal";
 import {
-  CustomProjectCta,
-  FloatingNav,
-  MarketplaceFooter,
-} from "@/components/organisms/MarketplaceShell";
+  StudioProjectCta,
+  StudioHeader,
+  StudioFooter,
+} from "@/components/marketing/sections/StudioChrome";
 import { serviceAreas, siteConfig, whatsappHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Tentang Jasa Website untuk UMKM",
   description:
-    "Kenal lebih dekat dengan kitangoding.id, partner pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di Jogja, Solo, Wonogiri, dan area Jawa.",
-  keywords: ["kitangoding.id", "tentang kitangoding id", "jasa website UMKM"],
+    "Kenal lebih dekat dengan Rekalur, partner pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di Jogja, Solo, Wonogiri, dan area Jawa.",
+  keywords: ["Rekalur", "tentang Rekalur Studio", "jasa website UMKM"],
   alternates: {
     canonical: `${siteConfig.domain}/tentang`,
   },
@@ -115,22 +116,22 @@ const audiences = [
 
 export default function Page() {
   return (
-    <div className="marketplace-page min-h-screen bg-market text-foreground">
+    <div className={`marketplace-page ${studio.publicPage}`}>
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         type="application/ld+json"
       />
-      <FloatingNav />
+      <StudioHeader />
       <main id="konten">
         <section className="bg-white pb-16 pt-16 sm:pb-20 sm:pt-20">
           <div className="container-shell grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
             <Reveal>
-              <p className="marketplace-eyebrow text-orange-dark">Tentang kitangoding.id</p>
-              <h1 className="mt-4 max-w-2xl !text-4xl !leading-tight !font-bold sm:!text-5xl">
+              <p className="marketplace-eyebrow text-orange-dark">Tentang Rekalur</p>
+              <h1 className="mt-4 max-w-2xl text-4xl !leading-tight !font-bold sm:text-5xl">
                 Kami membantu bisnis tampil jelas, dipercaya, dan mudah dihubungi.
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-body sm:text-lg sm:leading-8">
-                kitangoding.id adalah partner pembuatan website untuk UMKM, brand lokal, dan
+                Rekalur adalah partner pembuatan website untuk UMKM, brand lokal, dan
                 bisnis jasa yang ingin menyampaikan nilai bisnisnya dengan lebih meyakinkan.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
@@ -144,13 +145,13 @@ export default function Page() {
               <figure className="overflow-hidden rounded-2xl border border-border bg-white p-2 shadow-card">
                 <div className="overflow-hidden rounded-xl bg-market">
                   <Image
-                    alt="Contoh website bisnis yang dirancang oleh kitangoding.id"
+                    alt="Ilustrasi proses diskusi wireframe dan desain website"
                     className="aspect-[16/10] h-auto w-full object-cover"
-                    height={1536}
+                    height={1024}
                     preload
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    src="/images/hero-img.webp"
-                    width={2816}
+                    src="/images/studio/design-process.webp"
+                    width={1536}
                   />
                 </div>
                 <figcaption className="flex flex-col gap-2 px-3 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
@@ -164,7 +165,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section aria-label="Ringkasan kitangoding.id" className="border-y border-border bg-white">
+        <section aria-label="Ringkasan Rekalur" className="border-y border-border bg-white">
           <div className="container-shell grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
             {trustPoints.map((item) => (
               <div className="py-6 sm:px-6 sm:first:pl-0 lg:py-8" key={item.label}>
@@ -179,7 +180,7 @@ export default function Page() {
           <div className="container-shell grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
             <Reveal>
               <p className="marketplace-eyebrow text-success">Kenapa kami ada</p>
-              <h2 className="mt-5 max-w-lg !text-4xl !leading-tight sm:!text-5xl">
+              <h2 className="mt-5 max-w-lg text-4xl !leading-tight sm:text-5xl">
                 Bisnis yang bagus seharusnya tidak sulit dipahami.
               </h2>
             </Reveal>
@@ -209,7 +210,7 @@ export default function Page() {
             <Reveal>
               <div className="max-w-3xl">
                 <p className="marketplace-eyebrow text-orange-dark">Prinsip kerja</p>
-                <h2 className="mt-5 !text-4xl !leading-tight sm:!text-5xl">
+                <h2 className="mt-5 text-4xl !leading-tight sm:text-5xl">
                   Sederhana dalam proses, jelas dalam keputusan.
                 </h2>
               </div>
@@ -234,7 +235,7 @@ export default function Page() {
           <div className="container-shell">
             <Reveal>
               <p className="marketplace-eyebrow text-orange-light">Cara kerja</p>
-              <h2 className="mt-5 max-w-3xl !text-4xl !leading-tight !text-white sm:!text-5xl">
+              <h2 className="mt-5 max-w-3xl text-4xl !leading-tight !text-white sm:text-5xl">
                 Dari obrolan awal sampai website siap dipakai.
               </h2>
             </Reveal>
@@ -258,7 +259,7 @@ export default function Page() {
           <div className="container-shell grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-20">
             <Reveal>
               <p className="marketplace-eyebrow text-success">Cocok untuk siapa</p>
-              <h2 className="mt-5 !text-4xl !leading-tight sm:!text-5xl">
+              <h2 className="mt-5 text-4xl !leading-tight sm:text-5xl">
                 Partner yang pas kalau kamu butuh arah, bukan sekadar eksekusi.
               </h2>
               <p className="mt-6 max-w-xl text-lg leading-8 text-body">
@@ -284,9 +285,9 @@ export default function Page() {
           </div>
         </section>
 
-        <CustomProjectCta />
+        <StudioProjectCta />
       </main>
-      <MarketplaceFooter />
+      <StudioFooter />
     </div>
   );
 }

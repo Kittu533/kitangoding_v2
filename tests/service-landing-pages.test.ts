@@ -16,6 +16,7 @@ test("service landing pages cover the planned keyword routes", () => {
       "/jasa-website-company-profile",
       "/jasa-landing-page-bisnis",
       "/jasa-toko-online-umkm",
+      "/jasa-redesign-website",
     ]
   );
 
@@ -25,6 +26,7 @@ test("service landing pages cover the planned keyword routes", () => {
       "jasa website company profile",
       "jasa landing page bisnis",
       "jasa toko online umkm",
+      "jasa redesign website",
     ]
   );
 });
