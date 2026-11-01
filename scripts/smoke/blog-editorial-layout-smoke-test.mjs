@@ -3,10 +3,11 @@ import { readFileSync } from "node:fs";
 
 const page = readFileSync(new URL("../../app/blog/[slug]/page.tsx", import.meta.url), "utf8");
 
-assert.match(page, /aspect-\[16\/9\]/, "article cover must retain its full image frame");
-assert.doesNotMatch(page, /md:aspect-\[21\/9\]/, "article cover must not crop into a wider frame");
-assert.match(page, /className="object-contain"/, "article cover must not crop the image");
-assert.match(page, /xl:grid-cols-\[minmax\(0,780px\)_300px\]/, "article layout needs a readable 780px column");
-assert.match(page, /xl:sticky xl:top-24/, "sidebar must be sticky only on desktop");
+const styles = readFileSync(new URL("../../components/marketing/pages/Blog.module.css", import.meta.url), "utf8");
+assert.match(page, /<article className=\{styles.articlePage\}/, "article must use the shared editorial panel");
+assert.match(styles, /\.articleCover img \{ object-fit:contain;/, "article cover must preserve the full image");
+assert.match(page, /styles.body/, "plain and rich content must share the reading layout");
+assert.doesNotMatch(page, /<aside/, "article should use a single reading column");
+assert.match(page, /post.publishedAt \|\| toIsoDate/, "structured data must prefer the original ISO date");
 
 console.log("blog editorial layout smoke test: PASS");

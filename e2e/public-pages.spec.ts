@@ -23,7 +23,8 @@ test("menu utama berpindah antarhalaman dengan cepat", async ({ page }, testInfo
     ["Kontak", "/contact"],
   ] as const) {
     const startedAt = Date.now();
-    await page.locator("header nav").getByRole("link", { name: label, exact: true }).click();
+    const navigation = ["Tentang", "Kontak"].includes(label) ? page.locator("footer") : page.locator("header nav").first();
+    await navigation.getByRole("link", { name: label, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(`${path}$`));
     await expect(page.locator("main")).toBeVisible();
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, Menu } from "lucide-react";
 import { siteConfig, whatsappHref } from "@/lib/site";
 import styles from "../Studio.module.css";
+import { StudioMotion } from "../ui/StudioMotion";
 
 const navigation = [
   { href: "/layanan", label: "Layanan" },
@@ -14,6 +15,7 @@ const navigation = [
 
 export function StudioHeader() {
   return <header className={styles.header} id="studio-top">
+    <StudioMotion />
     <Link href="/" className={styles.brand} aria-label="Rekalur — beranda"><Image src="/rekalur-mark.svg" alt="" width={42} height={42} priority /><span>rekalur<span className={styles.brandDot}>.</span></span></Link>
     <nav className={styles.desktopNav} aria-label="Navigasi utama">{navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav>
     <div className={styles.navCta}><Link className={styles.cta} href={whatsappHref}>Mulai project<span><ArrowUpRight size={21} aria-hidden="true" /></span></Link></div>

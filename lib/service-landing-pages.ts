@@ -266,7 +266,7 @@ export function createServiceLandingMetadata(page: ServiceLandingPageConfig): Me
     },
     keywords: [
       siteConfig.name,
-      "kitangoding id",
+      "Rekalur Studio",
       page.keyword,
       page.title.toLowerCase(),
       "jasa website jogja",

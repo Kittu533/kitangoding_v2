@@ -49,7 +49,7 @@ export function PortfolioGallerySkeleton() {
           <Skeleton className={`h-10 ${width}`} key={width} />
         ))}
       </div>
-      <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-10 grid gap-6 md:grid-cols-2">
         {Array.from({ length: 6 }, (_, index) => (
           <div className="overflow-hidden rounded-3xl border border-border bg-white" key={index}>
             <Skeleton className="aspect-[4/3] rounded-none" />
