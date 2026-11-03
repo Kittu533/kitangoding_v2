@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import studio from "@/components/marketing/Studio.module.css";
 import type { Metadata } from "next";
 import { StudioProjectCta, StudioHeader, StudioFooter } from "@/components/marketing/sections/StudioChrome";
@@ -44,7 +45,7 @@ export default async function Page() {
   const serviceCatalogJsonLd = {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
-    name: "Layanan Jasa Website Rekalur",
+    name: "Layanan Jasa Website Kitangoding",
     url: `${siteConfig.domain}/layanan`,
     itemListElement: services.map((service, index) => ({
       "@type": "Offer",
@@ -69,7 +70,7 @@ export default async function Page() {
   return (
     <div className={`marketplace-page ${studio.publicPage}`}>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceCatalogJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(serviceCatalogJsonLd) }}
         type="application/ld+json"
       />
       <StudioHeader />

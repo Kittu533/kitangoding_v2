@@ -6,7 +6,7 @@ test("scroll reveals finish and the showcase keeps looping on hover", async ({ p
   const service = page.locator('#layanan a[href^="/jasa-"]').first();
   await service.scrollIntoViewIfNeeded();
   await expect.poll(() => service.evaluate(element =>
-    element.getAnimations().some(animation => animation.effect?.getKeyframes().some(frame => frame.opacity === "0.25")),
+    element.getAnimations().some(animation => animation.effect instanceof KeyframeEffect && animation.effect.getKeyframes().some(frame => frame.opacity === "0.25")),
   )).toBeTruthy();
   await expect(service).toHaveCSS("opacity", "1");
 

@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import { ShopPage } from "@/components/marketing/pages/ShopPage";
@@ -6,7 +7,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Template Website & Aset Kreatif",
   description:
-    "Pilih template website, landing page, dan aset kreatif dari Rekalur untuk kebutuhan bisnis kamu.",
+    "Pilih template website, landing page, dan aset kreatif dari Kitangoding untuk kebutuhan bisnis kamu.",
   keywords: [
     siteConfig.name,
     "template website bisnis",
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Template Website & Aset Kreatif | ${siteConfig.name}`,
     description:
-      "Pilih template website, landing page, dan aset kreatif dari Rekalur untuk kebutuhan bisnis kamu.",
+      "Pilih template website, landing page, dan aset kreatif dari Kitangoding untuk kebutuhan bisnis kamu.",
     url: `${siteConfig.domain}/shop`,
     type: "website",
     images: [
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Template Website & Aset Kreatif | ${siteConfig.name}`,
     description:
-      "Pilih template website, landing page, dan aset kreatif dari Rekalur untuk kebutuhan bisnis kamu.",
+      "Pilih template website, landing page, dan aset kreatif dari Kitangoding untuk kebutuhan bisnis kamu.",
     images: ["/og-image.png"],
   },
 };
@@ -46,7 +47,7 @@ const shopJsonLd = [
     "@type": "CollectionPage",
     name: "Template Website & Aset Kreatif",
     description:
-      "Template website, landing page, dan aset kreatif dari Rekalur untuk kebutuhan bisnis.",
+      "Template website, landing page, dan aset kreatif dari Kitangoding untuk kebutuhan bisnis.",
     url: `${siteConfig.domain}/shop`,
     publisher: {
       "@type": "Organization",
@@ -57,7 +58,7 @@ const shopJsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Katalog Template Website Rekalur",
+    name: "Katalog Template Website Kitangoding",
     url: `${siteConfig.domain}/shop`,
     itemListElement: [
       {
@@ -85,7 +86,7 @@ export default async function Page() {
   return (
     <>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(shopJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(shopJsonLd) }}
         type="application/ld+json"
       />
       <ShopPage />

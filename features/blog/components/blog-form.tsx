@@ -65,7 +65,7 @@ export function BlogForm({ initialData, categories }: BlogFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: initialData?.title || "",
-      author: initialData?.author || "Tim rekalur",
+      author: initialData?.author || "Tim kitangoding",
       category: initialData?.category || "",
       tags: initialData?.tags || [],
       excerpt: initialData?.excerpt || "",
@@ -129,7 +129,7 @@ export function BlogForm({ initialData, categories }: BlogFormProps) {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="grid gap-2">
           <Label htmlFor="author">Penulis</Label>
-          <Input id="author" placeholder="Contoh: Tim rekalur" {...form.register("author")} />
+          <Input id="author" placeholder="Contoh: Tim kitangoding" {...form.register("author")} />
           {form.formState.errors.author ? <span className="text-xs text-destructive">{form.formState.errors.author.message}</span> : null}
         </div>
         <div className="grid gap-2">

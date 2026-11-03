@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import studio from "@/components/marketing/Studio.module.css";
 import type { Metadata } from "next";
 import { connection } from "next/server";
@@ -59,7 +60,7 @@ export default async function Page() {
   await connection();
   const pricingPlans = await getPublicPricing();
   return <div className={studio.root}>
-    <script dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} type="application/ld+json" />
+    <script dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }} type="application/ld+json" />
     <StudioHeader />
     <main id="konten">
       <section className={studio.section}>

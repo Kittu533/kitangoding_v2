@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Plus } from "lucide-react";
@@ -9,13 +10,13 @@ import styles from "./ServiceLandingPage.module.css";
 
 export function ServiceLandingPage({ page }: { page: ServiceLandingPageConfig }) {
   return <div className={studio.root}>
-    <script dangerouslySetInnerHTML={{ __html: JSON.stringify(createServiceLandingPageStructuredData(page)) }} type="application/ld+json" />
+    <script dangerouslySetInnerHTML={{ __html: serializeJsonLd(createServiceLandingPageStructuredData(page)) }} type="application/ld+json" />
     <StudioHeader />
     <main className={styles.page} id="konten">
       <header className={styles.heading}>
-        <Link className={styles.back} href="/#layanan"><ArrowLeft size={14} aria-hidden="true" /> Semua layanan</Link>
+        <Link className={styles.back} href="/layanan"><ArrowLeft size={14} aria-hidden="true" /> Semua layanan</Link>
         <span className={studio.eyebrow}><i aria-hidden="true" />Detail layanan</span>
-        <h1>{page.name}</h1>
+        <h1>{page.title}</h1>
         <p>{page.description}</p>
       </header>
       <div className={styles.heroImage}><Image src={page.image} alt={`Ilustrasi konsep layanan ${page.name}`} fill priority sizes="(max-width: 700px) 90vw, 85vw" /></div>

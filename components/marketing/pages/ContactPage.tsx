@@ -73,7 +73,7 @@ export function ContactPage() {
             <Reveal>
               <span className="inline-flex items-center gap-2 marketplace-eyebrow text-orange-dark">
                 <Headphones aria-hidden="true" className="size-3.5" />
-                Hubungi Rekalur
+                Hubungi Kitangoding
               </span>
               <h1 className="mt-4 max-w-3xl text-4xl !leading-tight !font-bold sm:text-5xl">
                 Mari bicara tentang website yang bisnismu butuhkan.

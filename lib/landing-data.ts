@@ -109,6 +109,20 @@ export const portfolioItems = [
 
 export const pricingPlans = [
   {
+    name: "Landing Page Starter",
+    price: "Rp 1.199.999",
+    description: "Website satu halaman untuk UMKM yang ingin menampilkan usaha dan menerima pertanyaan lewat WhatsApp.",
+    features: [
+      "Domain .com, hosting, dan SSL selama satu tahun pertama",
+      "Satu halaman responsif, maksimal 5 section dengan layout siap pakai",
+      "Teks, logo, dan foto disediakan oleh klien",
+      "Tombol WhatsApp, tautan media sosial, dan Google Maps",
+      "Pengaturan SEO dasar untuk judul dan deskripsi halaman",
+      "Satu kali revisi minor dan garansi perbaikan bug selama 14 hari setelah tayang",
+    ],
+    featured: false,
+  },
+  {
     name: "Landing Page Iklan",
     price: "Rp 1.800.000",
     description: "Halaman penjualan untuk mengarahkan pengunjung iklan ke WhatsApp atau formulir prospek.",

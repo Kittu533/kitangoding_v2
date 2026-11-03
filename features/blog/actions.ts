@@ -30,7 +30,7 @@ function generateBaseSlug(title: string) {
     .replace(/(^-|-$)+/g, "");
 }
 
-async function generateUniqueSlug(title: string, excludedId?: string) {
+async function generateUniqueSlug(title: string) {
   const baseSlug = generateBaseSlug(title);
   if (!baseSlug) {
     throw new Error("Judul artikel belum bisa dijadikan URL");
@@ -40,7 +40,7 @@ async function generateUniqueSlug(title: string, excludedId?: string) {
     const slug = suffix === 1 ? baseSlug : `${baseSlug}-${suffix}`;
     const [existing] = await db.select({ id: blogPosts.id }).from(blogPosts).where(eq(blogPosts.slug, slug)).limit(1);
 
-    if (!existing || existing.id === excludedId) {
+    if (!existing) {
       return slug;
     }
   }
@@ -134,7 +134,8 @@ export async function updateBlogPost(id: string, data: BlogInput) {
     }
 
     const validatedData = await parseBlogInput(data);
-    const slug = await generateUniqueSlug(validatedData.title, id);
+    // Keep existing links valid when an article title changes.
+    const slug = currentPost.slug;
 
     await db.update(blogPosts).set({
       ...validatedData,

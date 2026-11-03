@@ -1,5 +1,7 @@
+import { serializeJsonLd } from "@/lib/seo";
 import studio from "@/components/marketing/Studio.module.css";
 import type { Metadata } from "next";
+import { cache } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -14,6 +16,8 @@ import { siteConfig } from "@/lib/site";
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+const getCachedBlogPost = cache(getPublicBlogPostBySlug);
 
 const relatedServiceLinksBySlug: Record<string, Array<{ href: string; label: string; description: string }>> = {
   "biaya-website-umkm-jogja": [
@@ -36,7 +40,7 @@ const relatedServiceLinksBySlug: Record<string, Array<{ href: string; label: str
     },
     {
       href: "/contact",
-      label: "Hubungi tim Rekalur",
+      label: "Hubungi tim Kitangoding",
       description: "Untuk tanya alur kerja, timeline, dan scope yang paling masuk akal lebih dulu.",
     },
   ],
@@ -172,7 +176,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPublicBlogPostBySlug(slug);
+  const post = await getCachedBlogPost(slug);
 
   if (!post) {
     return {
@@ -194,7 +198,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       absolute: `${post.title} | ${siteConfig.name}`,
     },
     description,
-    keywords: [siteConfig.name, "Rekalur Studio", post.category, post.title],
+    keywords: [siteConfig.name, "Kita Ngoding", post.category, post.title],
     alternates: {
       canonical: `${siteConfig.domain}/blog/${post.slug}`,
     },
@@ -203,6 +207,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: `${siteConfig.domain}/blog/${post.slug}`,
       type: "article",
+      publishedTime: post.publishedAt || toIsoDate(post.date),
+      modifiedTime: post.modifiedAt,
+      authors: [getBlogAuthorName(post.author)],
+      section: post.category,
+      tags: post.tags,
       images: [
         {
           url: postImageUrl,
@@ -223,7 +232,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
-  const post = await getPublicBlogPostBySlug(slug);
+  const post = await getCachedBlogPost(slug);
 
   if (!post) {
     notFound();
@@ -274,7 +283,8 @@ export default async function Page({ params }: Props) {
       image: [postImageUrl],
       articleSection: post.category,
       ...(tags.length > 0 ? { keywords: tags.join(", ") } : {}),
-      ...(publishedAt ? { datePublished: publishedAt, dateModified: publishedAt } : {}),
+      ...(publishedAt ? { datePublished: publishedAt } : {}),
+      ...(post.modifiedAt ? { dateModified: post.modifiedAt } : {}),
       author: {
         "@type": isTeam ? "Organization" : "Person",
         name: author,
@@ -284,6 +294,7 @@ export default async function Page({ params }: Props) {
         "@type": "Organization",
         name: siteConfig.name,
         url: siteConfig.domain,
+        logo: { "@type": "ImageObject", url: `${siteConfig.domain}/logo-kitangoding.webp` },
       },
       mainEntityOfPage: `${siteConfig.domain}/blog/${post.slug}`,
     },
@@ -292,7 +303,7 @@ export default async function Page({ params }: Props) {
   return (
     <>
     <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
         type="application/ld+json"
       />
       <div className={studio.root}>
@@ -303,7 +314,7 @@ export default async function Page({ params }: Props) {
             <header className={styles.articleHeader}>
               <div className={styles.articleMeta}>
                 <span><i aria-hidden="true" />{post.category} / <time dateTime={publishedAt}>{post.date}</time></span>
-                <span>Oleh {author}</span>
+                <span>Oleh {isTeam ? <Link href="/tentang">{author}</Link> : author}</span>
               </div>
               <h1>{post.title}</h1>
             </header>

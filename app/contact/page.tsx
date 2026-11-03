@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 import { ContactPage } from "@/components/marketing/pages/ContactPage";
 import { siteConfig } from "@/lib/site";
@@ -5,7 +6,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Kontak Jasa Pembuatan Website",
   description:
-    "Hubungi Rekalur untuk konsultasi website UMKM, landing page, dan toko online. Berlokasi di Sendangadi, Mlati, Sleman.",
+    "Hubungi Kitangoding untuk konsultasi website UMKM, landing page, dan toko online. Berlokasi di Sendangadi, Mlati, Sleman.",
   keywords: [
     siteConfig.name,
     "konsultasi website",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Kontak Jasa Pembuatan Website | ${siteConfig.name}`,
     description:
-      "Hubungi Rekalur untuk konsultasi website UMKM, landing page, dan toko online.",
+      "Hubungi Kitangoding untuk konsultasi website UMKM, landing page, dan toko online.",
     url: `${siteConfig.domain}/contact`,
     type: "website",
     images: [
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Kontak Jasa Pembuatan Website | ${siteConfig.name}`,
     description:
-      "Hubungi Rekalur untuk konsultasi website UMKM, landing page, dan toko online.",
+      "Hubungi Kitangoding untuk konsultasi website UMKM, landing page, dan toko online.",
     images: ["/og-image.png"],
   },
 };
@@ -42,9 +43,9 @@ export const metadata: Metadata = {
 const contactPageJsonLd = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  name: "Kontak Jasa Pembuatan Website Rekalur",
+  name: "Kontak Jasa Pembuatan Website Kitangoding",
   description:
-    "Hubungi Rekalur untuk konsultasi website UMKM, landing page, dan toko online.",
+    "Hubungi Kitangoding untuk konsultasi website UMKM, landing page, dan toko online.",
   url: `${siteConfig.domain}/contact`,
   mainEntity: {
     "@type": "Organization",
@@ -66,7 +67,7 @@ export default function Page() {
   return (
     <>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(contactPageJsonLd) }}
         type="application/ld+json"
       />
       <ContactPage />

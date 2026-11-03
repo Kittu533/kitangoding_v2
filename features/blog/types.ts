@@ -15,6 +15,7 @@ export type PublicBlogCategory = {
 };
 
 export type PublicBlogDetail = PublicBlogCard & {
+  modifiedAt?: string;
   content: string;
   contentFormat?: "html";
   tags?: string[];

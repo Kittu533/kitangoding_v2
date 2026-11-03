@@ -104,7 +104,7 @@ Periksa juga kesesuaian perangkat. Campaign media sosial sering mendapat traffic
 - Bukti, foto, atau testimoni yang boleh dipublikasikan.
 - Target tindakan dan cara tim menindaklanjuti lead.
 
-Rekalur memakai brief tersebut untuk menyusun scope landing page, copy, CTA, dan kebutuhan tracking.`,
+Kitangoding memakai brief tersebut untuk menyusun scope landing page, copy, CTA, dan kebutuhan tracking.`,
   },
   {
     slug: "biaya-pembuatan-website-umkm",
@@ -127,7 +127,7 @@ Kesiapan konten ikut memengaruhi estimasi. Profil bisnis, daftar layanan, foto, 
 
 ## Contoh pilihan berdasarkan kebutuhan
 
-Harga yang tampil di Rekalur saat artikel ini diterbitkan dimulai dari Rp1.800.000 untuk landing page iklan dan Rp3.500.000 untuk website company profile. Website bisnis custom dan toko online memiliki biaya lebih tinggi karena halaman, pengelolaan data, serta integrasinya bertambah. Angka di halaman harga berfungsi sebagai titik awal. Tim tetap menulis scope dan estimasi final di proposal setelah brief dibahas.
+Harga yang tampil di Kitangoding saat artikel ini diterbitkan dimulai dari Rp1.800.000 untuk landing page iklan dan Rp3.500.000 untuk website company profile. Website bisnis custom dan toko online memiliki biaya lebih tinggi karena halaman, pengelolaan data, serta integrasinya bertambah. Angka di halaman harga berfungsi sebagai titik awal. Tim tetap menulis scope dan estimasi final di proposal setelah brief dibahas.
 
 Bisnis yang baru membangun kehadiran digital dapat memulai dari company profile dan tombol WhatsApp. Campaign berbayar membutuhkan landing page terpisah agar pesan iklan tetap konsisten. Toko dengan produk yang sering berubah perlu mempertimbangkan siapa yang memperbarui katalog setelah website diluncurkan.
 
@@ -139,7 +139,7 @@ Bisnis yang baru membangun kehadiran digital dapat memulai dari company profile 
 - Materi yang sudah tersedia: logo, foto, profil, dan harga.
 - Target waktu peluncuran dan kisaran anggaran.
 
-Kirim lima informasi tersebut saat menghubungi Rekalur. Brief yang jelas membantu tim memberi pilihan scope yang masuk akal tanpa menambahkan fitur yang belum dibutuhkan.`,
+Kirim lima informasi tersebut saat menghubungi Kitangoding. Brief yang jelas membantu tim memberi pilihan scope yang masuk akal tanpa menambahkan fitur yang belum dibutuhkan.`,
   },
   {
     slug: "jasa-toko-online-untuk-umkm",
@@ -170,7 +170,7 @@ Proposal perlu menyebut fitur, biaya tahunan, tanggung jawab pengelolaan, serta 
 
 Tahap pertama dapat berupa katalog dan CTA WhatsApp. Tahap kedua menambahkan kategori, pencarian, serta pengelolaan produk. Checkout, pembayaran, ongkir, akun pelanggan, dan laporan dapat ditambahkan ketika volume transaksi membutuhkannya.
 
-Diskusikan jumlah produk, variasi, alur stok, pembayaran, dan pengiriman dengan Rekalur. Tim dapat menyusun scope awal tanpa memaksa bisnis membeli sistem yang belum akan dipakai.`,
+Diskusikan jumlah produk, variasi, alur stok, pembayaran, dan pengiriman dengan Kitangoding. Tim dapat menyusun scope awal tanpa memaksa bisnis membeli sistem yang belum akan dipakai.`,
   },
   {
     slug: "website-bisnis-agar-mudah-ditemukan-google",
@@ -209,9 +209,9 @@ Gunakan kanal kontak yang aktif. Form perlu memberi tahu data yang dibutuhkan da
 
 ## Jaga konsistensi identitas
 
-Gunakan nama Rekalur secara konsisten pada title, description, structured data, website, profil sosial, dan komunikasi pelanggan. Samakan nomor telepon, email, area layanan, serta alamat publik yang memang boleh ditampilkan. Konsistensi membantu orang mengenali brand saat berpindah dari Google ke media sosial atau WhatsApp.
+Gunakan nama Kitangoding secara konsisten pada title, description, structured data, website, profil sosial, dan komunikasi pelanggan. Samakan nomor telepon, email, area layanan, serta alamat publik yang memang boleh ditampilkan. Konsistensi membantu orang mengenali brand saat berpindah dari Google ke media sosial atau WhatsApp.
 
-Perbarui Google Business Profile jika bisnis melayani pencarian lokal. Gunakan kategori, jam layanan, foto, dan tautan website yang sama dengan informasi di situs. Rekalur menerapkan prinsip ini pada halaman brand dan metadata agar pengunjung tidak menemukan identitas yang berbeda.`,
+Perbarui Google Business Profile jika bisnis melayani pencarian lokal. Gunakan kategori, jam layanan, foto, dan tautan website yang sama dengan informasi di situs. Kitangoding menerapkan prinsip ini pada halaman brand dan metadata agar pengunjung tidak menemukan identitas yang berbeda.`,
   },
   {
     slug: "perbedaan-website-company-profile-dan-landing-page",
@@ -242,7 +242,7 @@ Contohnya, studio interior dapat memakai company profile untuk menjelaskan layan
 
 Banyak bisnis memakai keduanya. Company profile membangun identitas utama, sedangkan landing page menangani campaign tertentu. Setiap landing page tetap dapat menautkan identitas brand dan kebijakan yang relevan agar pengunjung tahu siapa penyedia layanannya.
 
-Rekalur menyediakan halaman layanan terpisah untuk website company profile dan landing page bisnis. Bandingkan tujuan, sumber pengunjung, dan tindakan yang ingin diukur sebelum memilih scope.`,
+Kitangoding menyediakan halaman layanan terpisah untuk website company profile dan landing page bisnis. Bandingkan tujuan, sumber pengunjung, dan tindakan yang ingin diukur sebelum memilih scope.`,
   },
   {
     slug: "berapa-lama-pembuatan-website-bisnis",
@@ -295,4 +295,3 @@ Rekalur menyediakan halaman layanan terpisah untuk website company profile dan l
       "SEO lokal penting kalau bisnis kamu melayani area tertentu seperti kota, kabupaten, atau wilayah layanan spesifik. Google perlu sinyal yang jelas tentang lokasi, jenis layanan, dan siapa target pelanggan di area itu.\n\nLangkah dasarnya adalah menulis halaman layanan yang menyebut konteks lokal secara alami, menampilkan alamat atau area layanan, menyamakan data kontak di website, dan menyiapkan konten yang menjawab kebutuhan pelanggan lokal. Kombinasi ini membantu Google memahami relevansi bisnis.\n\nKalau ada Google Business Profile, website dan profil bisnis sebaiknya saling mendukung. Halaman layanan, kontak, dan CTA lokal harus konsisten supaya sinyal brand dan lokasi lebih kuat.",
   },
 ];
-

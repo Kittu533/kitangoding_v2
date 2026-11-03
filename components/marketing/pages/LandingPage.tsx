@@ -53,12 +53,12 @@ function Preview({ index }: { index: number }) {
         <i />
         <i />
         <i />
-        <span>rekalur / selected work</span>
+        <span>kitangoding / selected work</span>
       </div>
       <div className={styles.browserImage}>
         <Image
           src={`/images/portofolio-${index}.webp`}
-          alt={`Preview desain website portfolio Rekalur ${index}`}
+          alt={`Preview desain website portfolio Kitangoding ${index}`}
           fill
           sizes="(max-width: 700px) 330px, 560px"
           priority={index === 1}
@@ -107,10 +107,9 @@ export function LandingPage() {
               BISNISMU <em>BERARTI.</em>
             </h1>
             <p>
-              Kami merancang website yang memperjelas ceritamu, menguatkan
-              brand,
-              <br className={styles.desktopBreak} /> dan memudahkan pelanggan
-              mengambil langkah berikutnya.
+              Jasa pembuatan website untuk UMKM dan bisnis di Jogja.
+              <br className={styles.desktopBreak} /> Dari company profile, landing page,
+              hingga toko online yang memudahkan pelangganmu.
             </p>
             <div className={styles.heroActions}>
               <Cta>Wujudkan websitemu</Cta>
@@ -163,7 +162,7 @@ export function LandingPage() {
               BISNIS YANG <em>BERTUMBUH.</em>
             </h2>
             <p>
-              Rekalur adalah partner digital untuk UMKM, brand lokal, dan
+              Kitangoding adalah partner digital untuk UMKM, brand lokal, dan
               bisnis jasa. Kami menyatukan desain, konten, dan teknologi untuk
               membantu bisnismu tampil meyakinkan, bercerita lebih jelas, dan
               terhubung dengan pelanggan.

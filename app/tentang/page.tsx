@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import studio from "@/components/marketing/Studio.module.css";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -13,8 +14,8 @@ import { serviceAreas, siteConfig, whatsappHref } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Tentang Jasa Website untuk UMKM",
   description:
-    "Kenal lebih dekat dengan Rekalur, partner pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di Jogja, Solo, Wonogiri, dan area Jawa.",
-  keywords: ["Rekalur", "tentang Rekalur Studio", "jasa website UMKM"],
+    "Kenal lebih dekat dengan Kitangoding, partner pembuatan website untuk UMKM, brand lokal, dan bisnis jasa di Jogja, Solo, Wonogiri, dan area Jawa.",
+  keywords: ["Kitangoding", "tentang Kita Ngoding", "jasa website UMKM"],
   alternates: {
     canonical: `${siteConfig.domain}/tentang`,
   },
@@ -118,7 +119,7 @@ export default function Page() {
   return (
     <div className={`marketplace-page ${studio.publicPage}`}>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
         type="application/ld+json"
       />
       <StudioHeader />
@@ -126,12 +127,12 @@ export default function Page() {
         <section className="bg-white pb-16 pt-16 sm:pb-20 sm:pt-20">
           <div className="container-shell grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
             <Reveal>
-              <p className="marketplace-eyebrow text-orange-dark">Tentang Rekalur</p>
+              <p className="marketplace-eyebrow text-orange-dark">Tentang Kitangoding</p>
               <h1 className="mt-4 max-w-2xl text-4xl !leading-tight !font-bold sm:text-5xl">
                 Kami membantu bisnis tampil jelas, dipercaya, dan mudah dihubungi.
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-body sm:text-lg sm:leading-8">
-                Rekalur adalah partner pembuatan website untuk UMKM, brand lokal, dan
+                Kitangoding adalah partner pembuatan website untuk UMKM, brand lokal, dan
                 bisnis jasa yang ingin menyampaikan nilai bisnisnya dengan lebih meyakinkan.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
@@ -165,7 +166,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section aria-label="Ringkasan Rekalur" className="border-y border-border bg-white">
+        <section aria-label="Ringkasan Kitangoding" className="border-y border-border bg-white">
           <div className="container-shell grid divide-y divide-border sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
             {trustPoints.map((item) => (
               <div className="py-6 sm:px-6 sm:first:pl-0 lg:py-8" key={item.label}>

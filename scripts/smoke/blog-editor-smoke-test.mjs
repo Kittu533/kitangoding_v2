@@ -21,6 +21,8 @@ assert.match(form, /tags/, "blog form needs a tags field");
 assert.match(form, /aspect-video/, "cover preview must preserve the full image frame");
 assert.match(form, /object-contain/, "cover preview must not crop the image");
 assert.match(actions, /sanitizeRichTextHtml/, "server action must sanitize rich HTML");
+const updateAction = actions.slice(actions.indexOf("export async function updateBlogPost"));
+assert.match(updateAction, /const slug = currentPost.slug/, "editing an article title must preserve its existing URL");
 assert.match(detail, /dangerouslySetInnerHTML/, "blog detail must render approved rich HTML");
 assert.match(listing, /blog\?category=/, "blog categories need URL filters");
 assert.match(categoryActions, /transaction/, "category rename must update existing articles");

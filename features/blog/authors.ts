@@ -2,7 +2,7 @@ import { siteConfig } from "@/lib/site";
 
 export function getBlogAuthorName(author?: string | null) {
   const name = author?.trim();
-  return name?.replace(/^(Tim\s+)?(?:kitangoding(?:\.id)?|kita\s*ngoding)$/i, (_match, team: string | undefined) => `${team || ""}${siteConfig.name}`) || siteConfig.name;
+  return name?.replace(/^(Tim\s+)?(?:kitangoding(?:\.id)?|kita\s*ngoding|rekalur)$/i, (_match, team: string | undefined) => `${team || ""}${siteConfig.name}`) || siteConfig.name;
 }
 
 export function getAuthorInitials(author: string) {

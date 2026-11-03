@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 import { LandingPage } from "@/components/marketing/pages/LandingPage";
 import { faqs } from "@/lib/landing-data";
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
     absolute: `${siteConfig.name} | Jasa Pembuatan Website UMKM`,
   },
   description:
-    "Rekalur adalah jasa pembuatan website untuk UMKM di Jogja, Solo, Wonogiri, dan area Jawa. Kami melayani pembuatan website company profile, landing page, toko online, dan aplikasi web yang rapi, cepat, dan mudah dipakai untuk jualan.",
+    "Jasa pembuatan website UMKM di Jogja: company profile, landing page, toko online, dan aplikasi custom. Lihat portfolio dan konsultasikan kebutuhanmu di Kitangoding.",
   alternates: {
     canonical: siteConfig.domain,
   },
@@ -33,8 +34,8 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
   keywords: [
-    "Rekalur",
-    "Rekalur Studio",
+    "Kitangoding",
+    "Kita Ngoding",
     "jasa pembuatan website umkm",
     "jasa website company profile",
     "jasa landing page",
@@ -59,7 +60,7 @@ const structuredData = [
     alternateName: siteConfig.alternateName,
     url: siteConfig.domain,
     description: siteConfig.description,
-    logo: `${siteConfig.domain}/rekalur-mark.svg`,
+    logo: `${siteConfig.domain}/logo-kitangoding.webp`,
     email: siteConfig.email,
     sameAs: [
       siteConfig.instagram,
@@ -142,7 +143,7 @@ export default function Home() {
   return (
     <>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }}
         type="application/ld+json"
       />
       <LandingPage />

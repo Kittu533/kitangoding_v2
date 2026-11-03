@@ -16,7 +16,7 @@ const navigation = [
 export function StudioHeader() {
   return <header className={styles.header} id="studio-top">
     <StudioMotion />
-    <Link href="/" className={styles.brand} aria-label="Rekalur — beranda"><Image src="/rekalur-mark.svg" alt="" width={42} height={42} priority /><span>rekalur<span className={styles.brandDot}>.</span></span></Link>
+    <Link href="/" className={styles.brand} aria-label="Kitangoding — beranda"><Image src="/logo-kitangoding.webp" alt="" width={42} height={42} priority /><span>kitangoding<span className={styles.brandDot}>.</span></span></Link>
     <nav className={styles.desktopNav} aria-label="Navigasi utama">{navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}</nav>
     <div className={styles.navCta}><Link className={styles.cta} href={whatsappHref}>Mulai project<span><ArrowUpRight size={21} aria-hidden="true" /></span></Link></div>
     <details className={styles.mobileMenu}><summary aria-label="Buka menu navigasi"><Menu aria-hidden="true" /></summary><nav aria-label="Navigasi mobile">{navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}<Link href={whatsappHref}>Mulai project <ArrowUpRight size={16} aria-hidden="true" /></Link></nav></details>
@@ -25,7 +25,7 @@ export function StudioHeader() {
 
 export function StudioFooter() {
   return <footer className={styles.footer}>
-    <div><Link className={styles.footerBrand} href="/">rekalur.</Link><p>Website yang terasa seperti bisnismu.</p></div>
+    <div><Link className={styles.footerBrand} href="/">kitangoding.</Link><p>Website yang terasa seperti bisnismu.</p></div>
     <div className={styles.footerLinks}><Link href="/tentang">Tentang</Link><Link href="/referensi">Referensi</Link><Link href="/blog">Insight</Link><Link href="/project-inquiry">Brief project</Link><Link href="/contact">Kontak</Link><a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer">Instagram <ArrowUpRight size={14} aria-hidden="true" /></a><a href={`mailto:${siteConfig.email}`}>Email <ArrowUpRight size={14} aria-hidden="true" /></a></div>
     <div className={styles.footerBottom}><span>© {new Date().getFullYear()} {siteConfig.name}</span><span>Dibuat dengan sepenuh hati, di Yogyakarta.</span><a href="#studio-top">Kembali ke atas ↑</a></div>
   </footer>;

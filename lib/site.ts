@@ -1,11 +1,11 @@
 export const siteConfig = {
-  name: "Rekalur",
-  shortName: "Rekalur",
-  alternateName: "Rekalur Studio",
+  name: "Kitangoding",
+  shortName: "Kitangoding",
+  alternateName: "Kita Ngoding",
   description:
     process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
-    "Rekalur adalah studio desain dan pengembangan website untuk UMKM, brand lokal, dan bisnis jasa di Jogja, Solo, Wonogiri, dan area Jawa.",
-  domain: process.env.NEXT_PUBLIC_APP_URL || "https://www.kitangoding.my.id",
+    "Kitangoding adalah studio desain dan pengembangan website untuk UMKM, brand lokal, dan bisnis jasa di Jogja, Solo, Wonogiri, dan area Jawa.",
+  domain: normalizeSiteUrl(process.env.NEXT_PUBLIC_APP_URL || "https://www.kitangoding.my.id"),
   gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-RY3471CB04",
   email: process.env.NEXT_PUBLIC_SITE_EMAIL || "halo@kitangoding.com",
   phoneDisplay: process.env.NEXT_PUBLIC_SITE_PHONE_DISPLAY || "+62 822-4190-8389",
@@ -18,6 +18,14 @@ export const siteConfig = {
   tagline:
     "Jasa pembuatan website untuk UMKM, brand lokal, dan bisnis jasa yang ingin lebih mudah dipahami dan dihubungi.",
 } as const;
+
+export function normalizeSiteUrl(value: string) {
+  const url = new URL(value);
+  if (!["https:", "http:"].includes(url.protocol)) {
+    throw new Error("NEXT_PUBLIC_APP_URL must use HTTP or HTTPS.");
+  }
+  return url.origin;
+}
 
 export function normalizePhoneHref(value: string) {
   const digits = value.replace(/\D/g, "");

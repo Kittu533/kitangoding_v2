@@ -9,6 +9,7 @@ import { PortfolioImageGallery } from "@/components/marketing/components/Portfol
 import { StudioHeader, StudioFooter } from "@/components/marketing/sections/StudioChrome";
 import { getPortfolioProjectBySlug } from "@/features/portfolio/queries";
 import { siteConfig } from "@/lib/site";
+import { serializeJsonLd } from "@/lib/seo";
 import studio from "@/components/marketing/Studio.module.css";
 import styles from "@/components/marketing/components/Portfolio.module.css";
 
@@ -18,15 +19,16 @@ const getCachedPortfolioProject = cache(getPortfolioProjectBySlug);
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id: slug } = await params;
   const project = await getCachedPortfolioProject(slug);
-  if (!project) return {};
+  if (!project) return { title: "Project Tidak Ditemukan", robots: { index: false, follow: false } };
   const title = `${project.name} | Portfolio`;
   const description = project.result || `Detail proyek ${project.name} dari ${siteConfig.name}.`;
   const url = `${siteConfig.domain}/portfolio/${project.slug}`;
+  const image = new URL(project.thumbnail || "/og-image.png", siteConfig.domain).toString();
   return {
     title, description,
     alternates: { canonical: url },
-    openGraph: { title, description, url, type: "website" },
-    twitter: { card: "summary_large_image", title, description },
+    openGraph: { title: `${title} | ${siteConfig.name}`, description, url, type: "website", images: [{ url: image, alt: `Tampilan proyek ${project.name}` }] },
+    twitter: { card: "summary_large_image", title: `${title} | ${siteConfig.name}`, description, images: [image] },
   };
 }
 
@@ -36,12 +38,37 @@ async function PortfolioDetailContent({ params }: Props) {
   const project = await getCachedPortfolioProject(slug);
   if (!project) notFound();
   const images = Array.from(new Set([project.thumbnail, ...project.gallery].filter((image): image is string => Boolean(image))));
+  const url = `${siteConfig.domain}/portfolio/${project.slug}`;
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.domain },
+        { "@type": "ListItem", position: 2, name: "Portfolio", item: `${siteConfig.domain}/portfolio` },
+        { "@type": "ListItem", position: 3, name: project.name, item: url },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "@id": `${url}#project`,
+      name: project.name,
+      description: project.result,
+      url,
+      mainEntityOfPage: url,
+      inLanguage: "id-ID",
+      ...(images.length ? { image: images.map(image => new URL(image, siteConfig.domain).toString()) } : {}),
+      creator: { "@type": "Organization", name: siteConfig.name, url: siteConfig.domain },
+    },
+  ];
 
   return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }} />
     <header className={styles.heading}>
       <span className={studio.eyebrow}><i aria-hidden="true" />Our projects</span>
       <h1>{project.name}</h1>
-      <p>Desain dan pengembangan {project.category.toLowerCase()} oleh Rekalur.</p>
+      <p>Desain dan pengembangan {project.category.toLowerCase()} oleh Kitangoding.</p>
     </header>
     <div className={styles.heroImage}>{images[0] ? <Image src={images[0]} alt={`Tampilan utama proyek ${project.name}`} fill priority sizes="90vw" unoptimized={images[0].startsWith('/api/')} /> : <div className={styles.placeholder} aria-hidden="true">{project.name.charAt(0)}</div>}</div>
     <dl className={styles.facts}>

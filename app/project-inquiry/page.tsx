@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 import { ProjectInquiryPage } from "@/components/marketing/pages/ProjectInquiryPage";
 import { siteConfig } from "@/lib/site";
@@ -5,7 +6,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Konsultasi Project Website & Landing Page",
   description:
-    "Kirim detail project website atau landing page kamu agar Rekalur bisa membantu menyusun kebutuhan dan estimasi awal.",
+    "Kirim detail project website atau landing page kamu agar Kitangoding bisa membantu menyusun kebutuhan dan estimasi awal.",
   keywords: [
     siteConfig.name,
     "konsultasi project website",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Konsultasi Project Website & Landing Page | ${siteConfig.name}`,
     description:
-      "Kirim detail project website atau landing page kamu agar Rekalur bisa membantu menyusun kebutuhan dan estimasi awal.",
+      "Kirim detail project website atau landing page kamu agar Kitangoding bisa membantu menyusun kebutuhan dan estimasi awal.",
     url: `${siteConfig.domain}/project-inquiry`,
     type: "website",
     images: [
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Konsultasi Project Website & Landing Page | ${siteConfig.name}`,
     description:
-      "Kirim detail project website atau landing page kamu agar Rekalur bisa membantu menyusun kebutuhan dan estimasi awal.",
+      "Kirim detail project website atau landing page kamu agar Kitangoding bisa membantu menyusun kebutuhan dan estimasi awal.",
     images: ["/og-image.png"],
   },
 };
@@ -44,7 +45,7 @@ const projectInquiryJsonLd = {
   "@type": "ContactPage",
   name: "Konsultasi Project Website & Landing Page",
   description:
-    "Halaman brief awal untuk konsultasi project website, landing page, toko online, dan aplikasi web bersama Rekalur.",
+    "Halaman brief awal untuk konsultasi project website, landing page, toko online, dan aplikasi web bersama Kitangoding.",
   url: `${siteConfig.domain}/project-inquiry`,
   mainEntity: {
     "@type": "Service",
@@ -66,7 +67,7 @@ export default function Page() {
   return (
     <>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectInquiryJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(projectInquiryJsonLd) }}
         type="application/ld+json"
       />
       <ProjectInquiryPage />

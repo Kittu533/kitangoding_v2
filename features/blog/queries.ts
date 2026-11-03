@@ -81,11 +81,10 @@ export async function getPublicBlogPosts(limit?: number): Promise<PublicBlogCard
     const rows = await db
       .select()
       .from(blogPostsTable)
-      .where(eq(blogPostsTable.status, "published"))
       .orderBy(desc(blogPostsTable.publishedAt), desc(blogPostsTable.createdAt));
 
     if (rows.length > 0) {
-      const databaseItems = rows.map((item) => ({
+      const databaseItems = rows.filter(item => item.status === "published").map((item) => ({
         slug: item.slug,
         title: item.title,
         excerpt: item.excerpt || "Insight praktis untuk membantu website bisnis tampil lebih meyakinkan.",
@@ -158,10 +157,12 @@ export async function getPublicBlogPostBySlug(slug: string): Promise<PublicBlogD
         content: sanitizeRichTextHtml(post.content || post.excerpt || "Konten artikel akan segera hadir."),
         contentFormat: "html",
         publishedAt: (post.publishedAt || post.createdAt)?.toISOString(),
+        modifiedAt: post.updatedAt?.toISOString(),
         author: getBlogAuthorName(post.author),
         tags: post.tags,
       };
     }
+    if (post) return null;
   } catch (error) {
     if (!isMissingTableError(error)) {
       console.warn("Failed to load public blog detail.", error);

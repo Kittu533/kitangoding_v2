@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 import { StudioHeader, StudioFooter } from "@/components/marketing/sections/StudioChrome";
 import studio from "@/components/marketing/Studio.module.css";
@@ -7,7 +8,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Portfolio Website Bisnis",
   description:
-    "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja Rekalur sebelum konsultasi.",
+    "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja Kitangoding sebelum konsultasi.",
   keywords: [
     siteConfig.name,
     "portfolio website bisnis",
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Portfolio Website Bisnis | ${siteConfig.name}`,
     description:
-      "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja Rekalur sebelum konsultasi.",
+      "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja Kitangoding sebelum konsultasi.",
     url: `${siteConfig.domain}/portfolio`,
     type: "website",
     images: [
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Portfolio Website Bisnis | ${siteConfig.name}`,
     description:
-      "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja Rekalur sebelum konsultasi.",
+      "Lihat contoh project website bisnis yang bisa dijadikan bukti kerja Kitangoding sebelum konsultasi.",
     images: ["/og-image.png"],
   },
 };
@@ -47,14 +48,14 @@ export default function Page() {
     "@type": "CollectionPage",
     name: "Portfolio Website Bisnis",
     description:
-      "Contoh project website bisnis, landing page, dan toko online yang dikerjakan oleh Rekalur.",
+      "Contoh project website bisnis, landing page, dan toko online yang dikerjakan oleh Kitangoding.",
     url: `${siteConfig.domain}/portfolio`,
   };
 
   return (
     <div className={studio.root}>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(portfolioJsonLd) }}
         type="application/ld+json"
       />
       <StudioHeader />

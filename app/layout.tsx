@@ -21,9 +21,8 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    "Rekalur",
-    "Rekalur Studio",
-    "Rekalur",
+    "Kitangoding",
+    "Kita Ngoding",
     "jasa pembuatan website",
     "website UMKM",
     "website company profile",
@@ -39,9 +38,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/icon.png?v=3", type: "image/png", sizes: "32x32" },
+      { url: "/icon.png?v=4", type: "image/png", sizes: "32x32" },
     ],
-    apple: [{ url: "/apple-icon.png?v=3", type: "image/png", sizes: "180x180" }],
+    apple: [{ url: "/apple-icon.png?v=4", type: "image/png", sizes: "180x180" }],
   },
   openGraph: {
     type: "website",

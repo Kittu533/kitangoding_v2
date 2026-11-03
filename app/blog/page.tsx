@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import type { Metadata } from "next";
 import { BlogPage } from "@/components/marketing/pages/BlogPage";
 import { getPublicBlogCategories, getPublicBlogPosts } from "@/features/blog/queries";
@@ -59,7 +60,7 @@ export default async function Page() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Daftar Artikel Rekalur",
+      name: "Daftar Artikel Kitangoding",
       itemListElement: posts.map((post, index) => ({
         "@type": "ListItem",
         position: index + 1,
@@ -72,7 +73,7 @@ export default async function Page() {
   return (
     <>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(blogJsonLd) }}
         type="application/ld+json"
       />
       <BlogPage categories={categories} posts={posts} />

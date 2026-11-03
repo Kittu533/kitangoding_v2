@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import { Suspense } from "react";
 import { connection } from "next/server";
 import studio from "@/components/marketing/Studio.module.css";
@@ -13,7 +14,7 @@ async function PortfolioGalleryContent() {
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Portfolio Project Rekalur",
+    name: "Portfolio Project Kitangoding",
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -26,7 +27,7 @@ async function PortfolioGalleryContent() {
   return (
     <>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(itemListJsonLd) }}
         type="application/ld+json"
       />
       <p className="mt-4 text-sm font-semibold text-black">

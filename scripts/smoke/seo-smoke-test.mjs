@@ -33,7 +33,7 @@ assert.match(homePage, /export const metadata/, "app/page.tsx must define page-s
 assert.match(
   homePage,
   /title:\s*\{\s*absolute:\s*`\$\{siteConfig\.name\} \| Jasa Pembuatan Website UMKM`/s,
-  "homepage title must lead with Rekalur",
+  "homepage title must lead with Kitangoding",
 );
 assert.match(homePage, /canonical:/, "app/page.tsx must define canonical metadata");
 assert.match(homePage, /openGraph:/, "app/page.tsx must define openGraph metadata");
@@ -53,7 +53,7 @@ for (const [file, targetKeyword] of [
   assert.match(
     source,
     /keywords:\s*\[\s*siteConfig\.name,/s,
-    `${file} must lead its keyword map with Rekalur`,
+    `${file} must lead its keyword map with Kitangoding`,
   );
   assert.ok(source.includes(`"${targetKeyword}"`), `${file} must target ${targetKeyword}`);
 }
@@ -93,7 +93,7 @@ for (const slug of [
   const next = publicContent.indexOf("slug: ", start + 8);
   const block = publicContent.slice(start, next < 0 ? undefined : next);
   assert.match(block, /## /, `${slug} must contain section headings`);
-  assert.match(block, /Rekalur/, `${slug} must identify the authoring brand`);
+  assert.match(block, /Kitangoding/, `${slug} must identify the authoring brand`);
   assert.ok(block.split(/\s+/).length >= 250, `${slug} must contain substantive guidance`);
 }
 
@@ -140,13 +140,13 @@ for (const path of [
   assert.ok(existsSync(path), `missing blog/marketplace image asset: ${path}`);
 }
 
-const brand = "Rekalur";
+const brand = "Kitangoding";
 const canonicalBrandSource = read("lib/site.ts");
 
 assert.match(
   canonicalBrandSource,
-  /name:\s*"Rekalur"/,
-  "siteConfig must use Rekalur as the canonical brand",
+  /name:\s*"Kitangoding"/,
+  "siteConfig must use Kitangoding as the canonical brand",
 );
 
 for (const file of [
@@ -163,7 +163,7 @@ for (const file of [
   "app/blog/[slug]/page.tsx",
   "lib/service-landing-pages.ts",
 ]) {
-  assert.match(read(file), /Rekalur|siteConfig\.name/, `${file} must use ${brand}`);
+  assert.match(read(file), /Kitangoding|siteConfig\.name/, `${file} must use ${brand}`);
 }
 
 assert.match(read("app/manifest.ts"), /siteConfig\.name/, "manifest must use canonical brand");

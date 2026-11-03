@@ -266,7 +266,7 @@ export function createServiceLandingMetadata(page: ServiceLandingPageConfig): Me
     },
     keywords: [
       siteConfig.name,
-      "Rekalur Studio",
+      "Kita Ngoding",
       page.keyword,
       page.title.toLowerCase(),
       "jasa website jogja",
@@ -294,6 +294,12 @@ export function createServiceLandingPageStructuredData(page: ServiceLandingPageC
         {
           "@type": "ListItem",
           position: 2,
+          name: "Layanan",
+          item: `${siteConfig.domain}/layanan`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
           name: page.title,
           item: url,
         },

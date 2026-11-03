@@ -1,34 +1,34 @@
 import type { MetadataRoute } from "next";
-import { desc, eq } from "drizzle-orm";
+import { desc } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { blogPosts } from "@/lib/db/schema";
 import { fallbackBlogDetails } from "@/features/blog/content";
+import { createBlogSitemapEntries } from "@/features/blog/sitemap";
+import { getPortfolioProjects } from "@/features/portfolio/queries";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blogEntries: MetadataRoute.Sitemap = [];
-  const fallbackBlogEntries: MetadataRoute.Sitemap = fallbackBlogDetails.map((post) => ({
-    url: `${siteConfig.domain}/blog/${post.slug}`,
+  blogEntries = createBlogSitemapEntries(siteConfig.domain, [], fallbackBlogDetails);
+  const portfolioEntries: MetadataRoute.Sitemap = (await getPortfolioProjects()).map(project => ({
+    url: `${siteConfig.domain}/portfolio/${project.slug}`,
   }));
 
   try {
-    const publishedPosts = await db
+    const managedPosts = await db
       .select({
         slug: blogPosts.slug,
+        status: blogPosts.status,
         publishedAt: blogPosts.publishedAt,
         updatedAt: blogPosts.updatedAt,
         createdAt: blogPosts.createdAt,
       })
       .from(blogPosts)
-      .where(eq(blogPosts.status, "published"))
       .orderBy(desc(blogPosts.publishedAt), desc(blogPosts.createdAt));
 
-    blogEntries = publishedPosts.map((post) => ({
-      url: `${siteConfig.domain}/blog/${post.slug}`,
-      lastModified: post.updatedAt ?? post.publishedAt ?? post.createdAt ?? undefined,
-    }));
+    blogEntries = createBlogSitemapEntries(siteConfig.domain, managedPosts, fallbackBlogDetails);
   } catch (error) {
     console.warn("Failed to load blog entries for sitemap.", error);
   }
@@ -76,7 +76,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${siteConfig.domain}/jasa-redesign-website`,
     },
-    ...fallbackBlogEntries,
+    ...portfolioEntries,
     ...blogEntries,
   ];
 

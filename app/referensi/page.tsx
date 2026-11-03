@@ -1,3 +1,4 @@
+import { serializeJsonLd } from "@/lib/seo";
 import studio from "@/components/marketing/Studio.module.css";
 import type { Metadata } from "next";
 import { connection } from "next/server";
@@ -56,7 +57,7 @@ export default async function Page() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "Referensi Visual Rekalur",
+      name: "Referensi Visual Kitangoding",
       itemListElement: creativeItems.map((item, index) => ({
         "@type": "ListItem",
         position: index + 1,
@@ -69,7 +70,7 @@ export default async function Page() {
   return (
     <div className={`marketplace-page ${studio.publicPage}`}>
       <script
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(referenceJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(referenceJsonLd) }}
         type="application/ld+json"
       />
       <StudioHeader />
