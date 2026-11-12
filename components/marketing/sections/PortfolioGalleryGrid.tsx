@@ -22,6 +22,7 @@ export function PortfolioGalleryGrid({
 
   return (
     <div>
+      <h2 className="sr-only">Daftar project</h2>
       <div className={styles.filters}>
         {categories.map((category) => (
           <button

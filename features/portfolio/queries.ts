@@ -4,6 +4,7 @@ import { portfolioCategories, portfolios } from "@/lib/db/schema";
 import { portfolioItems } from "@/lib/landing-data";
 import { slugify } from "@/lib/slug";
 import { isMissingTableError } from "@/lib/db/is-missing-table";
+import type { PortfolioSitemapRow } from "./sitemap";
 import type { PortfolioCard, PortfolioDetail } from "./types";
 
 export async function getPortfolioProjects(limit?: number): Promise<PortfolioCard[]> {
@@ -115,4 +116,22 @@ export async function getPortfolioProjectBySlug(slug: string): Promise<Portfolio
         thumbnail: null,
       }
     : null;
+}
+
+export async function getPortfolioSitemapRows(): Promise<PortfolioSitemapRow[]> {
+  try {
+    const rows = await db
+      .select({ slug: portfolios.slug, updatedAt: portfolios.updatedAt })
+      .from(portfolios)
+      .orderBy(desc(portfolios.createdAt));
+
+    if (rows.length > 0) return rows;
+  } catch (error) {
+    if (!isMissingTableError(error)) {
+      console.warn("Failed to load portfolio sitemap rows.", error);
+    }
+  }
+
+  // Same demo projects that the listing and detail pages show when the table is empty.
+  return portfolioItems.map((item) => ({ slug: slugify(item.name), updatedAt: null }));
 }

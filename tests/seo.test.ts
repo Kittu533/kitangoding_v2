@@ -4,6 +4,7 @@ import robots from "../app/robots";
 import { normalizeSiteUrl } from "../lib/site";
 import { buildPageTitle, serializeJsonLd } from "../lib/seo";
 import { createBlogSitemapEntries } from "../features/blog/sitemap";
+import { createPortfolioSitemapEntries } from "../features/portfolio/sitemap";
 
 test("canonical origin excludes trailing paths, queries and fragments", () => {
   assert.equal(normalizeSiteUrl("https://www.kitangoding.my.id/?utm_source=test#home"), "https://www.kitangoding.my.id");
@@ -50,4 +51,17 @@ test("page titles use the most complete candidate that fits 60 characters", () =
   const long = "Website Company Profile atau Landing Page: Mana yang Cocok untuk Bisnismu";
   assert.equal(buildPageTitle(...candidates(long)), long, "the page's own title is never truncated");
   assert.equal(buildPageTitle(["  ", "A", ""]), "A");
+});
+
+test("portfolio sitemap publishes lastmod only when a real edit time exists", () => {
+  const updatedAt = new Date("2026-11-01T00:00:00Z");
+  const entries = createPortfolioSitemapEntries("https://example.com", [
+    { slug: "edited", updatedAt },
+    { slug: "demo", updatedAt: null },
+  ]);
+  assert.deepEqual(entries, [
+    { url: "https://example.com/portfolio/edited", lastModified: updatedAt },
+    { url: "https://example.com/portfolio/demo" },
+  ]);
+  assert.ok(!("lastModified" in entries[1]), "no invented date for rows without an edit time");
 });

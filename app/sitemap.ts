@@ -3,16 +3,15 @@ import { desc } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { blogPosts } from "@/lib/db/schema";
 import { createBlogSitemapEntries } from "@/features/blog/sitemap";
-import { getPortfolioProjects } from "@/features/portfolio/queries";
+import { getPortfolioSitemapRows } from "@/features/portfolio/queries";
+import { createPortfolioSitemapEntries } from "@/features/portfolio/sitemap";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blogEntries: MetadataRoute.Sitemap = [];
-  const portfolioEntries: MetadataRoute.Sitemap = (await getPortfolioProjects()).map(project => ({
-    url: `${siteConfig.domain}/portfolio/${project.slug}`,
-  }));
+  const portfolioEntries = createPortfolioSitemapEntries(siteConfig.domain, await getPortfolioSitemapRows());
 
   try {
     const managedPosts = await db

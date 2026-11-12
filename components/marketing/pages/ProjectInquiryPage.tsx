@@ -31,6 +31,7 @@ export function ProjectInquiryPage() {
           <div className="container-shell">
             <Reveal>
               <div className="mx-auto max-w-5xl rounded-[2rem] border border-border bg-market/70 p-6 backdrop-blur md:p-10">
+                <h2 className="sr-only">Formulir brief project</h2>
                 <ProjectInquiryForm />
               </div>
             </Reveal>
