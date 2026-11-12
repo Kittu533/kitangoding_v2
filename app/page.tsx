@@ -65,7 +65,6 @@ const structuredData = [
     sameAs: [
       siteConfig.instagram,
       siteConfig.tiktok,
-      `https://wa.me/${siteConfig.phoneHref}`,
     ],
     contactPoint: [
       {
@@ -98,6 +97,8 @@ const structuredData = [
     description: siteConfig.description,
     url: siteConfig.domain,
     image: `${siteConfig.domain}/og-image.png`,
+    logo: `${siteConfig.domain}/logo-kitangoding.webp`,
+    email: siteConfig.email,
     priceRange: "$$",
     telephone: `+${siteConfig.phoneHref}`,
     serviceType: [
@@ -119,7 +120,6 @@ const structuredData = [
     sameAs: [
       siteConfig.instagram,
       siteConfig.tiktok,
-      `https://wa.me/${siteConfig.phoneHref}`,
     ],
     parentOrganization: {
       "@id": organizationId,

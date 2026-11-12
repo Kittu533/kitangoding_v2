@@ -50,7 +50,6 @@ export async function createPortfolio(data: z.infer<typeof portfolioSchema>) {
     await db.insert(portfolios).values(toPortfolioValues(validatedData));
     revalidatePath("/admin/portfolio");
     revalidatePath("/");
-    revalidatePath("/shop");
     revalidatePath("/portfolio");
     return { success: true };
   } catch (error) {
@@ -73,7 +72,6 @@ export async function updatePortfolio(id: string, data: z.infer<typeof portfolio
       .returning({ slug: portfolios.slug });
     revalidatePath("/admin/portfolio");
     revalidatePath("/");
-    revalidatePath("/shop");
     revalidatePath("/portfolio");
     if (updated) revalidatePath(`/portfolio/${updated.slug}`);
     return { success: true };
@@ -92,7 +90,6 @@ export async function deletePortfolio(id: string) {
     const [deleted] = await db.delete(portfolios).where(eq(portfolios.id, id)).returning({ slug: portfolios.slug });
     revalidatePath("/admin/portfolio");
     revalidatePath("/");
-    revalidatePath("/shop");
     revalidatePath("/portfolio");
     if (deleted) revalidatePath(`/portfolio/${deleted.slug}`);
     return { success: true };

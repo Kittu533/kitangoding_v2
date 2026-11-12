@@ -41,7 +41,7 @@ export function BlogListing({ posts, categories }: { posts: PublicBlogCard[]; ca
           {post.date && <span className={styles.date}><Clock3 size={14} aria-hidden="true" /><time dateTime={post.publishedAt}>{post.date}</time></span>}
         </header>
         <Link className={styles.cardLink} href={`/blog/${post.slug}`} aria-labelledby={`article-${post.slug}`} data-analytics-event="blog_cta_click" data-analytics-label={post.title}>
-          <div className={styles.cover}><Image src={post.image} alt={post.title} fill sizes="(max-width: 700px) 90vw, (max-width: 1100px) 45vw, 30vw" /></div>
+          <div className={styles.cover}><Image src={post.image} alt={post.title} fill sizes="(max-width: 700px) 90vw, (max-width: 1100px) 45vw, 30vw" unoptimized={post.image.startsWith("/api/")} /></div>
           <h2 id={`article-${post.slug}`}>{post.title}</h2>
         </Link>
       </article>;

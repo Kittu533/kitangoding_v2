@@ -1,18 +1,3 @@
-import { serviceLandingPages } from "@/lib/service-landing-pages";
-
-export const categories = serviceLandingPages.map(page => ({
-  title: page.name,
-  description: page.description,
-}));
-
-export const shopCreatives = serviceLandingPages.map(page => ({
-  name: page.name,
-  category: page.name,
-  description: `Ilustrasi konsep. ${page.description}`,
-  price: "By Brief",
-  image: page.image,
-}));
-
 export const marketplacePricing = [
   {
     name: "Website Starter",

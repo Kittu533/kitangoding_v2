@@ -1,4 +1,4 @@
-import { serializeJsonLd } from "@/lib/seo";
+import { buildPageTitle, fitMetaDescription, serializeJsonLd } from "@/lib/seo";
 import studio from "@/components/marketing/Studio.module.css";
 import type { Metadata } from "next";
 import { cache } from "react";
@@ -191,11 +191,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const postImageUrl = post.image.startsWith("http")
     ? post.image
     : new URL(post.image, siteConfig.domain).toString();
-  const description = `${post.excerpt} Baca panduan lengkapnya di ${siteConfig.name}.`;
+  const description = fitMetaDescription(`${post.excerpt} Baca panduan lengkapnya di ${siteConfig.name}.`);
+  const title = buildPageTitle([post.title, siteConfig.name], [post.title]);
 
   return {
     title: {
-      absolute: `${post.title} | ${siteConfig.name}`,
+      absolute: title,
     },
     description,
     keywords: [siteConfig.name, "Kita Ngoding", post.category, post.title],
@@ -203,7 +204,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: `${siteConfig.domain}/blog/${post.slug}`,
     },
     openGraph: {
-      title: `${post.title} | ${siteConfig.name}`,
+      title,
       description,
       url: `${siteConfig.domain}/blog/${post.slug}`,
       type: "article",
@@ -223,7 +224,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | ${siteConfig.name}`,
+      title,
       description,
       images: [postImageUrl],
     },
@@ -319,7 +320,7 @@ export default async function Page({ params }: Props) {
               <h1>{post.title}</h1>
             </header>
             <div className={styles.articleCover}>
-              <Image alt={post.title} fill priority sizes="(max-width: 700px) 90vw, 1200px" src={post.image} />
+              <Image alt={post.title} fill preload sizes="(max-width: 700px) 90vw, 1200px" src={post.image} unoptimized={post.image.startsWith("/api/")} />
             </div>
             {post.contentFormat === "html" ? (
               <div className={`rich-blog-content ${styles.body}`} dangerouslySetInnerHTML={{ __html: post.content }} />

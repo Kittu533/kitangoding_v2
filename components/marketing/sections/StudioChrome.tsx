@@ -26,7 +26,7 @@ export function StudioHeader() {
 export function StudioFooter() {
   return <footer className={styles.footer}>
     <div><Link className={styles.footerBrand} href="/">kitangoding.</Link><p>Website yang terasa seperti bisnismu.</p></div>
-    <div className={styles.footerLinks}><Link href="/tentang">Tentang</Link><Link href="/referensi">Referensi</Link><Link href="/blog">Insight</Link><Link href="/project-inquiry">Brief project</Link><Link href="/contact">Kontak</Link><a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer">Instagram <ArrowUpRight size={14} aria-hidden="true" /></a><a href={`mailto:${siteConfig.email}`}>Email <ArrowUpRight size={14} aria-hidden="true" /></a></div>
+    <div className={styles.footerLinks}><Link href="/tentang">Tentang</Link><Link href="/blog">Insight</Link><Link href="/project-inquiry">Brief project</Link><Link href="/contact">Kontak</Link><a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer">Instagram <ArrowUpRight size={14} aria-hidden="true" /></a><a href={`mailto:${siteConfig.email}`}>Email <ArrowUpRight size={14} aria-hidden="true" /></a></div>
     <div className={styles.footerBottom}><span>© {new Date().getFullYear()} {siteConfig.name}</span><span>Dibuat dengan sepenuh hati, di Yogyakarta.</span><a href="#studio-top">Kembali ke atas ↑</a></div>
   </footer>;
 }

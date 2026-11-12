@@ -20,7 +20,7 @@ export async function GET() {
         }}
       >
         <div style={{ fontSize: 34, fontWeight: 800 }}>{siteConfig.name}</div>
-        <div style={{ maxWidth: 880 }}>
+        <div style={{ display: "flex", flexDirection: "column", maxWidth: 880 }}>
           <div style={{ fontSize: 76, fontWeight: 900, lineHeight: 0.95 }}>
             Jasa Website UMKM yang Rapi dan Siap Jualan
           </div>

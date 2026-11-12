@@ -8,19 +8,12 @@ type SitemapPost = {
   createdAt: Date | null;
 };
 
-export function createBlogSitemapEntries(
-  domain: string,
-  posts: SitemapPost[],
-  fallbackPosts: ReadonlyArray<{ slug: string }>,
-): MetadataRoute.Sitemap {
-  const managedSlugs = new Set(posts.map(post => post.slug));
-  return [
-    ...fallbackPosts.filter(post => !managedSlugs.has(post.slug)).map(post => ({
-      url: `${domain}/blog/${post.slug}`,
-    })),
-    ...posts.filter(post => post.status === "published").map(post => ({
+// Only posts published from the admin dashboard are listed; drafts stay out of the sitemap.
+export function createBlogSitemapEntries(domain: string, posts: SitemapPost[]): MetadataRoute.Sitemap {
+  return posts
+    .filter(post => post.status === "published")
+    .map(post => ({
       url: `${domain}/blog/${post.slug}`,
       lastModified: post.updatedAt ?? post.publishedAt ?? post.createdAt ?? undefined,
-    })),
-  ];
+    }));
 }

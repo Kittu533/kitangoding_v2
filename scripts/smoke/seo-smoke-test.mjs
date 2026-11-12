@@ -8,17 +8,14 @@ const manifestExists = existsSync("app/manifest.ts");
 const openGraphImageExists =
   existsSync("app/og-image.png/route.tsx") || existsSync("public/og-image.png");
 
-assert.match(sitemap, /\/referensi/, "sitemap must include /referensi");
 assert.ok(manifestExists, "app/manifest.ts must exist");
 assert.ok(openGraphImageExists, "/og-image.png route or asset must exist");
 
 for (const file of [
   "app/layanan/page.tsx",
-  "app/shop/page.tsx",
   "app/contact/page.tsx",
   "app/blog/page.tsx",
   "app/portfolio/page.tsx",
-  "app/referensi/page.tsx",
   "app/project-inquiry/page.tsx",
 ]) {
   assert.match(
@@ -44,8 +41,6 @@ for (const [file, targetKeyword] of [
   ["app/pricing/page.tsx", "harga jasa pembuatan website"],
   ["app/contact/page.tsx", "konsultasi website"],
   ["app/portfolio/page.tsx", "portfolio website bisnis"],
-  ["app/referensi/page.tsx", "referensi desain website"],
-  ["app/shop/page.tsx", "template website bisnis"],
   ["app/project-inquiry/page.tsx", "konsultasi project website"],
   ["app/blog/page.tsx", "blog website UMKM"],
 ]) {
@@ -75,48 +70,26 @@ assert.ok(
   "layout must not reference a missing favicon.ico",
 );
 
-const publicContent = read("features/blog/content.ts");
 const blogQueries = read("features/blog/queries.ts");
 const articlePage = read("app/blog/[slug]/page.tsx");
 assert.match(articlePage, /\^##\\s\+/, "article renderer must support ## headings");
 assert.match(articlePage, /datePublished/, "Article JSON-LD must expose a valid publication date");
 assert.match(blogQueries, /"id-ID"/, "visible blog dates must use Indonesian locale");
 
-for (const slug of [
-  "biaya-pembuatan-website-umkm",
-  "perbedaan-website-company-profile-dan-landing-page",
-  "jasa-landing-page-untuk-iklan",
-  "jasa-toko-online-untuk-umkm",
-  "cara-membuat-website-bisnis-lebih-meyakinkan",
-]) {
-  const start = publicContent.indexOf(`slug: "${slug}"`);
-  const next = publicContent.indexOf("slug: ", start + 8);
-  const block = publicContent.slice(start, next < 0 ? undefined : next);
-  assert.match(block, /## /, `${slug} must contain section headings`);
-  assert.match(block, /Kitangoding/, `${slug} must identify the authoring brand`);
-  assert.ok(block.split(/\s+/).length >= 250, `${slug} must contain substantive guidance`);
-}
+// Blog content is managed from the admin dashboard only; no hardcoded articles are published.
+assert.doesNotMatch(blogQueries, /fallbackBlog/, "public blog queries must read posts from the database only");
+assert.doesNotMatch(sitemap, /fallbackBlog/, "sitemap must list only blog posts published from the admin");
 
-const fallbackBlogCount = publicContent.match(/slug: "/g)?.length ?? 0;
-assert.ok(fallbackBlogCount >= 15, "fallback blog content must include at least 15 SEO articles");
-for (const slug of [
-  "jasa-website-company-profile-umkm",
-  "jasa-landing-page-untuk-iklan",
-  "biaya-pembuatan-website-umkm",
-  "jasa-toko-online-untuk-umkm",
-  "website-bisnis-agar-mudah-ditemukan-google",
-  "cara-membuat-website-bisnis-lebih-meyakinkan",
-  "perbedaan-website-company-profile-dan-landing-page",
-  "berapa-lama-pembuatan-website-bisnis",
-  "konten-wajib-sebelum-bikin-website-umkm",
-  "website-umkm-untuk-order-whatsapp",
-  "partner-website-bisnis-area-jawa",
-  "seo-lokal-website-umkm",
-]) {
-  assert.match(publicContent, new RegExp(slug), `missing SEO article: ${slug}`);
-  assert.ok(
-    sitemap.includes("fallbackBlogDetails") || new RegExp(slug).test(sitemap),
-    `sitemap must include SEO article: ${slug}`,
+// /shop and /referensi were deleted on purpose: they must not come back through the sitemap,
+// a redirect, or an internal link, otherwise crawlers keep finding dead or duplicate pages.
+for (const removed of ["shop", "referensi"]) {
+  assert.ok(!existsSync(`app/${removed}/page.tsx`), `/${removed} page must stay removed`);
+  assert.doesNotMatch(sitemap, new RegExp(`/${removed}\\b`), `removed /${removed} must stay out of the sitemap`);
+  assert.doesNotMatch(read("next.config.ts"), new RegExp(`/${removed}\\b`), `no redirect or rewrite for removed /${removed}`);
+  assert.doesNotMatch(
+    read("components/marketing/sections/StudioChrome.tsx"),
+    new RegExp(`href="/${removed}"`),
+    `chrome must not link to removed /${removed}`,
   );
 }
 
@@ -156,8 +129,6 @@ for (const file of [
   "app/pricing/page.tsx",
   "app/contact/page.tsx",
   "app/portfolio/page.tsx",
-  "app/referensi/page.tsx",
-  "app/shop/page.tsx",
   "app/project-inquiry/page.tsx",
   "app/blog/page.tsx",
   "app/blog/[slug]/page.tsx",

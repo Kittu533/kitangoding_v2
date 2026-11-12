@@ -1,9 +1,8 @@
-import { asc, count, desc, eq } from "drizzle-orm";
+import { asc, count, desc, eq, sql } from "drizzle-orm";
 import { sanitizeRichTextHtml } from "@/features/blog/content-utils";
 import { db } from "@/lib/db";
 import { blogCategories as blogCategoriesTable, blogPosts as blogPostsTable } from "@/lib/db/schema";
 import { isMissingTableError } from "@/lib/db/is-missing-table";
-import { fallbackBlogDetails } from "./content";
 import { getBlogAuthorName } from "./authors";
 import type { PublicBlogCard, PublicBlogCategory, PublicBlogDetail } from "./types";
 
@@ -66,44 +65,61 @@ function formatDate(date: Date | null) {
   }).format(date);
 }
 
-export async function getPublicBlogPosts(limit?: number): Promise<PublicBlogCard[]> {
-  const fallbackItems = fallbackBlogDetails.map((item) => ({
-    slug: item.slug,
-    title: item.title,
-    excerpt: item.excerpt,
-    image: item.image,
-    category: item.category,
-    date: item.date,
-    author: getBlogAuthorName(item.author),
-  }));
+const DEFAULT_BLOG_IMAGE = "/images/article-custom-website.svg";
 
+// Covers uploaded from the dashboard are stored as data URLs. Never ship them inside pages:
+// select a hash instead and let /api/blog-images serve the bytes as a cacheable image.
+const publicImageColumns = {
+  thumbnail: sql<string | null>`case when ${blogPostsTable.thumbnail} like 'data:%' then null else ${blogPostsTable.thumbnail} end`,
+  thumbnailHash: sql<string | null>`case when ${blogPostsTable.thumbnail} like 'data:%' then md5(${blogPostsTable.thumbnail}) end`,
+};
+
+function resolveBlogImage(post: { id: string; thumbnail: string | null; thumbnailHash: string | null }) {
+  if (post.thumbnailHash) {
+    return `/api/blog-images/${encodeURIComponent(post.id)}/${post.thumbnailHash}`;
+  }
+
+  return post.thumbnail || DEFAULT_BLOG_IMAGE;
+}
+
+// Public blog content comes only from posts published in the admin dashboard.
+export async function getPublicBlogPosts(limit?: number): Promise<PublicBlogCard[]> {
   try {
     const rows = await db
-      .select()
+      .select({
+        id: blogPostsTable.id,
+        slug: blogPostsTable.slug,
+        title: blogPostsTable.title,
+        excerpt: blogPostsTable.excerpt,
+        category: blogPostsTable.category,
+        author: blogPostsTable.author,
+        publishedAt: blogPostsTable.publishedAt,
+        createdAt: blogPostsTable.createdAt,
+        ...publicImageColumns,
+      })
       .from(blogPostsTable)
+      .where(eq(blogPostsTable.status, "published"))
       .orderBy(desc(blogPostsTable.publishedAt), desc(blogPostsTable.createdAt));
 
-    if (rows.length > 0) {
-      const databaseItems = rows.filter(item => item.status === "published").map((item) => ({
-        slug: item.slug,
-        title: item.title,
-        excerpt: item.excerpt || "Insight praktis untuk membantu website bisnis tampil lebih meyakinkan.",
-        image: item.thumbnail || "/images/article-custom-website.svg",
-        category: item.category,
-        date: formatDate(item.publishedAt || item.createdAt),
-        publishedAt: (item.publishedAt || item.createdAt)?.toISOString(),
-        author: getBlogAuthorName(item.author),
-      }));
+    const databaseItems = rows.map((item) => ({
+      slug: item.slug,
+      title: item.title,
+      excerpt: item.excerpt || "Insight praktis untuk membantu website bisnis tampil lebih meyakinkan.",
+      image: resolveBlogImage(item),
+      category: item.category,
+      date: formatDate(item.publishedAt || item.createdAt),
+      publishedAt: (item.publishedAt || item.createdAt)?.toISOString(),
+      author: getBlogAuthorName(item.author),
+    }));
 
-      return typeof limit === "number" ? databaseItems.slice(0, limit) : databaseItems;
-    }
+    return typeof limit === "number" ? databaseItems.slice(0, limit) : databaseItems;
   } catch (error) {
     if (!isMissingTableError(error)) {
       console.warn("Failed to load public blog posts.", error);
     }
   }
 
-  return typeof limit === "number" ? fallbackItems.slice(0, limit) : fallbackItems;
+  return [];
 }
 
 export async function getPublicBlogCategories(): Promise<PublicBlogCategory[]> {
@@ -132,16 +148,27 @@ export async function getPublicBlogCategories(): Promise<PublicBlogCategory[]> {
     }
   }
 
-  return [
-    { label: "Semua Artikel", active: true },
-    ...fallbackBlogDetails.map((item) => ({ label: item.category })),
-  ].filter((item, index, array) => array.findIndex((entry) => entry.label === item.label) === index);
+  return [{ label: "Semua Artikel", active: true }];
 }
 
 export async function getPublicBlogPostBySlug(slug: string): Promise<PublicBlogDetail | null> {
   try {
     const [post] = await db
-      .select()
+      .select({
+        id: blogPostsTable.id,
+        slug: blogPostsTable.slug,
+        title: blogPostsTable.title,
+        excerpt: blogPostsTable.excerpt,
+        content: blogPostsTable.content,
+        category: blogPostsTable.category,
+        author: blogPostsTable.author,
+        tags: blogPostsTable.tags,
+        status: blogPostsTable.status,
+        publishedAt: blogPostsTable.publishedAt,
+        createdAt: blogPostsTable.createdAt,
+        updatedAt: blogPostsTable.updatedAt,
+        ...publicImageColumns,
+      })
       .from(blogPostsTable)
       .where(eq(blogPostsTable.slug, slug))
       .limit(1);
@@ -151,7 +178,7 @@ export async function getPublicBlogPostBySlug(slug: string): Promise<PublicBlogD
         slug: post.slug,
         title: post.title,
         excerpt: post.excerpt || "Insight praktis untuk membantu website bisnis tampil lebih meyakinkan.",
-        image: post.thumbnail || "/images/article-custom-website.svg",
+        image: resolveBlogImage(post),
         category: post.category,
         date: formatDate(post.publishedAt || post.createdAt),
         content: sanitizeRichTextHtml(post.content || post.excerpt || "Konten artikel akan segera hadir."),
@@ -169,5 +196,5 @@ export async function getPublicBlogPostBySlug(slug: string): Promise<PublicBlogD
     }
   }
 
-  return fallbackBlogDetails.find((item) => item.slug === slug) ?? null;
+  return null;
 }

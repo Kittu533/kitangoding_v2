@@ -1,165 +1,60 @@
-# Audit SEO Kita Ngoding
+# Audit SEO Kitangoding
 
-Tanggal audit: 2026-06-28  
-Scope: audit statis dari codebase Next.js, bukan live crawl, Lighthouse, atau data Google Search Console.
+Audit terakhir: 2026-11-12. Berdasarkan crawl 50 URL sitemap produksi (`https://www.kitangoding.my.id`) dan
+kode saat ini. Bukan data Lighthouse atau Google Search Console, jadi performa dan status indeks perlu
+dicek terpisah (lihat bagian "Belum terukur").
 
-## Ringkasan
+## Status
 
-Website sudah punya fondasi SEO yang cukup baik: metadata global, canonical, Open Graph, Twitter card, robots, sitemap, LocalBusiness JSON-LD, FAQ JSON-LD, dan Article JSON-LD untuk blog.
-
-Yang paling perlu dibenahi adalah hal kecil yang berdampak langsung:
-
-| Prioritas | Masalah | Dampak | File terkait |
-| --- | --- | --- | --- |
-| Tinggi | `/og-image.png` dipakai di metadata, tapi file tidak ada | Preview share sosial dan image card bisa rusak | `app/layout.tsx`, banyak page metadata, `lib/service-landing-pages.ts`, `public/` |
-| Tinggi | `/referensi` punya metadata, tapi tidak masuk sitemap | Halaman publik lebih lambat ditemukan crawler | `app/referensi/page.tsx`, `app/sitemap.ts` |
-| Sedang | Belum ada web manifest | Sinyal PWA/installability dan identitas aplikasi belum lengkap | `app/manifest.ts` belum ada |
-| Sedang | Route typo `/project-inqury` masih ada sebagai redirect | Tidak fatal, tapi menambah route legacy yang sebaiknya jelas statusnya | `app/project-inqury/page.tsx` |
-| Sedang | Structured data belum merata untuk halaman komersial | Search engine kurang konteks untuk layanan, produk, dan halaman kontak | `app/layanan`, `app/shop`, service landing pages |
-| Rendah | Ada `alt=""` di image non-dekoratif potensial | Aksesibilitas dan pemahaman gambar oleh crawler bisa turun | `components/marketing/sections/ProcessShowcase.tsx` |
-
-## Yang Sudah Bagus
-
-| Area | Status |
+| Area | Kondisi |
 | --- | --- |
-| Metadata global | Ada di `app/layout.tsx`: title template, description, keywords, canonical, Open Graph, Twitter, robots |
-| Robots | Ada `app/robots.ts` dan menunjuk ke sitemap |
-| Sitemap | Ada `app/sitemap.ts`, termasuk homepage, blog, contact, pricing, portfolio, shop, layanan, project inquiry, dan service landing pages |
-| Blog dynamic SEO | `app/blog/[slug]/page.tsx` punya `generateMetadata`, canonical, OG, Twitter, robots untuk artikel tidak ditemukan, BreadcrumbList JSON-LD, dan Article JSON-LD |
-| Homepage schema | `app/page.tsx` punya LocalBusiness JSON-LD |
-| Pricing schema | `app/pricing/page.tsx` punya FAQPage JSON-LD |
-| Admin/login indexing | Area admin dan login sudah diarahkan noindex lewat metadata layout/page terkait |
+| Metadata | Semua halaman punya title, description, canonical, Open Graph, Twitter, `lang="id"` |
+| Redirect | http ke https, non-www ke www, trailing slash, dan `/project-inqury` semuanya 308 |
+| Robots dan sitemap | `app/robots.ts` dan `app/sitemap.ts` dinamis, hanya memuat halaman yang ada |
+| Structured data | Organization, WebSite, LocalBusiness, Service, OfferCatalog, CollectionPage, Article, BreadcrumbList, CreativeWork |
+| OG image | `app/og-image.png/route.tsx`, dijaga tes `tests/og-image.test.ts` yang merender PNG sungguhan |
+| Gambar blog dan portfolio | Disajikan lewat `/api/blog-images/...` dan `/api/portfolio-images/...`, tidak ada base64 di HTML |
+| Blog | Hanya artikel yang dipublikasikan dari dashboard admin; tidak ada artikel bawaan kode |
+| Halaman tidak ada | Portfolio dan blog mengembalikan 404 sungguhan (tidak lagi 200) |
 
-## Temuan Detail
+## Yang sudah diperbaiki
 
-### 1. `og-image.png` direferensikan tapi tidak ada
+1. `/og-image.png` mengembalikan 200 dengan body kosong. Penyebab: `<div>` dengan dua anak tanpa `display: flex`
+   membuat Satori melempar error yang tertelan runtime edge.
+2. HTML membengkak karena gambar base64 dari database ikut tertanam (`/shop` 4 MB, `/referensi` 2,7 MB,
+   artikel 1,6 MB), termasuk di `og:image` dan JSON-LD `Article.image`. Googlebot hanya mengambil sekitar 2 MB
+   pertama per URL.
+3. Meta description portfolio berisi "Portfolio project" atau terlalu pendek atau panjang (hingga 724 karakter).
+   Sekarang dibuat dari isi halaman, 70 sampai 155 karakter.
+4. `/portfolio/<slug-tidak-ada>` mengembalikan 200 karena `notFound()` dipanggil di dalam `Suspense`.
+5. 15 dari 19 artikel blog dan halaman `/shop` tidak punya link masuk. Artikel bawaan kode dihapus,
+   blog sekarang hanya dari admin.
+6. `/shop` dan `/referensi` dihapus (isi saling tumpang tindih dan HTML sangat berat).
+7. Title halaman portfolio dan blog yang lebih dari 60 karakter kini memakai versi yang muat.
+8. `LocalBusiness`: tautan `wa.me` dikeluarkan dari `sameAs`, `logo` dan `email` ditambahkan.
 
-Bukti:
+## Masih terbuka
 
-- `app/layout.tsx` memakai `/og-image.png` untuk Open Graph dan Twitter image.
-- Banyak page metadata juga memakai `/og-image.png`.
-- Pemeriksaan aset menunjukkan `public/og-image.png` tidak ada.
-- `app/opengraph-image.png` dan `app/twitter-image.png` juga tidak ada.
-
-Dampak:
-
-- Link yang dibagikan ke WhatsApp, X/Twitter, Facebook, LinkedIn, dan crawler social preview bisa kehilangan thumbnail.
-- Metadata terlihat lengkap di kode, tapi hasil nyata tetap rusak karena asetnya 404.
-
-Rekomendasi minimal:
-
-- Tambahkan `public/og-image.png` ukuran 1200x630.
-- Pakai desain brand Kita Ngoding, headline jasa website UMKM, logo, dan kontras yang jelas.
-- Kalau mau pakai convention Next.js, tambahkan `app/opengraph-image.png` dan `app/twitter-image.png`, lalu sederhanakan metadata image.
-
-### 2. `/referensi` belum masuk sitemap
-
-Bukti:
-
-- `app/referensi/page.tsx` punya metadata, canonical, Open Graph, dan Twitter.
-- `app/sitemap.ts` belum mencantumkan `${siteConfig.domain}/referensi`.
-
-Dampak:
-
-- Halaman tetap bisa ditemukan lewat internal link, tetapi sitemap tidak membantu discovery.
-- Ini sayang karena halaman `referensi` tampak sebagai halaman publik yang memang ditargetkan untuk SEO.
-
-Rekomendasi minimal:
-
-- Tambahkan entry `/referensi` ke `app/sitemap.ts`.
-
-### 3. Web manifest belum ada
-
-Bukti:
-
-- `app/manifest.ts` tidak ada.
-- `public/manifest.webmanifest` tidak ada.
-- `app/icon.png` dan `app/apple-icon.png` sudah ada.
-
-Dampak:
-
-- Tidak langsung menentukan ranking, tapi identitas website di browser/mobile belum lengkap.
-- Installability/PWA signal belum ada.
-
-Rekomendasi minimal:
-
-- Tambahkan `app/manifest.ts` dengan `name`, `short_name`, `description`, `start_url`, `display`, `theme_color`, `background_color`, dan icons yang memakai aset yang sudah ada.
-
-### 4. Route typo `/project-inqury`
-
-Bukti:
-
-- Ada `app/project-inqury/page.tsx`.
-- File tersebut melakukan `permanentRedirect("/project-inquiry")`.
-- Route ini tidak masuk sitemap, dan itu sudah benar.
-
-Dampak:
-
-- Tidak fatal karena redirect permanen.
-- Tapi route typo tetap menjadi utang kecil: jika pernah terindeks, sebaiknya redirect 308 tetap dipertahankan sampai traffic hilang.
-
-Rekomendasi minimal:
-
-- Pertahankan redirect jika URL typo pernah dipakai publik.
-- Jika belum pernah dipakai, hapus route typo agar routing lebih bersih.
-
-### 5. Structured data halaman komersial masih bisa ditambah
-
-Yang sudah ada:
-
-- Homepage: LocalBusiness.
-- Blog detail: BreadcrumbList dan Article.
-- Pricing: FAQPage.
-- Service landing pages: JSON-LD sudah ada lewat template, tetapi perlu validasi output final.
-
-Yang masih kurang:
-
-- `app/layanan/page.tsx`: belum terlihat JSON-LD Service/OfferCatalog.
-- `app/shop/page.tsx`: belum terlihat Product/ItemList schema untuk template/aset.
-- `app/contact/page.tsx`: belum terlihat ContactPage atau LocalBusiness reference khusus kontak.
-- `app/portfolio/page.tsx`: bisa pakai CollectionPage atau CreativeWork/ItemList jika portfolio ingin jadi SEO asset.
-
-Rekomendasi minimal:
-
-- Tambahkan schema hanya untuk halaman yang memang punya intent SEO.
-- Prioritas: `layanan` pakai Service/OfferCatalog, `shop` pakai ItemList/Product, `contact` pakai ContactPage.
-
-### 6. Image alt kosong
-
-Bukti hasil audit JSX lintas baris:
-
-- `app/admin/(dashboard)/portfolio/page.tsx:128` punya `<Image>` dengan `alt=""`.
-- `components/marketing/sections/ProcessShowcase.tsx:107` punya `<Image>` dengan `alt=""`.
-
-Dampak:
-
-- Untuk gambar dekoratif, `alt=""` benar.
-- Untuk gambar informatif, ini mengurangi aksesibilitas dan konteks gambar.
-
-Rekomendasi minimal:
-
-- Biarkan `alt=""` hanya kalau gambar benar-benar dekoratif.
-- Jika gambar menjelaskan proses/portfolio, isi alt singkat dan deskriptif.
-
-## Checklist Perbaikan
-
-| Urutan | Aksi | Estimasi |
+| Prioritas | Hal | Catatan |
 | --- | --- | --- |
-| 1 | Tambahkan `public/og-image.png` | Cepat |
-| 2 | Tambahkan `/referensi` ke `app/sitemap.ts` | Cepat |
-| 3 | Tambahkan `app/manifest.ts` | Cepat |
-| 4 | Putuskan nasib `/project-inqury`: pertahankan redirect atau hapus | Cepat |
-| 5 | Tambahkan schema Service/OfferCatalog untuk `/layanan` | Sedang |
-| 6 | Tambahkan schema ItemList/Product untuk `/shop` | Sedang |
-| 7 | Validasi `alt=""` di image yang terdeteksi | Cepat |
-| 8 | Jalankan validasi setelah deploy: Rich Results Test, URL Inspection, dan social preview debugger | Manual |
+| Sedang | `lastmod` portfolio di sitemap | Tabel `portfolios` belum punya kolom `updated_at`. Mengisi dengan `created_at` akan salah setelah project diedit |
+| Sedang | `Service` belum punya `offers` | Belum ada pemetaan paket harga ke halaman layanan |
+| Rendah | `LocalBusiness` belum punya `streetAddress`, `postalCode`, `geo`, `openingHours` | Isi hanya bila alamat memang ingin dipublikasikan dan sama dengan Google Business Profile |
+| Rendah | `FAQPage` | Valid, tapi Google tidak lagi menampilkan FAQ di hasil pencarian untuk situs seperti ini |
+| Rendah | `/portfolio` dan `/project-inquiry` tanpa H2 | |
+| Rendah | `alt=""` pada preview kartu layanan di beranda | Kemungkinan informatif, bukan dekoratif |
 
-## Prioritas Minimal
+## Belum terukur
 
-Kalau hanya mau mengerjakan yang paling berdampak dulu:
+- Skor Lighthouse dan Core Web Vitals (PageSpeed Insights menolak request tanpa API key).
+- Status indeks per halaman. Buka Google Search Console, Pengindeksan Halaman, lalu lihat tabel
+  "Mengapa halaman tidak diindeks" untuk alasan tiap kelompok URL.
+- Setelah deploy: uji `https://www.kitangoding.my.id/og-image.png` dan satu link di WhatsApp atau
+  Facebook Sharing Debugger.
 
-1. Buat `public/og-image.png`.
-2. Masukkan `/referensi` ke sitemap.
-3. Tambahkan `app/manifest.ts`.
+## Aturan agar tidak kambuh
 
-Tiga perubahan itu kecil, tidak butuh dependency baru, dan menutup celah SEO paling jelas dari audit ini.
+- Gambar dari database selalu lewat rute `/api/...-images`, jangan tanam data URL di halaman.
+- Jangan panggil `notFound()` di dalam `Suspense`; cek keberadaan data sebelum merender.
+- Setiap halaman baru yang ingin diindeks harus ada di sitemap dan punya minimal satu link masuk.
+- `/shop` dan `/referensi` sengaja dihapus; tes `test:seo` menjaga agar tidak kembali.

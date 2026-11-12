@@ -78,7 +78,7 @@ export const serviceLandingPages = [
     relatedLinks: [
       { href: "/jasa-landing-page-bisnis", label: "Landing page bisnis" },
       { href: "/jasa-toko-online-umkm", label: "Toko online UMKM" },
-      { href: "/blog/jasa-website-company-profile-umkm", label: "Artikel company profile UMKM" },
+      { href: "/blog", label: "Artikel & insight website" },
       { href: "/pricing", label: "Lihat harga" },
       { href: "/contact", label: "Kontak" },
     ],
@@ -135,7 +135,7 @@ export const serviceLandingPages = [
     relatedLinks: [
       { href: "/jasa-website-company-profile", label: "Company profile" },
       { href: "/jasa-toko-online-umkm", label: "Toko online UMKM" },
-      { href: "/blog/jasa-landing-page-untuk-iklan", label: "Artikel landing page untuk iklan" },
+      { href: "/blog", label: "Artikel & insight website" },
       { href: "/pricing", label: "Lihat harga" },
       { href: "/project-inquiry", label: "Konsultasi project" },
     ],
@@ -192,7 +192,7 @@ export const serviceLandingPages = [
     relatedLinks: [
       { href: "/jasa-website-company-profile", label: "Company profile" },
       { href: "/jasa-landing-page-bisnis", label: "Landing page bisnis" },
-      { href: "/blog/jasa-toko-online-untuk-umkm", label: "Artikel toko online UMKM" },
+      { href: "/blog", label: "Artikel & insight website" },
       { href: "/pricing", label: "Lihat harga" },
       { href: "/contact", label: "Kontak" },
     ],
