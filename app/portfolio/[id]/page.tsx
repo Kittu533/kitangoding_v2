@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { cache, Suspense } from "react";
+import { cache } from "react";
 import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
@@ -8,8 +8,10 @@ import { connection } from "next/server";
 import { PortfolioImageGallery } from "@/components/marketing/components/PortfolioImageGallery";
 import { StudioHeader, StudioFooter } from "@/components/marketing/sections/StudioChrome";
 import { getPortfolioProjectBySlug } from "@/features/portfolio/queries";
+import { buildPortfolioMetaDescription, toDescriptionBlocks } from "@/features/portfolio/description";
+import type { PortfolioDetail } from "@/features/portfolio/types";
 import { siteConfig } from "@/lib/site";
-import { serializeJsonLd } from "@/lib/seo";
+import { buildPageTitle, serializeJsonLd } from "@/lib/seo";
 import studio from "@/components/marketing/Studio.module.css";
 import styles from "@/components/marketing/components/Portfolio.module.css";
 
@@ -20,24 +22,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id: slug } = await params;
   const project = await getCachedPortfolioProject(slug);
   if (!project) return { title: "Project Tidak Ditemukan", robots: { index: false, follow: false } };
-  const title = `${project.name} | Portfolio`;
-  const description = project.result || `Detail proyek ${project.name} dari ${siteConfig.name}.`;
+  const title = buildPageTitle([project.name, "Portfolio", siteConfig.name], [project.name, siteConfig.name], [project.name]);
+  const description = buildPortfolioMetaDescription({ ...project, brand: siteConfig.name });
   const url = `${siteConfig.domain}/portfolio/${project.slug}`;
   const image = new URL(project.thumbnail || "/og-image.png", siteConfig.domain).toString();
   return {
-    title, description,
+    title: { absolute: title }, description,
     alternates: { canonical: url },
-    openGraph: { title: `${title} | ${siteConfig.name}`, description, url, type: "website", images: [{ url: image, alt: `Tampilan proyek ${project.name}` }] },
-    twitter: { card: "summary_large_image", title: `${title} | ${siteConfig.name}`, description, images: [image] },
+    openGraph: { title, description, url, type: "website", images: [{ url: image, alt: `Tampilan proyek ${project.name}` }] },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }
 
-async function PortfolioDetailContent({ params }: Props) {
-  await connection();
-  const { id: slug } = await params;
-  const project = await getCachedPortfolioProject(slug);
-  if (!project) notFound();
+function PortfolioDetailContent({ project }: { project: PortfolioDetail }) {
   const images = Array.from(new Set([project.thumbnail, ...project.gallery].filter((image): image is string => Boolean(image))));
+  const [heroImage, ...galleryImages] = images;
+  const description = toDescriptionBlocks(project.result, project.features);
+  const metaDescription = buildPortfolioMetaDescription({ ...project, brand: siteConfig.name });
   const url = `${siteConfig.domain}/portfolio/${project.slug}`;
   const structuredData = [
     {
@@ -54,7 +55,7 @@ async function PortfolioDetailContent({ params }: Props) {
       "@type": "CreativeWork",
       "@id": `${url}#project`,
       name: project.name,
-      description: project.result,
+      description: metaDescription,
       url,
       mainEntityOfPage: url,
       inLanguage: "id-ID",
@@ -70,27 +71,42 @@ async function PortfolioDetailContent({ params }: Props) {
       <h1>{project.name}</h1>
       <p>Desain dan pengembangan {project.category.toLowerCase()} oleh Kitangoding.</p>
     </header>
-    <div className={styles.heroImage}>{images[0] ? <Image src={images[0]} alt={`Tampilan utama proyek ${project.name}`} fill priority sizes="90vw" unoptimized={images[0].startsWith('/api/')} /> : <div className={styles.placeholder} aria-hidden="true">{project.name.charAt(0)}</div>}</div>
-    <dl className={styles.facts}>
-      <div><dt>Project</dt><dd>{project.name}</dd></div>
-      <div><dt>Kategori</dt><dd>{project.category}</dd></div>
-      <div><dt>Peran</dt><dd>{project.role || "Desain & pengembangan website"}</dd></div>
-    </dl>
-    <div className={styles.overview}>
-      <article id="project-overview"><h2>Overview.</h2><p>{project.result}</p>{project.features.length > 0 && <><h2 id="project-features" style={{ marginTop: 25 }}>Fitur Utama.</h2><ul>{project.features.map(feature => <li key={feature}>{feature.replace(/^[-•]\s*/, "")}</li>)}</ul></>}</article>
-      <nav aria-label="Bagian detail project"><a href="#project-overview">Overview</a>{project.features.length > 0 && <a href="#project-features">Fitur Utama</a>}{images.length > 0 && <a href="#project-gallery">Galeri project</a>}</nav>
+    <div className={styles.heroImage}>{heroImage ? <Image src={heroImage} alt={`Tampilan utama proyek ${project.name}`} fill preload sizes="90vw" unoptimized={heroImage.startsWith('/api/')} /> : <div className={styles.placeholder} aria-hidden="true">{project.name.charAt(0)}</div>}</div>
+    {galleryImages.length > 0 && <section id="project-gallery" className={styles.galleryWrap} aria-label={`Galeri proyek ${project.name}`}><PortfolioImageGallery images={galleryImages} projectName={project.name} /></section>}
+    <div className={styles.detail}>
+      <article className={styles.prose}>
+        <h2>Tentang project</h2>
+        {description.map((block, index) => block.type === "heading"
+          ? <h3 key={index}>{block.text}</h3>
+          : <p key={index} className={block.lead ? styles.lead : undefined}>{block.label && <strong>{block.label} </strong>}{block.text}</p>)}
+      </article>
+      <aside className={styles.sideCard} aria-label="Informasi project">
+        <dl className={styles.facts}>
+          <div><dt>Project</dt><dd>{project.name}</dd></div>
+          <div><dt>Kategori</dt><dd>{project.category}</dd></div>
+          <div><dt>Peran</dt><dd>{project.role || "Desain & pengembangan website"}</dd></div>
+        </dl>
+        <div className={styles.actions}>
+          {project.linkPreview && <a href={project.linkPreview} target="_blank" rel="noopener noreferrer" className={studio.cta}>Kunjungi website<span><ArrowUpRight size={20} aria-hidden="true" /></span></a>}
+          <Link href="/project-inquiry" className={studio.textLink}>Diskusikan proyek serupa <ArrowUpRight size={18} aria-hidden="true" /></Link>
+        </div>
+      </aside>
     </div>
-    {images.length > 0 && <section id="project-gallery" aria-label={`Galeri proyek ${project.name}`}><PortfolioImageGallery images={images} projectName={project.name} /></section>}
-    <div className={styles.actions}>{project.linkPreview && <a href={project.linkPreview} target="_blank" rel="noopener noreferrer" className={studio.cta}>Kunjungi website<span><ArrowUpRight size={20} aria-hidden="true" /></span></a>}<Link href="/project-inquiry" className={studio.textLink}>Diskusikan proyek serupa <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
   </>;
 }
 
-export default function PortfolioDetailPage({ params }: Props) {
+export default async function PortfolioDetailPage({ params }: Props) {
+  await connection();
+  const { id: slug } = await params;
+  const project = await getCachedPortfolioProject(slug);
+  // Must run before the shell is sent; inside Suspense the response would already be a 200.
+  if (!project) notFound();
+
   return <div className={studio.root}>
     <StudioHeader />
     <main id="konten" className={styles.page}>
       <Link className={styles.back} href="/portfolio"><ArrowLeft size={14} aria-hidden="true" /> Kembali ke portfolio</Link>
-      <Suspense fallback={<div className={styles.loading} role="status">Memuat detail portfolio…</div>}><PortfolioDetailContent params={params} /></Suspense>
+      <PortfolioDetailContent project={project} />
     </main>
     <StudioFooter />
   </div>;

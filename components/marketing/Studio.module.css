@@ -187,3 +187,24 @@
   .mobileMenu nav a { display:flex; align-items:center; justify-content:space-between; padding:13px; font-size:14px; }
 }
 @media(max-width:700px) { .root,.publicPage { --studio-h1:36px; --studio-h2:32px; --studio-h3:28px; --studio-h4:26px; --studio-h5:24px; --studio-h6:22px; } }
+
+/* /pricing on phones: two plans per row. Home page keeps the single column. */
+@media(max-width:700px) {
+  .pricingGrid.pricingGridCompact { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+  .pricingGrid.pricingGridCompact .priceCard { min-width:0; padding:14px; border-radius:14px; }
+  .pricingGrid.pricingGridCompact .priceCard:last-child:nth-child(odd) { grid-column:1/-1; }
+  .pricingGrid.pricingGridCompact .planHeading { gap:6px; }
+  .pricingGrid.pricingGridCompact .planHeading h3 { font-size:17px; line-height:1.25; letter-spacing:-.03em; overflow-wrap:anywhere; }
+  .pricingGrid.pricingGridCompact .planHeading>span { font-size:10px; padding:3px 7px; white-space:normal; }
+  .pricingGrid.pricingGridCompact .priceCard>p { margin:8px 0 10px; font-size:12px; line-height:1.55; max-width:none; }
+  .pricingGrid.pricingGridCompact .price { font-size:clamp(15px,4.6vw,19px); margin-bottom:12px; }
+  .pricingGrid.pricingGridCompact .priceCard .cta { gap:8px; min-height:40px; padding:5px 5px 5px 12px; font-size:11px; line-height:1.25; }
+  .pricingGrid.pricingGridCompact .priceCard .cta>span { width:26px; height:26px; }
+  .pricingGrid.pricingGridCompact .priceCard ul { gap:8px; margin-top:12px; padding-top:12px; }
+  .pricingGrid.pricingGridCompact .priceCard li { gap:6px; font-size:11px; line-height:1.5; }
+  .pricingGrid.pricingGridCompact .priceCard li svg { width:13px; height:13px; margin-top:1px; }
+  /* Line up heading, description, price, button and feature list across cards in the same row. */
+  @supports (grid-template-rows:subgrid) {
+    .pricingGrid.pricingGridCompact .priceCard { display:grid; grid-row:span 5; grid-template-rows:subgrid; row-gap:0; }
+  }
+}

@@ -36,7 +36,7 @@ export function PortfolioGalleryGrid({
       </div>
 
       {visible.length > 0 ? (
-        <div className={studio.workGrid} style={{ marginTop: 30 }}>
+        <div className={styles.listGrid} style={{ marginTop: 30 }}>
           {visible.map((item, index) => (
             <div key={`${item.name}-${index}`} className={studio.workItem}>
               <PortfolioCard item={item} />

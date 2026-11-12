@@ -21,6 +21,7 @@ assert.match(form, /form\.register\("role"\)/);
 assert.match(form, /form\.register\("features"\)/);
 assert.match(actions, /function parseFeatures/);
 assert.match(detailPage, /getPortfolioProject/);
-assert.match(detailPage, /Fitur Utama/);
+assert.match(detailPage, /toDescriptionBlocks/);
+assert.doesNotMatch(detailPage, /Fitur Utama/);
 
 console.log("Portfolio detail smoke test passed.");

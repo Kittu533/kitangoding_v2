@@ -4,6 +4,7 @@ import { connection } from "next/server";
 import studio from "@/components/marketing/Studio.module.css";
 import { PortfolioGalleryGrid } from "@/components/marketing/sections/PortfolioGalleryGrid";
 import { Skeleton } from "@/components/ui/skeleton";
+import { isPlaceholderResult } from "@/features/portfolio/description";
 import { getPortfolioProjects } from "@/features/portfolio/queries";
 import { siteConfig } from "@/lib/site";
 
@@ -20,7 +21,7 @@ async function PortfolioGalleryContent() {
       position: index + 1,
       url: `${siteConfig.domain}/portfolio/${item.slug}`,
       name: item.name,
-      description: item.result,
+      ...(isPlaceholderResult(item.result) ? {} : { description: item.result }),
     })),
   };
 
@@ -50,7 +51,7 @@ export function PortfolioGallerySkeleton() {
           <Skeleton className={`h-10 ${width}`} key={width} />
         ))}
       </div>
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
+      <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }, (_, index) => (
           <div className="overflow-hidden rounded-3xl border border-border bg-white" key={index}>
             <Skeleton className="aspect-[4/3] rounded-none" />

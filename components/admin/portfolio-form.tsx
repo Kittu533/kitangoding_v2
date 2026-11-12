@@ -255,7 +255,7 @@ export function PortfolioForm({ initialData, categories, trigger }: PortfolioFor
                 multiple
                 onChange={handleGalleryChange}
               />
-              <p className="text-xs text-muted-foreground">Upload maksimal 2 gambar. Bersama thumbnail utama, detail proyek menampilkan 3 pilihan gambar.</p>
+              <p className="text-xs text-muted-foreground">Upload maksimal 2 gambar. Gambar ini tampil sebagai galeri di bawah thumbnail utama pada detail proyek.</p>
               {galleryImages.length > 0 && (
                 <div className="grid grid-cols-2 gap-3">
                   {galleryImages.map((image, index) => (
@@ -286,14 +286,14 @@ export function PortfolioForm({ initialData, categories, trigger }: PortfolioFor
               )}
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="features">Fitur Utama</Label>
+              <Label htmlFor="features">Deskripsi Project</Label>
               <Textarea
                 id="features"
-                placeholder={"Satu fitur per baris\nKatalog produk\nForm pemesanan"}
-                rows={5}
+                placeholder={"## Judul bagian (opsional)\nCeritakan fitur dan hasil project dalam kalimat utuh.\nBaris berikutnya digabung menjadi satu paragraf."}
+                rows={8}
                 {...form.register("features")}
               />
-              <p className="text-xs text-muted-foreground">Tulis satu fitur pada setiap baris.</p>
+              <p className="text-xs text-muted-foreground">Tulis seperti artikel. Kalimat yang berurutan digabung menjadi paragraf di halaman project. Awali baris dengan ## untuk membuat sub-judul.</p>
             </div>
           </div>
           <DialogFooter>

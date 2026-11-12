@@ -65,7 +65,7 @@ export default async function Page() {
     <main id="konten">
       <section className={studio.section}>
         <header className={studio.workHeading}><span className={studio.eyebrow}><i aria-hidden="true" />Investasi untuk bisnismu</span><h1 className="text-4xl font-bold tracking-tight md:text-5xl">MULAI DARI YANG<br /><em>KAMU BUTUHKAN.</em></h1><p>Scope jelas, proses transparan.<br />Pilih paket yang paling sesuai dengan kebutuhan bisnismu.</p></header>
-        <PricingPlanGrid plans={pricingPlans} />
+        <PricingPlanGrid plans={pricingPlans} compactOnMobile />
       </section>
       <section className={`${studio.section} ${studio.faq}`} aria-labelledby="pricing-faq">
         <div><span className={studio.eyebrow}><i aria-hidden="true" />Sebelum mulai</span><h2 id="pricing-faq">MASIH ADA<br /><em>PERTANYAAN?</em></h2><p>Beberapa hal yang perlu kamu ketahui sebelum memilih paket.</p></div>

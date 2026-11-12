@@ -14,6 +14,7 @@ import {
 import { PortfolioCard } from "@/components/marketing/components/PortfolioCard";
 import { PricingPlanGrid } from "@/components/marketing/sections/PricingPlanGrid";
 import styles from "../Studio.module.css";
+import portfolio from "../components/Portfolio.module.css";
 
 function Cta({
   children,
@@ -69,9 +70,9 @@ function Preview({ index }: { index: number }) {
 }
 
 async function SelectedWork() {
-  const projects = await getPortfolioProjects(5);
+  const projects = await getPortfolioProjects(6);
   return (
-    <div className={styles.workGrid}>
+    <div className={portfolio.listGrid}>
       {projects.map((project) => (
         <div className={styles.workItem} key={project.id}>
           <PortfolioCard item={project} />
